@@ -1,0 +1,3029 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Halal Feasto - Authentic halal restaurant menu featuring burgers, sandwiches, gyros, platters, and more. Fresh ingredients, quality food.">
+    <meta name="keywords" content="halal food, restaurant menu, burgers, gyros, sandwiches, platters, halal feasto">
+    <meta name="author" content="Halal Feasto">
+    <meta http-equiv="Content-Security-Policy" content="default-src 'self'; img-src 'self' data:; video-src 'self'; style-src 'self' 'unsafe-inline' https://cdn.tailwindcss.com https://cdnjs.cloudflare.com; script-src 'self' 'unsafe-inline' https://cdn.tailwindcss.com; font-src 'self' https://fonts.googleapis.com https://fonts.gstatic.com https://cdnjs.cloudflare.com;">
+    <title>Halal Feasto Menu</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw==" crossorigin="anonymous" referrerpolicy="no-referrer">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&family=Playfair+Display:wght@400;700&display=swap');
+        
+        body {
+            font-family: 'Montserrat', sans-serif;
+            background-color: #f8f7f4;
+            color: #333;
+        }
+        
+        h1, h2, h3, .logo {
+            font-family: 'Playfair Display', serif;
+        }
+        
+        .menu-card {
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
+            will-change: auto;
+        }
+        
+        .menu-card:hover {
+            transform: translate3d(0, -5px, 0);
+            box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.1);
+        }
+        
+        .category-nav .active {
+            color: #e65100;
+            border-bottom: 2px solid #e65100;
+        }
+        
+        .image-placeholder {
+            background: linear-gradient(135deg, #f5f5f5 25%, #e0e0e0 25%, #e0e0e0 50%, #f5f5f5 50%, #f5f5f5 75%, #e0e0e0 75%, #e0e0e0 100%);
+            background-size: 20px 20px;
+        }
+        
+        .dietary-icon {
+            font-size: 0.75rem;
+            padding: 2px 6px;
+            border-radius: 4px;
+            margin-right: 4px;
+            font-weight: 600;
+        }
+        
+        .sticky-nav {
+            position: sticky;
+            top: 0;
+            z-index: 50;
+            backdrop-filter: blur(10px);
+        }
+        
+        .combo-badge {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            background-color: #e65100;
+            color: white;
+            padding: 4px 8px;
+            border-radius: 4px;
+            font-size: 0.75rem;
+            font-weight: 600;
+        }
+        
+        .dynamic-review, .review-author {
+            transition: opacity 0.3s ease-in-out;
+        }
+        
+        .scrolling-images-left, .scrolling-images-right {
+            display: flex;
+            flex-direction: column;
+            animation: infiniteScroll 30s linear infinite;
+            will-change: auto;
+            transform: translate3d(0, 0, 0);
+        }
+        
+        @keyframes infiniteScroll {
+            0% {
+                transform: translate3d(0, 0, 0);
+            }
+            100% {
+                transform: translate3d(0, -50%, 0);
+            }
+        }
+        
+        
+        .food-credit-item {
+            margin-bottom: 16px;
+            opacity: 0.8;
+            transition: opacity 0.3s ease;
+        }
+        
+        .food-credit-item:hover {
+            opacity: 1;
+        }
+        
+        /* Hide scrollbar for mobile navigation */
+        .scrollbar-hide {
+            -ms-overflow-style: none;
+            scrollbar-width: none;
+        }
+        
+        .scrollbar-hide::-webkit-scrollbar {
+            display: none;
+        }
+        
+        .food-credit-item img {
+            will-change: auto;
+            transform: translateZ(0);
+        }
+        
+        @media (max-width: 768px) {
+            .category-nav {
+                overflow-x: auto;
+                white-space: nowrap;
+                -webkit-overflow-scrolling: touch;
+                scrollbar-width: none;
+            }
+            
+            .category-nav::-webkit-scrollbar {
+                display: none;
+            }
+        }
+        /* --- START: RULES FOR CENTERING LAST GRID ITEMS --- */
+
+    /* For 4-column large screens (lg) */
+    @media (min-width: 1024px) {
+      /* Handles a single leftover item */
+      #sides-grid .menu-card:last-child:nth-child(4n + 1) {
+        grid-column: 2 / span 2;
+      }
+
+      /* Handles two leftover items */
+      #sides-grid .menu-card:nth-last-child(2):nth-child(4n + 1) {
+        grid-column: 1 / span 2;
+      }
+      #sides-grid .menu-card:nth-last-child(1):nth-child(4n + 2) {
+        grid-column: 3 / span 2;
+      }
+    }
+
+    /* For 2-column medium screens (md) */
+    @media (min-width: 768px) and (max-width: 1023px) {
+      #sides-grid .menu-card:last-child:nth-child(2n + 1) {
+        grid-column: 1 / -1; /* Make the last item span the full width of the grid */
+        margin: 0 auto;      /* Center the card within that spanned column */
+        max-width: calc(50% - 1rem);     /* Optional: Prevents the card from looking too wide */
+      }
+    }
+    /* --- END: RULES FOR CENTERING LAST GRID ITEMS --- */
+
+    /* Floating Combo Dock Styles */
+    .floating-combo-dock {
+        position: fixed;
+        bottom: 20px;
+        right: 20px;
+        z-index: 1000;
+        background: linear-gradient(135deg, #e65100, #ff7043);
+        color: white;
+        padding: 12px 20px;
+        border-radius: 50px;
+        box-shadow: 0 8px 25px rgba(230, 81, 0, 0.3);
+        cursor: pointer;
+        transition: all 0.3s ease;
+        font-weight: 600;
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        animation: pulse-combo 2s infinite;
+    }
+
+    .floating-combo-dock:hover {
+        transform: translateY(-3px);
+        box-shadow: 0 12px 35px rgba(230, 81, 0, 0.4);
+        background: linear-gradient(135deg, #d84315, #e65100);
+    }
+
+    .floating-combo-dock .combo-icon {
+        font-size: 1.2rem;
+        animation: bounce 2s infinite alternate;
+    }
+
+    @keyframes pulse-combo {
+        0%, 100% { transform: scale(1); }
+        50% { transform: scale(1.05); }
+    }
+
+    @keyframes bounce {
+        0% { transform: translateY(0); }
+        100% { transform: translateY(-3px); }
+    }
+
+    /* Combo Modal Styles */
+    .combo-modal {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: rgba(0, 0, 0, 0.5);
+        z-index: 2000;
+        display: none;
+        align-items: center;
+        justify-content: center;
+        padding: 20px;
+    }
+
+    .combo-modal.active {
+        display: flex;
+    }
+
+    .combo-modal-content {
+        background: white;
+        border-radius: 15px;
+        max-width: 600px;
+        width: 100%;
+        max-height: 80vh;
+        overflow-y: auto;
+        position: relative;
+        animation: slideIn 0.3s ease;
+    }
+
+    @keyframes slideIn {
+        from { transform: translateY(-50px) scale(0.9); opacity: 0; }
+        to { transform: translateY(0) scale(1); opacity: 1; }
+    }
+
+    .combo-close {
+        position: absolute;
+        top: 15px;
+        right: 20px;
+        font-size: 24px;
+        cursor: pointer;
+        color: #666;
+        transition: color 0.3s ease;
+    }
+
+    .combo-close:hover {
+        color: #e65100;
+    }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header class="bg-white shadow-md">
+        <div class="container mx-auto px-4 py-6 flex justify-between items-center">
+            <div class="logo flex items-center space-x-3">
+                <img src="./images/logo/logo_1.png" alt="Halal Feasto Logo" class="h-12 w-12 rounded-full object-cover">
+                <div class="flex flex-col">
+                    <span class="text-3xl font-bold text-amber-800">HALAL FEASTO</span>
+                    <div class="flex items-center space-x-2 mt-1">
+                        <img src="./images/certifications/zabia_halal.jpeg" alt="Zabiha Halal Certified" class="h-8 w-auto">
+                        <span class="text-lg font-bold text-green-600">Zabiha Halal Certified</span>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Desktop Navigation -->
+            <nav class="hidden md:block">
+                <ul class="flex space-x-6">
+                    <li><a href="#" class="hover:text-amber-600 transition">Home</a></li>
+                    <li><a href="#menu" class="hover:text-amber-600 transition">Menu</a></li>
+                    <li><a href="#contact" class="hover:text-amber-600 transition">Contact</a></li>
+                </ul>
+            </nav>
+            
+            <!-- Mobile Navigation -->
+            <div class="md:hidden">
+                <button id="mobile-menu-button" class="text-2xl">
+                    <i class="fas fa-bars"></i>
+                </button>
+                <nav id="mobile-menu" class="hidden absolute top-full left-0 right-0 bg-white shadow-lg z-50">
+                    <ul class="flex flex-col text-center py-4">
+                        <li><a href="#" class="block py-3 hover:text-amber-600 transition">Home</a></li>
+                        <li><a href="#menu" class="block py-3 hover:text-amber-600 transition">Menu</a></li>
+                        <li><a href="#contact" class="block py-3 hover:text-amber-600 transition">Contact</a></li>
+                    </ul>
+                </nav>
+            </div>
+        </div>
+    </header>
+
+    <!-- Hero Banner -->
+    <section class="relative text-white h-96 md:h-[500px] overflow-hidden">
+        <!-- Left Video - Full Height, Left Corner -->
+        <video 
+            class="absolute top-0 left-0 w-1/2 h-full object-cover" 
+            autoplay 
+            muted 
+            loop 
+            playsinline>
+            <source src="./video/making.mp4" type="video/mp4">
+            Your browser does not support the video tag.
+        </video>
+        
+        <!-- Right Video - Full Height, Right Corner -->
+        <video 
+            class="absolute top-0 right-0 w-1/2 h-full object-cover" 
+            autoplay 
+            muted 
+            loop 
+            playsinline>
+            <source src="./video/making.mp4" type="video/mp4">
+            Your browser does not support the video tag.
+        </video>
+        
+        <!-- Dark Overlay for Better Text Readability -->
+        <div class="absolute inset-0 bg-black/30 hidden md:block"></div>
+        
+        <!-- Center Text Content -->
+        <div class="relative z-10 container mx-auto px-4 h-full flex items-center justify-center">
+            <div class="text-center">
+                <h1 class="text-4xl md:text-5xl font-bold mb-4">Discover Our Menu</h1>
+                <p class="text-xl max-w-2xl mx-auto">Explore our carefully crafted selection of halal dishes made with the finest ingredients</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Online Platforms & Reviews -->
+    <section class="py-12 bg-white">
+        <div class="container mx-auto px-4">
+            <div class="text-center mb-8">
+                <h2 class="text-3xl font-bold text-gray-800 mb-4">Find Us Online</h2>
+                <p class="text-gray-600 max-w-2xl mx-auto">Order from your favorite platform and read what our customers are saying about us</p>
+            </div>
+            
+            <div class="grid grid-cols-1 lg:grid-cols-5 gap-8 max-w-7xl mx-auto items-center">
+                <!-- Left Side Scrolling Images -->
+                <div class="hidden lg:block relative h-96 overflow-hidden">
+                    <div class="scrolling-images-left">
+                        <!-- Images will be dynamically added here -->
+                    </div>
+                </div>
+                
+                <!-- Reviews Section -->
+                <div class="lg:col-span-3 grid grid-cols-1 md:grid-cols-3 gap-8">
+                <!-- Google Reviews -->
+                <a href="https://share.google/e4I2EZiKNjwAP1Q7m" target="_blank" rel="noopener noreferrer" class="block">
+                    <div class="bg-white rounded-lg shadow-lg p-6 text-center hover:shadow-xl transition-shadow duration-300 border hover:border-amber-200">
+                        <div class="flex justify-center mb-4">
+                            <div class="w-12 h-12 flex items-center justify-center">
+                                <svg viewBox="0 0 24 24" class="w-8 h-8">
+                                    <path fill="#4285F4" d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z"/>
+                                    <path fill="#34A853" d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z"/>
+                                    <path fill="#FBBC05" d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l2.85-2.22.81-.62z"/>
+                                    <path fill="#EA4335" d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z"/>
+                                </svg>
+                            </div>
+                        </div>
+                        <h3 class="text-xl font-semibold text-gray-800 mb-2">Google Reviews</h3>
+                        <div class="flex justify-center items-center mb-2">
+                            <div class="flex text-yellow-400 mr-2">
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star-half-alt"></i>
+                            </div>
+                            <span class="text-2xl font-bold text-gray-800">4.4</span>
+                        </div>
+                        <p class="text-gray-600">600+ Reviews</p>
+                        <div class="mt-3 text-sm text-gray-500">Click to read reviews</div>
+                        <div class="mt-3 p-3 bg-gray-50 rounded-lg text-left">
+                            <p class="text-sm text-gray-700 italic dynamic-review" data-platform="google"></p>
+                            <p class="text-xs text-gray-500 mt-1 review-author"></p>
+                        </div>
+                    </div>
+                </a>
+
+                <!-- Uber Eats -->
+                <a href="https://www.ubereats.com/store/halal-feast-o/fEvSd2KpXF6pEtKk_-eHBQ" target="_blank" rel="noopener noreferrer" class="block">
+                    <div class="bg-white rounded-lg shadow-lg p-6 text-center hover:shadow-xl transition-shadow duration-300 border hover:border-amber-200">
+                        <div class="flex justify-center mb-4">
+                            <div class="w-12 h-12 bg-black rounded-lg flex items-center justify-center">
+                                <span class="text-white font-bold text-sm">UBER</span>
+                            </div>
+                        </div>
+                        <h3 class="text-xl font-semibold text-gray-800 mb-2">Uber Eats</h3>
+                        <div class="flex justify-center items-center mb-2">
+                            <div class="flex text-yellow-400 mr-2">
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star-half-alt"></i>
+                            </div>
+                            <span class="text-2xl font-bold text-gray-800">4.4</span>
+                        </div>
+                        <p class="text-gray-600">900+ Ratings</p>
+                        <div class="mt-3 text-sm text-gray-500">Order now</div>
+                        <div class="mt-3 p-3 bg-gray-50 rounded-lg text-left">
+                            <p class="text-sm text-gray-700 italic dynamic-review" data-platform="uber"></p>
+                            <p class="text-xs text-gray-500 mt-1 review-author"></p>
+                        </div>
+                    </div>
+                </a>
+
+                <!-- DoorDash -->
+                <a href="https://www.doordash.com/store/halal-feast-o-buffalo-25002893/" target="_blank" rel="noopener noreferrer" class="block">
+                    <div class="bg-white rounded-lg shadow-lg p-6 text-center hover:shadow-xl transition-shadow duration-300 border hover:border-amber-200">
+                        <div class="flex justify-center mb-4">
+                            <div class="w-12 h-12 bg-red-500 rounded-lg flex items-center justify-center">
+                                <i class="fas fa-motorcycle text-white text-lg"></i>
+                            </div>
+                        </div>
+                        <h3 class="text-xl font-semibold text-gray-800 mb-2">DoorDash</h3>
+                        <div class="flex justify-center items-center mb-2">
+                            <div class="flex text-yellow-400 mr-2">
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                            </div>
+                            <span class="text-2xl font-bold text-gray-800">4.3</span>
+                        </div>
+                        <p class="text-gray-600">1k+ Ratings</p>
+                        <div class="mt-3 text-sm text-gray-500">Order now</div>
+                        <div class="mt-3 p-3 bg-gray-50 rounded-lg text-left">
+                            <p class="text-sm text-gray-700 italic dynamic-review" data-platform="doordash"></p>
+                            <p class="text-xs text-gray-500 mt-1 review-author"></p>
+                        </div>
+                    </div>
+                </a>
+                </div>
+                
+                <!-- Right Side Scrolling Images -->
+                <div class="hidden lg:block relative h-96 overflow-hidden">
+                    <div class="scrolling-images-right">
+                        <!-- Images will be dynamically added here -->
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Category Navigation -->
+    <nav class="sticky-nav bg-white/90 shadow-sm py-4 border-b">
+        <div class="container mx-auto px-4">
+            <div class="relative">
+                <!-- Left Arrow Indicator (Mobile Only) -->
+                <div class="md:hidden absolute left-0 top-1/2 transform -translate-y-1/2 z-10 bg-gradient-to-r from-white/90 to-transparent pl-2 pr-6 py-2">
+                    <i class="fas fa-chevron-left text-gray-400 text-sm"></i>
+                </div>
+                
+                <!-- Navigation Links -->
+                <div class="category-nav flex space-x-1 md:space-x-8 md:justify-center overflow-x-auto scrollbar-hide">
+                    <a href="#burgers" class="px-3 py-2 font-medium text-gray-700 hover:text-amber-600 transition whitespace-nowrap">Burgers</a>
+                    <a href="#sandwiches" class="px-3 py-2 font-medium text-gray-700 hover:text-amber-600 transition whitespace-nowrap">Sandwiches</a>
+                    <a href="#gyros" class="px-3 py-2 font-medium text-gray-700 hover:text-amber-600 transition whitespace-nowrap">Gyros</a>
+                    <a href="#platters" class="px-3 py-2 font-medium text-gray-700 hover:text-amber-600 transition whitespace-nowrap">Platters</a>
+                    <a href="#nuggets" class="px-3 py-2 font-medium text-gray-700 hover:text-amber-600 transition whitespace-nowrap">Nuggets</a>
+                    <a href="#fish" class="px-3 py-2 font-medium text-gray-700 hover:text-amber-600 transition whitespace-nowrap">Fish</a>
+                    <a href="#tenders" class="px-3 py-2 font-medium text-gray-700 hover:text-amber-600 transition whitespace-nowrap">Tenders</a>
+                    <a href="#wings" class="px-3 py-2 font-medium text-gray-700 hover:text-amber-600 transition whitespace-nowrap">Wings</a>
+                    <a href="#cheesesteaks" class="px-3 py-2 font-medium text-gray-700 hover:text-amber-600 transition whitespace-nowrap">Cheesesteaks</a>
+                    <a href="#salads" class="px-3 py-2 font-medium text-gray-700 hover:text-amber-600 transition whitespace-nowrap">Salads</a>
+                    <a href="#sides" class="px-3 py-2 font-medium text-gray-700 hover:text-amber-600 transition whitespace-nowrap">Sides</a>
+                    <a href="#beverages" class="px-3 py-2 font-medium text-gray-700 hover:text-amber-600 transition whitespace-nowrap">Beverages</a>
+                </div>
+                
+                <!-- Right Arrow Indicator (Mobile Only) -->
+                <div class="md:hidden absolute right-0 top-1/2 transform -translate-y-1/2 z-10 bg-gradient-to-l from-white/90 to-transparent pr-2 pl-6 py-2">
+                    <i class="fas fa-chevron-right text-gray-400 text-sm"></i>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Menu Section -->
+    <section id="menu" class="py-12 md:py-16">
+        <div class="container mx-auto px-4">
+            <!-- Burgers -->
+            <div id="burgers" class="mb-16">
+                <h2 class="text-3xl font-bold mb-8 text-center">Burgers</h2>
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                    <!-- Burger Item 1 -->
+                    <div class="menu-card bg-white rounded-lg overflow-hidden shadow-md relative">
+                        <div class="image-placeholder h-48 flex items-center justify-center">
+                            <img src="./images/Burger/Cheeseburger.jpeg" alt="Cheeseburger" class="w-full h-full object-cover">
+                        </div>
+                        <div class="combo-badge">Combo Available</div>
+                        <div class="p-6">
+                            <div class="flex justify-between items-start mb-2">
+                                <h3 class="text-xl font-bold">Cheeseburger</h3>
+                                <div class="text-right">
+                                    <div class="text-amber-600 font-semibold">$9.54</div>
+                                    <div class="text-sm text-gray-500">Combo: $12.79</div>
+                                </div>
+                            </div>
+                            <p class="text-gray-600 mb-4">Juicy beef patty with melted cheese, crisp lettuce, fresh tomatoes, pickles, and mayo on a toasted bun.</p>
+                            <div class="mb-3">
+                                <p class="text-sm font-medium text-gray-700">Combo includes: 1 side + 1 drink</p>
+                            </div>
+                            <div class="mb-3">
+                                <p class="text-sm font-medium text-gray-700">Add-ons:</p>
+                                <div class="flex flex-wrap gap-2 mt-1">
+                                    <span class="text-xs bg-gray-100 text-gray-800 px-2 py-1 rounded">Cheese +$1.50</span>
+                                    <span class="text-xs bg-gray-100 text-gray-800 px-2 py-1 rounded">Mushroom +$2.75</span>
+                                    <span class="text-xs bg-gray-100 text-gray-800 px-2 py-1 rounded">Bacon +$3.29</span>
+                                    <span class="text-xs bg-gray-100 text-gray-800 px-2 py-1 rounded">Meat +$3.00</span>
+                                </div>
+                            </div>
+                            <div class="flex">
+                                <span class="dietary-icon bg-green-100 text-green-800">Halal</span>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Burger Item 2 -->
+                    <div class="menu-card bg-white rounded-lg overflow-hidden shadow-md relative">
+                        <div class="image-placeholder h-48 flex items-center justify-center">
+                            <img src="./images/Burger/Jumbo_Burger.jpeg" alt="Jumbo Burger" class="w-full h-full object-cover">
+                        </div>
+                        <div class="combo-badge">Combo Available</div>
+                        <div class="p-6">
+                            <div class="flex justify-between items-start mb-2">
+                                <h3 class="text-xl font-bold">Jumbo Burger</h3>
+                                <div class="text-right">
+                                    <div class="text-amber-600 font-semibold">$10.74</div>
+                                    <div class="text-sm text-gray-500">Combo: $13.99</div>
+                                </div>
+                            </div>
+                            <p class="text-gray-600 mb-4">Double patty loaded with lettuce, tomatoes, onions, pickles, cheese, ketchup, and mayo on a toasted bun.</p>
+                            <div class="mb-3">
+                                <p class="text-sm font-medium text-gray-700">Combo includes: 1 side + 1 drink</p>
+                            </div>
+                            <div class="mb-3">
+                                <p class="text-sm font-medium text-gray-700">Add-ons:</p>
+                                <div class="flex flex-wrap gap-2 mt-1">
+                                    <span class="text-xs bg-gray-100 text-gray-800 px-2 py-1 rounded">Cheese +$1.50</span>
+                                    <span class="text-xs bg-gray-100 text-gray-800 px-2 py-1 rounded">Mushroom +$2.75</span>
+                                    <span class="text-xs bg-gray-100 text-gray-800 px-2 py-1 rounded">Bacon +$3.29</span>
+                                    <span class="text-xs bg-gray-100 text-gray-800 px-2 py-1 rounded">Meat +$3.00</span>
+                                </div>
+                            </div>
+                            <div class="flex">
+                                <span class="dietary-icon bg-green-100 text-green-800">Halal</span>
+                                <span class="dietary-icon bg-red-100 text-red-800">Signature</span>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Burger Item 3 -->
+                    <div class="menu-card bg-white rounded-lg overflow-hidden shadow-md relative">
+                        <div class="image-placeholder h-48 flex items-center justify-center">
+                            <img src="./images/Burger/Asylum_Burger.jpeg" alt="Asylum_Burger" class="w-full h-full object-cover">
+                        </div>
+                        <div class="combo-badge">Combo Available</div>
+                        <div class="p-6">
+                            <div class="flex justify-between items-start mb-2">
+                                <h3 class="text-xl font-bold">Asylum Burger</h3>
+                                <div class="text-right">
+                                    <div class="text-amber-600 font-semibold">$9.94</div>
+                                    <div class="text-sm text-gray-500">Combo: $13.19</div>
+                                </div>
+                            </div>
+                            <p class="text-gray-600 mb-4">Flame-grilled beef patty with bacon, mushrooms, caramelized onions, and our signature blink sauce on a toasted bun.</p>
+                            <div class="mb-3">
+                                <p class="text-sm font-medium text-gray-700">Combo includes: 1 side + 1 drink</p>
+                            </div>
+                            <div class="mb-3">
+                                <p class="text-sm font-medium text-gray-700">Add-ons:</p>
+                                <div class="flex flex-wrap gap-2 mt-1">
+                                    <span class="text-xs bg-gray-100 text-gray-800 px-2 py-1 rounded">Cheese +$1.50</span>
+                                    <span class="text-xs bg-gray-100 text-gray-800 px-2 py-1 rounded">Mushroom +$2.75</span>
+                                    <span class="text-xs bg-gray-100 text-gray-800 px-2 py-1 rounded">Bacon +$3.29</span>
+                                    <span class="text-xs bg-gray-100 text-gray-800 px-2 py-1 rounded">Meat +$3.00</span>
+                                </div>
+                            </div>
+                            <div class="flex">
+                                <span class="dietary-icon bg-green-100 text-green-800">Halal</span>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Burger Item 4 -->
+                    <div class="menu-card bg-white rounded-lg overflow-hidden shadow-md relative">
+                        <div class="image-placeholder h-48 flex items-center justify-center">
+                            <img src="./images/Burger/Toxic_Burger.jpeg" alt="Toxic_Burger" class="w-full h-full object-cover">
+                        </div>
+                        <div class="combo-badge">Combo Available</div>
+                        <div class="p-6">
+                            <div class="flex justify-between items-start mb-2">
+                                <h3 class="text-xl font-bold">Toxic Burger</h3>
+                                <div class="text-right">
+                                    <div class="text-amber-600 font-semibold">$10.44</div>
+                                    <div class="text-sm text-gray-500">Combo: $13.69</div>
+                                </div>
+                            </div>
+                            <p class="text-gray-600 mb-4">Flame-grilled beef patty with caramelized onions, with 2 pieces mozzarella sticks and our signature Spicy sauce on a toasted bun</p>
+                            <div class="mb-3">
+                                <p class="text-sm font-medium text-gray-700">Combo includes: 1 side + 1 drink</p>
+                            </div>
+                            <div class="mb-3">
+                                <p class="text-sm font-medium text-gray-700">Add-ons:</p>
+                                <div class="flex flex-wrap gap-2 mt-1">
+                                    <span class="text-xs bg-gray-100 text-gray-800 px-2 py-1 rounded">Cheese +$1.50</span>
+                                    <span class="text-xs bg-gray-100 text-gray-800 px-2 py-1 rounded">Mushroom +$2.75</span>
+                                    <span class="text-xs bg-gray-100 text-gray-800 px-2 py-1 rounded">Bacon +$3.29</span>
+                                    <span class="text-xs bg-gray-100 text-gray-800 px-2 py-1 rounded">Meat +$3.00</span>
+                                </div>
+                            </div>
+                            <div class="flex">
+                                <span class="dietary-icon bg-green-100 text-green-800">Halal</span>
+                                <span class="dietary-icon bg-orange-100 text-orange-800">Spicy</span>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Burger Item 5 -->
+                    <div class="menu-card bg-white rounded-lg overflow-hidden shadow-md relative">
+                        <div class="image-placeholder h-48 flex items-center justify-center">
+                            <img src="./images/Burger/Garden_Delight_Burger.jpeg" alt="Garden_Delight_Burger" class="w-full h-full object-cover">
+                        </div>
+                        <div class="combo-badge">Combo Available</div>
+                        <div class="p-6">
+                            <div class="flex justify-between items-start mb-2">
+                                <h3 class="text-xl font-bold">Garden Delight Burger</h3>
+                                <div class="text-right">
+                                    <div class="text-amber-600 font-semibold">$5.99</div>
+                                    <div class="text-sm text-gray-500">Combo: $9.24</div>
+                                </div>
+                            </div>
+                            <p class="text-gray-600 mb-4">Fresh falafel patties with boom boom sauce, shredded cheese, nacho cheese, spring mix, tomatoes, and onions on a soft bun.</p>
+                            <div class="mb-3">
+                                <p class="text-sm font-medium text-gray-700">Combo includes: 1 side + 1 drink</p>
+                            </div>
+                            <div class="mb-3">
+                                <p class="text-sm font-medium text-gray-700">Add-ons:</p>
+                                <div class="flex flex-wrap gap-2 mt-1">
+                                    <span class="text-xs bg-gray-100 text-gray-800 px-2 py-1 rounded">Cheese +$1.50</span>
+                                    <span class="text-xs bg-gray-100 text-gray-800 px-2 py-1 rounded">Mushroom +$2.75</span>
+                                    <span class="text-xs bg-gray-100 text-gray-800 px-2 py-1 rounded">Bacon +$3.29</span>
+                                    <span class="text-xs bg-gray-100 text-gray-800 px-2 py-1 rounded">Meat +$3.00</span>
+                                </div>
+                            </div>
+                            <div class="flex">
+                                <span class="dietary-icon bg-green-100 text-green-800">Halal</span>
+                                <span class="dietary-icon bg-green-100 text-green-800">Vegetarian</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- sandwiches -->
+            <div id="sandwiches" class="mb-16">
+                <h2 class="text-3xl font-bold mb-8 text-center">Sandwiches</h2>
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                    <div class="menu-card bg-white rounded-lg overflow-hidden shadow-md relative">
+                        <div class="image-placeholder h-48 flex items-center justify-center">
+                            <img src="./images/Sandwich/regular_chicken.JPG" alt="Chicken" class="w-full h-full object-cover">
+                        </div>
+                        <div class="combo-badge">Combo Available</div>
+                        <div class="p-6">
+                            <div class="flex justify-between items-start mb-2">
+                                <h3 class="text-xl font-bold">Krunchy CK Sandwich</h3>
+                                <div class="text-right">
+                                    <div class="text-amber-600 font-semibold">$9.54</div>
+                                    <div class="text-sm text-gray-500">Combo: $12.79</div>
+                                </div>
+                            </div>
+                            <p class="text-gray-600 mb-4">Crispy seasoned chicken breast with pickles, mayo, boom boom sauce, and butter on a toasted bun.</p>
+                            <div class="mb-3">
+                                <p class="text-sm font-medium text-gray-700">Combo includes: 1 side + 1 drink</p>
+                            </div>
+                            <div class="mb-3">
+                                <p class="text-sm font-medium text-gray-700">Add-ons:</p>
+                                <div class="flex flex-wrap gap-2 mt-1">
+                                    <span class="text-xs bg-gray-100 text-gray-800 px-2 py-1 rounded">Cheese +$1.50</span>
+                                    <span class="text-xs bg-gray-100 text-gray-800 px-2 py-1 rounded">Mushroom +$2.75</span>
+                                    <span class="text-xs bg-gray-100 text-gray-800 px-2 py-1 rounded">Bacon +$3.29</span>
+                                    <span class="text-xs bg-gray-100 text-gray-800 px-2 py-1 rounded">Meat +$3.00</span>
+                                </div>
+                            </div>
+                            <div class="flex">
+                                <span class="dietary-icon bg-green-100 text-green-800">Halal</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="menu-card bg-white rounded-lg overflow-hidden shadow-md relative">
+                        <div class="image-placeholder h-48 flex items-center justify-center">
+                            <img src="./images/Sandwich/Chicken.jpeg" alt="Chicken" class="w-full h-full object-cover">
+                        </div>
+                        <div class="combo-badge">Combo Available</div>
+                        <div class="p-6">
+                            <div class="flex justify-between items-start mb-2">
+                                <h3 class="text-xl font-bold">Krunchy Spicy CK Sandwich</h3>
+                                <div class="text-right">
+                                    <div class="text-amber-600 font-semibold">$10.54</div>
+                                    <div class="text-sm text-gray-500">Combo: $13.79</div>
+                                </div>
+                            </div>
+                            <p class="text-gray-600 mb-4">Crunchy meat chicken with pickles, spicy mayo, and blink sauce on a brioche bun with butter.</p>
+                            <div class="mb-3">
+                                <p class="text-sm font-medium text-gray-700">Combo includes: 1 side + 1 drink</p>
+                            </div>
+                            <div class="mb-3">
+                                <p class="text-sm font-medium text-gray-700">Add-ons:</p>
+                                <div class="flex flex-wrap gap-2 mt-1">
+                                    <span class="text-xs bg-gray-100 text-gray-800 px-2 py-1 rounded">Cheese +$1.50</span>
+                                    <span class="text-xs bg-gray-100 text-gray-800 px-2 py-1 rounded">Mushroom +$2.75</span>
+                                    <span class="text-xs bg-gray-100 text-gray-800 px-2 py-1 rounded">Bacon +$3.29</span>
+                                    <span class="text-xs bg-gray-100 text-gray-800 px-2 py-1 rounded">Meat +$3.00</span>
+                                </div>
+                            </div>
+                            <div class="flex">
+                                <span class="dietary-icon bg-green-100 text-green-800">Halal</span>
+                                <span class="dietary-icon bg-orange-100 text-orange-800">Spicy</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="menu-card bg-white rounded-lg overflow-hidden shadow-md relative">
+                        <div class="image-placeholder h-48 flex items-center justify-center">
+                            <img src="./images/Sandwich/grilled_chicken.jpeg" alt="Grilled Chicken" class="w-full h-full object-cover">
+                        </div>
+                        <div class="combo-badge">Combo Available</div>
+                        <div class="p-6">
+                            <div class="flex justify-between items-start mb-2">
+                                <h3 class="text-xl font-bold">Grilled CK Sandwich</h3>
+                                <div class="text-right">
+                                    <div class="text-amber-600 font-semibold">$11.54</div>
+                                    <div class="text-sm text-gray-500">Combo: $14.79</div>
+                                </div>
+                            </div>
+                            <p class="text-gray-600 mb-4">Flame-grilled chicken breast with mayo, cheese, spring mix, boom boom sauce, and pickles on a toasted bun.</p>
+                            <div class="mb-3">
+                                <p class="text-sm font-medium text-gray-700">Combo includes: 1 side + 1 drink</p>
+                            </div>
+                            <div class="mb-3">
+                                <p class="text-sm font-medium text-gray-700">Add-ons:</p>
+                                <div class="flex flex-wrap gap-2 mt-1">
+                                    <span class="text-xs bg-gray-100 text-gray-800 px-2 py-1 rounded">Cheese +$1.50</span>
+                                    <span class="text-xs bg-gray-100 text-gray-800 px-2 py-1 rounded">Mushroom +$2.75</span>
+                                    <span class="text-xs bg-gray-100 text-gray-800 px-2 py-1 rounded">Bacon +$3.29</span>
+                                    <span class="text-xs bg-gray-100 text-gray-800 px-2 py-1 rounded">Meat +$3.00</span>
+                                </div>
+                            </div>
+                            <div class="flex">
+                                <span class="dietary-icon bg-green-100 text-green-800">Halal</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="menu-card bg-white rounded-lg overflow-hidden shadow-md relative">
+                        <div class="image-placeholder h-48 flex items-center justify-center">
+                            <img src="./images/Sandwich/nemo.jpeg" alt="Nemo Sandwich" class="w-full h-full object-cover">
+                        </div>
+                        <div class="combo-badge">Combo Available</div>
+                        <div class="p-6">
+                            <div class="flex justify-between items-start mb-2">
+                                <h3 class="text-xl font-bold">Nemo Sandwich</h3>
+                                <div class="text-right">
+                                    <div class="text-amber-600 font-semibold">$9.44</div>
+                                    <div class="text-sm text-gray-500">Combo: $12.69</div>
+                                </div>
+                            </div>
+                            <p class="text-gray-600 mb-4">Fresh grilled fish with caramelized onions, cheese, tartar sauce, pickles, and butter on a soft bun.</p>
+                            <div class="mb-3">
+                                <p class="text-sm font-medium text-gray-700">Combo includes: 1 side + 1 drink</p>
+                            </div>
+                            <div class="mb-3">
+                                <p class="text-sm font-medium text-gray-700">Add-ons:</p>
+                                <div class="flex flex-wrap gap-2 mt-1">
+                                    <span class="text-xs bg-gray-100 text-gray-800 px-2 py-1 rounded">Cheese +$1.50</span>
+                                    <span class="text-xs bg-gray-100 text-gray-800 px-2 py-1 rounded">Mushroom +$2.75</span>
+                                    <span class="text-xs bg-gray-100 text-gray-800 px-2 py-1 rounded">Bacon +$3.29</span>
+                                    <span class="text-xs bg-gray-100 text-gray-800 px-2 py-1 rounded">Meat +$3.00</span>
+                                </div>
+                            </div>
+                            <div class="flex">
+                                <span class="dietary-icon bg-green-100 text-green-800">Halal</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="menu-card bg-white rounded-lg overflow-hidden shadow-md relative">
+                        <div class="image-placeholder h-48 flex items-center justify-center">
+                            <img src="./images/Sandwich/charcoal-chicken.svg" alt="Chicken" class="w-full h-full object-cover">
+                        </div>
+                        <div class="combo-badge">Combo Available</div>
+                        <div class="p-6">
+                            <div class="flex justify-between items-start mb-2">
+                                <h3 class="text-xl font-bold">Charcoal Blackened Sandwich</h3>
+                                <div class="text-right">
+                                    <div class="text-amber-600 font-semibold">$12.49</div>
+                                    <div class="text-sm text-gray-500">Combo: $15.74</div>
+                                </div>
+                            </div>
+                            <p class="text-gray-600 mb-4">Succulent jerk chicken with mayo, cheese, onion rings, joke sauce, and butter on a toasted bun.</p>
+                            <div class="mb-3">
+                                <p class="text-sm font-medium text-gray-700">Combo includes: 1 side + 1 drink</p>
+                            </div>
+                            <div class="mb-3">
+                                <p class="text-sm font-medium text-gray-700">Add-ons:</p>
+                                <div class="flex flex-wrap gap-2 mt-1">
+                                    <span class="text-xs bg-gray-100 text-gray-800 px-2 py-1 rounded">Cheese +$1.50</span>
+                                    <span class="text-xs bg-gray-100 text-gray-800 px-2 py-1 rounded">Mushroom +$2.75</span>
+                                    <span class="text-xs bg-gray-100 text-gray-800 px-2 py-1 rounded">Bacon +$3.29</span>
+                                    <span class="text-xs bg-gray-100 text-gray-800 px-2 py-1 rounded">Meat +$3.00</span>
+                                </div>
+                            </div>
+                            <div class="flex">
+                                <span class="dietary-icon bg-green-100 text-green-800">Halal</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- gyros -->
+            <div id="gyros" class="mb-16">
+                <h2 class="text-3xl font-bold mb-8 text-center">Gyros</h2>
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+
+                    <div class="menu-card bg-white rounded-lg overflow-hidden shadow-md relative">
+                        <div class="image-placeholder h-48 flex items-center justify-center">
+                            <img src="./images/Gyros/Chicken.jpeg" alt="Chicken" class="w-full h-full object-cover">
+                        </div>
+                        <div class="combo-badge">Combo Available</div>
+                        <div class="p-6">
+                            <div class="flex justify-between items-start mb-2">
+                                <h3 class="text-xl font-bold">Chicken Gyro</h3>
+                                <div class="text-right">
+                                    <div class="text-amber-600 font-semibold">$11.74</div>
+                                    <div class="text-sm text-gray-500">Combo: $14.99</div>
+                                </div>
+                            </div>
+                            <p class="text-gray-600 mb-4">Succulent marinated chicken wrapped in warm pita with fresh lettuce, mixed greens, and our signature sauce.</p>
+                            <div class="mb-3">
+                                <p class="text-sm font-medium text-gray-700">Combo includes: 1 side + 1 drink</p>
+                            </div>
+                            <div class="mb-3">
+                                <p class="text-sm font-medium text-gray-700">Add-ons:</p>
+                                <div class="flex flex-wrap gap-2 mt-1">
+                                    <span class="text-xs bg-gray-100 text-gray-800 px-2 py-1 rounded">Cheese +$1.50</span>
+                                    <span class="text-xs bg-gray-100 text-gray-800 px-2 py-1 rounded">Mushroom +$2.75</span>
+                                    <span class="text-xs bg-gray-100 text-gray-800 px-2 py-1 rounded">Bacon +$3.29</span>
+                                    <span class="text-xs bg-gray-100 text-gray-800 px-2 py-1 rounded">Meat +$3.00</span>
+                                </div>
+                            </div>
+                            <div class="flex">
+                                <span class="dietary-icon bg-green-100 text-green-800">Halal</span>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="menu-card bg-white rounded-lg overflow-hidden shadow-md relative">
+                        <div class="image-placeholder h-48 flex items-center justify-center">
+                            <img src="./images/Gyros/lamb_gyro.jpeg" alt="lamb" class="w-full h-full object-cover">
+                        </div>
+                        <div class="combo-badge">Combo Available</div>
+                        <div class="p-6">
+                            <div class="flex justify-between items-start mb-2">
+                                <h3 class="text-xl font-bold">Lamb Gyro</h3>
+                                <div class="text-right">
+                                    <div class="text-amber-600 font-semibold">$12.44</div>
+                                    <div class="text-sm text-gray-500">Combo: $15.69</div>
+                                </div>
+                            </div>
+                            <p class="text-gray-600 mb-4">Authentic seasoned lamb slices in soft pita with lettuce, mixed salad, and creamy sauce with Mediterranean spices.</p>
+                            <div class="mb-3">
+                                <p class="text-sm font-medium text-gray-700">Combo includes: 1 side + 1 drink</p>
+                            </div>
+                            <div class="mb-3">
+                                <p class="text-sm font-medium text-gray-700">Add-ons:</p>
+                                <div class="flex flex-wrap gap-2 mt-1">
+                                    <span class="text-xs bg-gray-100 text-gray-800 px-2 py-1 rounded">Cheese +$1.50</span>
+                                    <span class="text-xs bg-gray-100 text-gray-800 px-2 py-1 rounded">Mushroom +$2.75</span>
+                                    <span class="text-xs bg-gray-100 text-gray-800 px-2 py-1 rounded">Bacon +$3.29</span>
+                                    <span class="text-xs bg-gray-100 text-gray-800 px-2 py-1 rounded">Meat +$3.00</span>
+                                </div>
+                            </div>
+                            <div class="flex">
+                                <span class="dietary-icon bg-green-100 text-green-800">Halal</span>
+                                <span class="dietary-icon bg-red-100 text-red-800">Signature</span>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="menu-card bg-white rounded-lg overflow-hidden shadow-md relative">
+                        <div class="image-placeholder h-48 flex items-center justify-center">
+                            <img src="./images/Gyros/kofa_gyro.jpeg" alt="Kofta Gyro" class="w-full h-full object-cover">
+                        </div>
+                        <div class="combo-badge">Combo Available</div>
+                        <div class="p-6">
+                            <div class="flex justify-between items-start mb-2">
+                                <h3 class="text-xl font-bold">Kofta Gyro</h3>
+                                <div class="text-right">
+                                    <div class="text-amber-600 font-semibold">$12.24</div>
+                                    <div class="text-sm text-gray-500">Combo: $15.49</div>
+                                </div>
+                            </div>
+                            <p class="text-gray-600 mb-4">Hand-formed kofta with green peppers, onions, lettuce, mixed salad, and Mediterranean spices in warm pita.</p>
+                            <div class="mb-3">
+                                <p class="text-sm font-medium text-gray-700">Combo includes: 1 side + 1 drink</p>
+                            </div>
+                            <div class="mb-3">
+                                <p class="text-sm font-medium text-gray-700">Add-ons:</p>
+                                <div class="flex flex-wrap gap-2 mt-1">
+                                    <span class="text-xs bg-gray-100 text-gray-800 px-2 py-1 rounded">Cheese +$1.50</span>
+                                    <span class="text-xs bg-gray-100 text-gray-800 px-2 py-1 rounded">Mushroom +$2.75</span>
+                                    <span class="text-xs bg-gray-100 text-gray-800 px-2 py-1 rounded">Bacon +$3.29</span>
+                                    <span class="text-xs bg-gray-100 text-gray-800 px-2 py-1 rounded">Meat +$3.00</span>
+                                </div>
+                            </div>
+                            <div class="flex">
+                                <span class="dietary-icon bg-green-100 text-green-800">Halal</span>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="menu-card bg-white rounded-lg overflow-hidden shadow-md relative">
+                        <div class="image-placeholder h-48 flex items-center justify-center">
+                            <img src="./images/Gyros/charcoal_gyro.jpeg" alt="Charcoal Blackened Gyro" class="w-full h-full object-cover">
+                        </div>
+                        <div class="combo-badge">Combo Available</div>
+                        <div class="p-6">
+                            <div class="flex justify-between items-start mb-2">
+                                <h3 class="text-xl font-bold">Charcoal Blackened Gyro</h3>
+                                <div class="text-right">
+                                    <div class="text-amber-600 font-semibold">$12.24</div>
+                                    <div class="text-sm text-gray-500">Combo: $15.49</div>
+                                </div>
+                            </div>
+                            <p class="text-gray-600 mb-4">Charcoal-grilled meat with lettuce, mixed salad, and signature sauce wrapped in fresh pita bread.</p>
+                            <div class="mb-3">
+                                <p class="text-sm font-medium text-gray-700">Combo includes: 1 side + 1 drink</p>
+                            </div>
+                            <div class="mb-3">
+                                <p class="text-sm font-medium text-gray-700">Add-ons:</p>
+                                <div class="flex flex-wrap gap-2 mt-1">
+                                    <span class="text-xs bg-gray-100 text-gray-800 px-2 py-1 rounded">Cheese +$1.50</span>
+                                    <span class="text-xs bg-gray-100 text-gray-800 px-2 py-1 rounded">Mushroom +$2.75</span>
+                                    <span class="text-xs bg-gray-100 text-gray-800 px-2 py-1 rounded">Bacon +$3.29</span>
+                                    <span class="text-xs bg-gray-100 text-gray-800 px-2 py-1 rounded">Meat +$3.00</span>
+                                </div>
+                            </div>
+                            <div class="flex">
+                                <span class="dietary-icon bg-green-100 text-green-800">Halal</span>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="menu-card bg-white rounded-lg overflow-hidden shadow-md relative">
+                        <div class="image-placeholder h-48 flex items-center justify-center">
+                            <img src="./images/Gyros/beef_gyro.jpeg" alt="beef gyro" class="w-full h-full object-cover">
+                        </div>
+                        <div class="combo-badge">Combo Available</div>
+                        <div class="p-6">
+                            <div class="flex justify-between items-start mb-2">
+                                <h3 class="text-xl font-bold">Beef Gyro</h3>
+                                <div class="text-right">
+                                    <div class="text-amber-600 font-semibold">$12.64</div>
+                                    <div class="text-sm text-gray-500">Combo: $15.89</div>
+                                </div>
+                            </div>
+                            <p class="text-gray-600 mb-4">Tender beef meatballs with lettuce, mixed salad, and savory sauce wrapped in soft pita bread.</p>
+                            <div class="mb-3">
+                                <p class="text-sm font-medium text-gray-700">Combo includes: 1 side + 1 drink</p>
+                            </div>
+                            <div class="mb-3">
+                                <p class="text-sm font-medium text-gray-700">Add-ons:</p>
+                                <div class="flex flex-wrap gap-2 mt-1">
+                                    <span class="text-xs bg-gray-100 text-gray-800 px-2 py-1 rounded">Cheese +$1.50</span>
+                                    <span class="text-xs bg-gray-100 text-gray-800 px-2 py-1 rounded">Mushroom +$2.75</span>
+                                    <span class="text-xs bg-gray-100 text-gray-800 px-2 py-1 rounded">Bacon +$3.29</span>
+                                    <span class="text-xs bg-gray-100 text-gray-800 px-2 py-1 rounded">Meat +$3.00</span>
+                                </div>
+                            </div>
+                            <div class="flex">
+                                <span class="dietary-icon bg-green-100 text-green-800">Halal</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="menu-card bg-white rounded-lg overflow-hidden shadow-md relative">
+                        <div class="image-placeholder h-48 flex items-center justify-center">
+                            <img src="./images/Gyros/mix.JPG" alt="mix" class="w-full h-full object-cover">
+                        </div>
+                        <div class="combo-badge">Combo Available</div>
+                        <div class="p-6">
+                            <div class="flex justify-between items-start mb-2">
+                                <h3 class="text-xl font-bold">Mix Gyro</h3>
+                                <div class="text-right">
+                                    <div class="text-amber-600 font-semibold">$12.74</div>
+                                    <div class="text-sm text-gray-500">Combo: $15.99</div>
+                                </div>
+                            </div>
+                            <p class="text-gray-600 mb-4">Perfect combination of marinated chicken and seasoned lamb with lettuce, mixed salad, and sauce in warm pita.</p>
+                            <div class="mb-3">
+                                <p class="text-sm font-medium text-gray-700">Combo includes: 1 side + 1 drink</p>
+                            </div>
+                            <div class="mb-3">
+                                <p class="text-sm font-medium text-gray-700">Add-ons:</p>
+                                <div class="flex flex-wrap gap-2 mt-1">
+                                    <span class="text-xs bg-gray-100 text-gray-800 px-2 py-1 rounded">Cheese +$1.50</span>
+                                    <span class="text-xs bg-gray-100 text-gray-800 px-2 py-1 rounded">Mushroom +$2.75</span>
+                                    <span class="text-xs bg-gray-100 text-gray-800 px-2 py-1 rounded">Bacon +$3.29</span>
+                                    <span class="text-xs bg-gray-100 text-gray-800 px-2 py-1 rounded">Meat +$3.00</span>
+                                </div>
+                            </div>
+                            <div class="flex">
+                                <span class="dietary-icon bg-green-100 text-green-800">Halal</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="menu-card bg-white rounded-lg overflow-hidden shadow-md relative">
+                        <div class="image-placeholder h-48 flex items-center justify-center">
+                            <img src="./images/Gyros/Fish_Gyro.jpeg" alt="Fish_Gyro" class="w-full h-full object-cover">
+                        </div>
+                        <div class="combo-badge">Combo Available</div>
+                        <div class="p-6">
+                            <div class="flex justify-between items-start mb-2">
+                                <h3 class="text-xl font-bold">Fish Gyro</h3>
+                                <div class="text-right">
+                                    <div class="text-amber-600 font-semibold">$9.74</div>
+                                    <div class="text-sm text-gray-500">Combo: $12.99</div>
+                                </div>
+                            </div>
+                            <p class="text-gray-600 mb-4">Fresh seasoned fish fillet with lettuce, mixed salad, and creamy sauce wrapped in soft pita bread.</p>
+                            <div class="mb-3">
+                                <p class="text-sm font-medium text-gray-700">Combo includes: 1 side + 1 drink</p>
+                            </div>
+                            <div class="mb-3">
+                                <p class="text-sm font-medium text-gray-700">Add-ons:</p>
+                                <div class="flex flex-wrap gap-2 mt-1">
+                                    <span class="text-xs bg-gray-100 text-gray-800 px-2 py-1 rounded">Cheese +$1.50</span>
+                                    <span class="text-xs bg-gray-100 text-gray-800 px-2 py-1 rounded">Mushroom +$2.75</span>
+                                    <span class="text-xs bg-gray-100 text-gray-800 px-2 py-1 rounded">Bacon +$3.29</span>
+                                    <span class="text-xs bg-gray-100 text-gray-800 px-2 py-1 rounded">Meat +$3.00</span>
+                                </div>
+                            </div>
+                            <div class="flex">
+                                <span class="dietary-icon bg-green-100 text-green-800">Halal</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="menu-card bg-white rounded-lg overflow-hidden shadow-md relative">
+                        <div class="image-placeholder h-48 flex items-center justify-center">
+                            <img src="./images/Gyros/falafel.JPG" alt="falafel" class="w-full h-full object-cover">
+                        </div>
+                        <div class="combo-badge">Combo Available</div>
+                        <div class="p-6">
+                            <div class="flex justify-between items-start mb-2">
+                                <h3 class="text-xl font-bold">Falafel Gyro</h3>
+                                <div class="text-right">
+                                    <div class="text-amber-600 font-semibold">$9.74</div>
+                                    <div class="text-sm text-gray-500">Combo: $12.99</div>
+                                </div>
+                            </div>
+                            <p class="text-gray-600 mb-4">Crispy, golden-brown falafel balls tucked into a soft pita with hummus, tahini, and fresh salad.</p>
+                            <div class="mb-3">
+                                <p class="text-sm font-medium text-gray-700">Combo includes: 1 side + 1 drink</p>
+                            </div>
+                            <div class="mb-3">
+                                <p class="text-sm font-medium text-gray-700">Add-ons:</p>
+                                <div class="flex flex-wrap gap-2 mt-1">
+                                    <span class="text-xs bg-gray-100 text-gray-800 px-2 py-1 rounded">Cheese +$1.50</span>
+                                    <span class="text-xs bg-gray-100 text-gray-800 px-2 py-1 rounded">Mushroom +$2.75</span>
+                                    <span class="text-xs bg-gray-100 text-gray-800 px-2 py-1 rounded">Bacon +$3.29</span>
+                                    <span class="text-xs bg-gray-100 text-gray-800 px-2 py-1 rounded">Meat +$3.00</span>
+                                </div>
+                            </div>
+                            <div class="flex">
+                                <span class="dietary-icon bg-green-100 text-green-800">Halal</span>
+                                <span class="dietary-icon bg-green-100 text-green-800">Vegetarian</span>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+            <!-- platters -->
+             <div id="platters" class="mb-16">
+                <h2 class="text-3xl font-bold mb-8 text-center">Platters</h2>
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+
+                    <div class="menu-card bg-white rounded-lg overflow-hidden shadow-md relative">
+                        <div class="image-placeholder h-48 flex items-center justify-center">
+                            <img src="./images/Platters/Chicken_Platter.jpeg" alt="Chicken_Platter" class="w-full h-full object-cover">
+                        </div>
+                        <div class="combo-badge">Combo Available</div>
+                        <div class="p-6">
+                            <div class="flex justify-between items-start mb-2">
+                                <h3 class="text-xl font-bold">Chicken Platter</h3>
+                                <div class="text-right">
+                                    <div class="text-amber-600 font-semibold">$12.99</div>
+                                    <div class="text-sm text-gray-500">Combo: $14.49</div>
+                                </div>
+                            </div>
+                            <p class="text-gray-600 mb-4">Marinated grilled chicken served over seasoned rice with a side salad and our signature white sauce.</p>
+                            <div class="mb-3">
+                                <p class="text-sm font-medium text-gray-700">Combo includes: 1 side + 1 drink</p>
+                            </div>
+                            <div class="mb-3">
+                                <p class="text-sm font-medium text-gray-700">Add-ons:</p>
+                                <div class="flex flex-wrap gap-2 mt-1">
+                                    <span class="text-xs bg-gray-100 text-gray-800 px-2 py-1 rounded">Cheese +$1.50</span>
+                                    <span class="text-xs bg-gray-100 text-gray-800 px-2 py-1 rounded">Mushroom +$2.75</span>
+                                    <span class="text-xs bg-gray-100 text-gray-800 px-2 py-1 rounded">Bacon +$3.29</span>
+                                    <span class="text-xs bg-gray-100 text-gray-800 px-2 py-1 rounded">Meat +$3.00</span>
+                                </div>
+                            </div>
+                            <div class="flex">
+                                <span class="dietary-icon bg-green-100 text-green-800">Halal</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="menu-card bg-white rounded-lg overflow-hidden shadow-md relative">
+                        <div class="image-placeholder h-48 flex items-center justify-center">
+                            <img src="./images/Platters/Lamb_Platter.jpeg" alt="Lamb_Platter" class="w-full h-full object-cover">
+                        </div>
+                        <div class="combo-badge">Combo Available</div>
+                        <div class="p-6">
+                            <div class="flex justify-between items-start mb-2">
+                                <h3 class="text-xl font-bold">Lamb Platter</h3>
+                                <div class="text-right">
+                                    <div class="text-amber-600 font-semibold">$13.69</div>
+                                    <div class="text-sm text-gray-500">Combo: $15.19</div>
+                                </div>
+                            </div>
+                            <p class="text-gray-600 mb-4">Tender slices of seasoned lamb gyro meat over rice with salad and a side of tzatziki sauce.</p>
+                            <div class="mb-3">
+                                <p class="text-sm font-medium text-gray-700">Combo includes: 1 side + 1 drink</p>
+                            </div>
+                            <div class="mb-3">
+                                <p class="text-sm font-medium text-gray-700">Add-ons:</p>
+                                <div class="flex flex-wrap gap-2 mt-1">
+                                    <span class="text-xs bg-gray-100 text-gray-800 px-2 py-1 rounded">Cheese +$1.50</span>
+                                    <span class="text-xs bg-gray-100 text-gray-800 px-2 py-1 rounded">Mushroom +$2.75</span>
+                                    <span class="text-xs bg-gray-100 text-gray-800 px-2 py-1 rounded">Bacon +$3.29</span>
+                                    <span class="text-xs bg-gray-100 text-gray-800 px-2 py-1 rounded">Meat +$3.00</span>
+                                </div>
+                            </div>
+                            <div class="flex">
+                                <span class="dietary-icon bg-green-100 text-green-800">Halal</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="menu-card bg-white rounded-lg overflow-hidden shadow-md relative">
+                        <div class="image-placeholder h-48 flex items-center justify-center">
+                            <img src="./images/Platters/kofta_Platter.jpeg" alt="Kofta Platter" class="w-full h-full object-cover">
+                        </div>
+                        <div class="combo-badge">Combo Available</div>
+                        <div class="p-6">
+                            <div class="flex justify-between items-start mb-2">
+                                <h3 class="text-xl font-bold">Kofta Platter</h3>
+                                <div class="text-right">
+                                    <div class="text-amber-600 font-semibold">$14.49</div>
+                                    <div class="text-sm text-gray-500">Combo: $15.99</div>
+                                </div>
+                            </div>
+                            <p class="text-gray-600 mb-4">Grilled kofta kebabs served on a bed of seasoned rice with fresh salad and dipping sauce.</p>
+                            <div class="mb-3">
+                                <p class="text-sm font-medium text-gray-700">Combo includes: 1 side + 1 drink</p>
+                            </div>
+                            <div class="mb-3">
+                                <p class="text-sm font-medium text-gray-700">Add-ons:</p>
+                                <div class="flex flex-wrap gap-2 mt-1">
+                                    <span class="text-xs bg-gray-100 text-gray-800 px-2 py-1 rounded">Cheese +$1.50</span>
+                                    <span class="text-xs bg-gray-100 text-gray-800 px-2 py-1 rounded">Mushroom +$2.75</span>
+                                    <span class="text-xs bg-gray-100 text-gray-800 px-2 py-1 rounded">Bacon +$3.29</span>
+                                    <span class="text-xs bg-gray-100 text-gray-800 px-2 py-1 rounded">Meat +$3.00</span>
+                                </div>
+                            </div>
+                            <div class="flex">
+                                <span class="dietary-icon bg-green-100 text-green-800">Halal</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="menu-card bg-white rounded-lg overflow-hidden shadow-md relative">
+                        <div class="image-placeholder h-48 flex items-center justify-center">
+                            <img src="./images/Platters/Charcoal_platter.jpeg" alt="Charcoal Blackened Platter" class="w-full h-full object-cover">
+                        </div>
+                        <div class="combo-badge">Combo Available</div>
+                        <div class="p-6">
+                            <div class="flex justify-between items-start mb-2">
+                                <h3 class="text-xl font-bold">Charcoal Blackened Platter</h3>
+                                <div class="text-right">
+                                    <div class="text-amber-600 font-semibold">$14.24</div>
+                                    <div class="text-sm text-gray-500">Combo: $15.74</div>
+                                </div>
+                            </div>
+                            <p class="text-gray-600 mb-4">Smoky, charcoal-blackened meat served over rice with a side of salad and our house sauce.</p>
+                            <div class="mb-3">
+                                <p class="text-sm font-medium text-gray-700">Combo includes: 1 side + 1 drink</p>
+                            </div>
+                            <div class="mb-3">
+                                <p class="text-sm font-medium text-gray-700">Add-ons:</p>
+                                <div class="flex flex-wrap gap-2 mt-1">
+                                    <span class="text-xs bg-gray-100 text-gray-800 px-2 py-1 rounded">Cheese +$1.50</span>
+                                    <span class="text-xs bg-gray-100 text-gray-800 px-2 py-1 rounded">Mushroom +$2.75</span>
+                                    <span class="text-xs bg-gray-100 text-gray-800 px-2 py-1 rounded">Bacon +$3.29</span>
+                                    <span class="text-xs bg-gray-100 text-gray-800 px-2 py-1 rounded">Meat +$3.00</span>
+                                </div>
+                            </div>
+                            <div class="flex">
+                                <span class="dietary-icon bg-green-100 text-green-800">Halal</span>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="menu-card bg-white rounded-lg overflow-hidden shadow-md relative">
+                        <div class="image-placeholder h-48 flex items-center justify-center">
+                            <img src="./images/Platters/Beefy.jpeg" alt="Beefy Platter" class="w-full h-full object-cover">
+                        </div>
+                        <div class="combo-badge">Combo Available</div>
+                        <div class="p-6">
+                            <div class="flex justify-between items-start mb-2">
+                                <h3 class="text-xl font-bold">Beefy Platter</h3>
+                                <div class="text-right">
+                                    <div class="text-amber-600 font-semibold">$13.79</div>
+                                    <div class="text-sm text-gray-500">Combo: $15.29</div>
+                                </div>
+                            </div>
+                            <p class="text-gray-600 mb-4">Hearty portion of seasoned beef slices over a bed of fluffy rice with a fresh side salad.</p>
+                            <div class="mb-3">
+                                <p class="text-sm font-medium text-gray-700">Combo includes: 1 side + 1 drink</p>
+                            </div>
+                            <div class="mb-3">
+                                <p class="text-sm font-medium text-gray-700">Add-ons:</p>
+                                <div class="flex flex-wrap gap-2 mt-1">
+                                    <span class="text-xs bg-gray-100 text-gray-800 px-2 py-1 rounded">Cheese +$1.50</span>
+                                    <span class="text-xs bg-gray-100 text-gray-800 px-2 py-1 rounded">Mushroom +$2.75</span>
+                                    <span class="text-xs bg-gray-100 text-gray-800 px-2 py-1 rounded">Bacon +$3.29</span>
+                                    <span class="text-xs bg-gray-100 text-gray-800 px-2 py-1 rounded">Meat +$3.00</span>
+                                </div>
+                            </div>
+                            <div class="flex">
+                                <span class="dietary-icon bg-green-100 text-green-800">Halal</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="menu-card bg-white rounded-lg overflow-hidden shadow-md relative">
+                        <div class="image-placeholder h-48 flex items-center justify-center">
+                             <img src="./images/Platters/mixplatter.jpg" alt="Mix Platter" class="w-full h-full object-cover">
+                        </div>
+                        <div class="combo-badge">Combo Available</div>
+                        <div class="p-6">
+                            <div class="flex justify-between items-start mb-2">
+                                <h3 class="text-xl font-bold">Mix Platter</h3>
+                                <div class="text-right">
+                                    <div class="text-amber-600 font-semibold">$15.49</div>
+                                    <div class="text-sm text-gray-500">Combo: $16.99</div>
+                                </div>
+                            </div>
+                            <p class="text-gray-600 mb-4">The ultimate platter with a mix of our signature meats, served over rice with salad.</p>
+                            <div class="mb-3">
+                                <p class="text-sm font-medium text-gray-700">Combo includes: 1 side + 1 drink</p>
+                            </div>
+                            <div class="mb-3">
+                                <p class="text-sm font-medium text-gray-700">Add-ons:</p>
+                                <div class="flex flex-wrap gap-2 mt-1">
+                                    <span class="text-xs bg-gray-100 text-gray-800 px-2 py-1 rounded">Cheese +$1.50</span>
+                                    <span class="text-xs bg-gray-100 text-gray-800 px-2 py-1 rounded">Mushroom +$2.75</span>
+                                    <span class="text-xs bg-gray-100 text-gray-800 px-2 py-1 rounded">Bacon +$3.29</span>
+                                    <span class="text-xs bg-gray-100 text-gray-800 px-2 py-1 rounded">Meat +$3.00</span>
+                                </div>
+                            </div>
+                            <div class="flex">
+                                <span class="dietary-icon bg-green-100 text-green-800">Halal</span>
+                                <span class="dietary-icon bg-red-100 text-red-800">Signature</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="menu-card bg-white rounded-lg overflow-hidden shadow-md relative">
+                        <div class="image-placeholder h-48 flex items-center justify-center">
+                            <img src="./images/Platters/Fish_Platter.jpeg" alt="Fish_Platter" class="w-full h-full object-cover">
+                        </div>
+                        <div class="combo-badge">Combo Available</div>
+                        <div class="p-6">
+                            <div class="flex justify-between items-start mb-2">
+                                <h3 class="text-xl font-bold">Fish Platter</h3>
+                                <div class="text-right">
+                                    <div class="text-amber-600 font-semibold">$11.99</div>
+                                    <div class="text-sm text-gray-500">Combo: $13.49</div>
+                                </div>
+                            </div>
+                            <p class="text-gray-600 mb-4">Crispy fried fish served on a bed of seasoned rice with a fresh salad and tartar sauce.</p>
+                            <div class="mb-3">
+                                <p class="text-sm font-medium text-gray-700">Combo includes: 1 side + 1 drink</p>
+                            </div>
+                            <div class="mb-3">
+                                <p class="text-sm font-medium text-gray-700">Add-ons:</p>
+                                <div class="flex flex-wrap gap-2 mt-1">
+                                    <span class="text-xs bg-gray-100 text-gray-800 px-2 py-1 rounded">Cheese +$1.50</span>
+                                    <span class="text-xs bg-gray-100 text-gray-800 px-2 py-1 rounded">Mushroom +$2.75</span>
+                                    <span class="text-xs bg-gray-100 text-gray-800 px-2 py-1 rounded">Bacon +$3.29</span>
+                                    <span class="text-xs bg-gray-100 text-gray-800 px-2 py-1 rounded">Meat +$3.00</span>
+                                </div>
+                            </div>
+                            <div class="flex">
+                                <span class="dietary-icon bg-green-100 text-green-800">Halal</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="menu-card bg-white rounded-lg overflow-hidden shadow-md relative">
+                        <div class="image-placeholder h-48 flex items-center justify-center">
+                            <img src="./images/Platters/Falafel_Platter.jpeg" alt="Falafel_Platter" class="w-full h-full object-cover">
+                        </div>
+                        <div class="combo-badge">Combo Available</div>
+                        <div class="p-6">
+                            <div class="flex justify-between items-start mb-2">
+                                <h3 class="text-xl font-bold">Falafel Platter</h3>
+                                <div class="text-right">
+                                    <div class="text-amber-600 font-semibold">$11.99</div>
+                                    <div class="text-sm text-gray-500">Combo: $13.49</div>
+                                </div>
+                            </div>
+                            <p class="text-gray-600 mb-4">Golden-fried falafel served over rice with a fresh salad, pita, and tahini sauce.</p>
+                            <div class="mb-3">
+                                <p class="text-sm font-medium text-gray-700">Combo includes: 1 side + 1 drink</p>
+                            </div>
+                            <div class="mb-3">
+                                <p class="text-sm font-medium text-gray-700">Add-ons:</p>
+                                <div class="flex flex-wrap gap-2 mt-1">
+                                    <span class="text-xs bg-gray-100 text-gray-800 px-2 py-1 rounded">Cheese +$1.50</span>
+                                    <span class="text-xs bg-gray-100 text-gray-800 px-2 py-1 rounded">Mushroom +$2.75</span>
+                                    <span class="text-xs bg-gray-100 text-gray-800 px-2 py-1 rounded">Bacon +$3.29</span>
+                                    <span class="text-xs bg-gray-100 text-gray-800 px-2 py-1 rounded">Meat +$3.00</span>
+                                </div>
+                            </div>
+                            <div class="flex">
+                                <span class="dietary-icon bg-green-100 text-green-800">Halal</span>
+                                <span class="dietary-icon bg-green-100 text-green-800">Vegetarian</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- Handbreaded Chicken -->
+            <div id="hand-breaded-chicken" class="mb-16">
+    <h2 class="text-3xl font-bold mb-8 text-center">Hand-Breaded Chicken</h2>
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+
+        <div class="menu-card bg-white rounded-lg overflow-hidden shadow-md relative">
+            <div class="image-placeholder h-48 flex items-center justify-center">
+                <img src="./images/Fried_Chicken/Chicken.jpeg" alt="fried chicken" class="w-full h-full object-cover">
+            </div>
+            <div class="combo-badge">Combo Available</div>
+            <div class="p-6">
+                <div class="flex justify-between items-start mb-2">
+                    <h3 class="text-xl font-bold">2pcs Chicken</h3>
+                    <div class="text-right">
+                        <div class="text-amber-600 font-semibold">$7.49</div>
+                        <div class="text-sm text-gray-500">Combo: $10.74</div>
+                    </div>
+                </div>
+                <p class="text-gray-600 mb-4">Two pieces of our signature chicken, hand-breaded and fried to a juicy, golden-brown perfection.</p>
+                <div class="mb-3">
+                    <p class="text-sm font-medium text-gray-700">Combo includes: 1 side + 1 drink</p>
+                </div>
+                <div class="flex">
+                    <span class="dietary-icon bg-green-100 text-green-800">Halal</span>
+                </div>
+            </div>
+        </div>
+        
+        <div class="menu-card bg-white rounded-lg overflow-hidden shadow-md relative">
+            <div class="image-placeholder h-48 flex items-center justify-center">
+                <img src="./images/Fried_Chicken/Chicken.jpeg" alt="fried chicken" class="w-full h-full object-cover">
+            </div>
+            <div class="combo-badge">Combo Available</div>
+            <div class="p-6">
+                <div class="flex justify-between items-start mb-2">
+                    <h3 class="text-xl font-bold">5pcs Chicken</h3>
+                    <div class="text-right">
+                        <div class="text-amber-600 font-semibold">$11.99</div>
+                        <div class="text-sm text-gray-500">Combo: $15.24</div>
+                    </div>
+                </div>
+                <p class="text-gray-600 mb-4">Five pieces of our signature chicken, hand-breaded and fried to a juicy, golden-brown perfection.</p>
+                <div class="mb-3">
+                    <p class="text-sm font-medium text-gray-700">Combo includes: 1 side + 1 drink</p>
+                </div>
+                <div class="flex">
+                    <span class="dietary-icon bg-green-100 text-green-800">Halal</span>
+                </div>
+            </div>
+        </div>
+
+        <div class="menu-card bg-white rounded-lg overflow-hidden shadow-md relative">
+            <div class="image-placeholder h-48 flex items-center justify-center">
+                <img src="./images/Fried_Chicken/chicken_double.png" alt="fried chicken" class="w-full h-full object-cover">
+            </div>
+            <div class="combo-badge">Combo Available</div>
+            <div class="p-6">
+                <div class="flex justify-between items-start mb-2">
+                    <h3 class="text-xl font-bold">10pcs Chicken</h3>
+                    <div class="text-right">
+                        <div class="text-amber-600 font-semibold">$20.99</div>
+                        <div class="text-sm text-gray-500">Combo: $27.49</div>
+                    </div>
+                </div>
+                <p class="text-gray-600 mb-4">Ten pieces of our signature chicken, perfect for sharing with family and friends.</p>
+                <div class="mb-3">
+                    <p class="text-sm font-medium text-gray-700">Combo includes: 2 sides + 2 drinks</p>
+                </div>
+                <div class="flex">
+                    <span class="dietary-icon bg-green-100 text-green-800">Halal</span>
+                </div>
+            </div>
+        </div>
+
+        <div class="menu-card bg-white rounded-lg overflow-hidden shadow-md relative">
+            <div class="image-placeholder h-48 flex items-center justify-center">
+                <img src="./images/Fried_Chicken/chicken_double.png" alt="fried chicken" class="w-full h-full object-cover">
+            </div>
+            <div class="combo-badge">Combo Available</div>
+            <div class="p-6">
+                <div class="flex justify-between items-start mb-2">
+                    <h3 class="text-xl font-bold">15pcs Chicken</h3>
+                    <div class="text-right">
+                        <div class-="text-amber-600 font-semibold">$26.99</div>
+                        <div class="text-sm text-gray-500">Combo: $33.99</div>
+                    </div>
+                </div>
+                <p class="text-gray-600 mb-4">A family feast of fifteen pieces of our signature hand-breaded chicken.</p>
+                <div class="mb-3">
+                    <p class="text-sm font-medium text-gray-700">Combo includes: 2 sides + 2 drinks</p>
+                </div>
+                <div class="flex">
+                    <span class="dietary-icon bg-green-100 text-green-800">Halal</span>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>
+            <!-- nuggets -->
+            <div id="nuggets" class="mb-16">
+                <h2 class="text-3xl font-bold mb-8 text-center">Nuggets</h2>
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+
+                    <div class="menu-card bg-white rounded-lg overflow-hidden shadow-md relative">
+                        <div class="image-placeholder h-48 flex items-center justify-center">
+                            <img src="./images/Sides/Nuggets.jpeg" alt="Nuggets" class="w-full h-full object-cover">
+                        </div>
+                        <div class="combo-badge">Combo Available</div>
+                        <div class="p-6">
+                            <div class="flex justify-between items-start mb-2">
+                                <h3 class="text-xl font-bold">6pcs Nugget</h3>
+                                <div class="text-right">
+                                    <div class="text-amber-600 font-semibold">$8.24</div>
+                                    <div class="text-sm text-gray-500">Combo: $11.49</div>
+                                </div>
+                            </div>
+                            <p class="text-gray-600 mb-4">Six pieces of juicy, all-white meat chicken nuggets, fried to a perfect golden brown.</p>
+                            <div class="mb-3">
+                                <p class="text-sm font-medium text-gray-700">Combo includes: 1 side + 1 drink</p>
+                            </div>
+                            <div class="flex">
+                                <span class="dietary-icon bg-green-100 text-green-800">Halal</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="menu-card bg-white rounded-lg overflow-hidden shadow-md relative">
+                        <div class="image-placeholder h-48 flex items-center justify-center">
+                            <img src="./images/Sides/Nuggets.jpeg" alt="Nuggets" class="w-full h-full object-cover">
+                        </div>
+                        <div class="combo-badge">Combo Available</div>
+                        <div class="p-6">
+                            <div class="flex justify-between items-start mb-2">
+                                <h3 class="text-xl font-bold">10pcs Nugget</h3>
+                                <div class="text-right">
+                                    <div class="text-amber-600 font-semibold">$10.24</div>
+                                    <div class="text-sm text-gray-500">Combo: $13.49</div>
+                                </div>
+                            </div>
+                            <p class="text-gray-600 mb-4">A satisfying ten-piece order of our delicious and crispy chicken nuggets.</p>
+                            <div class="mb-3">
+                                <p class="text-sm font-medium text-gray-700">Combo includes: 1 side + 1 drink</p>
+                            </div>
+                            <div class="flex">
+                                <span class="dietary-icon bg-green-100 text-green-800">Halal</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="menu-card bg-white rounded-lg overflow-hidden shadow-md relative">
+                        <div class="image-placeholder h-48 flex items-center justify-center">
+                            <img src="./images/Sides/Nuggets.jpeg" alt="Nuggets" class="w-full h-full object-cover">
+                        </div>
+                        <div class="combo-badge">Combo Available</div>
+                        <div class="p-6">
+                            <div class="flex justify-between items-start mb-2">
+                                <h3 class="text-xl font-bold">15pcs Nugget</h3>
+                                <div class="text-right">
+                                    <div class="text-amber-600 font-semibold">$12.74</div>
+                                    <div class="text-sm text-gray-500">Combo: $15.99</div>
+                                </div>
+                            </div>
+                            <p class="text-gray-600 mb-4">Perfect for sharing, fifteen pieces of our crispy and tender chicken nuggets.</p>
+                            <div class="mb-3">
+                                <p class="text-sm font-medium text-gray-700">Combo includes: 1 side + 1 drink</p>
+                            </div>
+                            <div class="flex">
+                                <span class="dietary-icon bg-green-100 text-green-800">Halal</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- fish -->
+            <div id="fish" class="mb-16">
+                <h2 class="text-3xl font-bold mb-8 text-center">Fish</h2>
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+
+                    <div class="menu-card bg-white rounded-lg overflow-hidden shadow-md relative">
+                        <div class="image-placeholder h-48 flex items-center justify-center">
+                            <img src="./images/Fish/fish.jpeg" alt="fish" class="w-full h-full object-cover">
+                        </div>
+                        <div class="combo-badge">Combo Available</div>
+                        <div class="p-6">
+                            <div class="flex justify-between items-start mb-2">
+                                <h3 class="text-xl font-bold">2pcs Fish</h3>
+                                <div class="text-right">
+                                    <div class="text-amber-600 font-semibold">$6.24</div>
+                                    <div class="text-sm text-gray-500">Combo: $9.49</div>
+                                </div>
+                            </div>
+                            <p class="text-gray-600 mb-4">Two pieces of our crispy, golden-fried flaky fish. A classic favorite.</p>
+                            <div class="mb-3">
+                                <p class="text-sm font-medium text-gray-700">Combo includes: 1 side + 1 drink</p>
+                            </div>
+                            <div class="flex">
+                                <span class="dietary-icon bg-green-100 text-green-800">Halal</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="menu-card bg-white rounded-lg overflow-hidden shadow-md relative">
+                        <div class="image-placeholder h-48 flex items-center justify-center">
+                            <img src="./images/Fish/fish.jpeg" alt="fish" class="w-full h-full object-cover">
+                        </div>
+                        <div class="combo-badge">Combo Available</div>
+                        <div class="p-6">
+                            <div class="flex justify-between items-start mb-2">
+                                <h3 class="text-xl font-bold">4pcs Fish</h3>
+                                <div class="text-right">
+                                    <div class="text-amber-600 font-semibold">$9.24</div>
+                                    <div class="text-sm text-gray-500">Combo: $12.49</div>
+                                </div>
+                            </div>
+                            <p class="text-gray-600 mb-4">A satisfying meal of four pieces of our perfectly fried, flaky fish.</p>
+                            <div class="mb-3">
+                                <p class="text-sm font-medium text-gray-700">Combo includes: 1 side + 1 drink</p>
+                            </div>
+                            <div class="flex">
+                                <span class="dietary-icon bg-green-100 text-green-800">Halal</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="menu-card bg-white rounded-lg overflow-hidden shadow-md relative">
+                        <div class="image-placeholder h-48 flex items-center justify-center">
+                            <img src="./images/Fish/fish.jpeg" alt="fish" class="w-full h-full object-cover">
+                        </div>
+                        <div class="combo-badge">Combo Available</div>
+                        <div class="p-6">
+                            <div class="flex justify-between items-start mb-2">
+                                <h3 class="text-xl font-bold">6pcs Fish</h3>
+                                <div class="text-right">
+                                    <div class="text-amber-600 font-semibold">$11.74</div>
+                                    <div class="text-sm text-gray-500">Combo: $14.99</div>
+                                </div>
+                            </div>
+                            <p class="text-gray-600 mb-4">A generous portion of six crispy, golden-fried fish pieces, perfect for the hungry.</p>
+                            <div class="mb-3">
+                                <p class="text-sm font-medium text-gray-700">Combo includes: 1 side + 1 drink</p>
+                            </div>
+                            <div class="flex">
+                                <span class="dietary-icon bg-green-100 text-green-800">Halal</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- tenders -->
+            <div id="tenders" class="mb-16">
+                <h2 class="text-3xl font-bold mb-8 text-center">Tenders</h2>
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+
+                    <div class="menu-card bg-white rounded-lg overflow-hidden shadow-md relative">
+                        <div class="image-placeholder h-48 flex items-center justify-center">
+                            <img src="./images/Tenders/tenders_2.jpeg" alt="Tender" class="w-full h-full object-cover">
+                        </div>
+                        <div class="combo-badge">Combo Available</div>
+                        <div class="p-6">
+                            <div class="flex justify-between items-start mb-2">
+                                <h3 class="text-xl font-bold">2pcs Tender</h3>
+                                <div class="text-right">
+                                    <div class="text-amber-600 font-semibold">$7.49</div>
+                                    <div class="text-sm text-gray-500">Combo: $10.74</div>
+                                </div>
+                            </div>
+                            <p class="text-gray-600 mb-4">Two pieces of our juicy and crispy chicken tenders.</p>
+                            <div class="mb-3">
+                                <p class="text-sm font-medium text-gray-700">Combo includes: 1 side + 1 drink</p>
+                            </div>
+                            <div class="flex">
+                                <span class="dietary-icon bg-green-100 text-green-800">Halal</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="menu-card bg-white rounded-lg overflow-hidden shadow-md relative">
+                        <div class="image-placeholder h-48 flex items-center justify-center">
+                            <img src="./images/Tenders/tenders_2.jpeg" alt="Tender" class="w-full h-full object-cover">
+                        </div>
+                        <div class="combo-badge">Combo Available</div>
+                        <div class="p-6">
+                            <div class="flex justify-between items-start mb-2">
+                                <h3 class="text-xl font-bold">4pcs Tender</h3>
+                                <div class="text-right">
+                                    <div class="text-amber-600 font-semibold">$9.49</div>
+                                    <div class="text-sm text-gray-500">Combo: $12.74</div>
+                                </div>
+                            </div>
+                            <p class="text-gray-600 mb-4">Four pieces of our juicy and crispy chicken tenders.</p>
+                            <div class="mb-3">
+                                <p class="text-sm font-medium text-gray-700">Combo includes: 1 side + 1 drink</p>
+                            </div>
+                            <div class="flex">
+                                <span class="dietary-icon bg-green-100 text-green-800">Halal</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="menu-card bg-white rounded-lg overflow-hidden shadow-md relative">
+                        <div class="image-placeholder h-48 flex items-center justify-center">
+                            <img src="./images/Tenders/Tenders_6.jpeg" alt="Tender" class="w-full h-full object-cover">
+                        </div>
+                        <div class="combo-badge">Combo Available</div>
+                        <div class="p-6">
+                            <div class="flex justify-between items-start mb-2">
+                                <h3 class="text-xl font-bold">6pcs Tender</h3>
+                                <div class="text-right">
+                                    <div class="text-amber-600 font-semibold">$13.69</div>
+                                    <div class="text-sm text-gray-500">Combo: $16.94</div>
+                                </div>
+                            </div>
+                            <p class="text-gray-600 mb-4">A hearty meal of six juicy and crispy chicken tenders.</p>
+                            <div class="mb-3">
+                                <p class="text-sm font-medium text-gray-700">Combo includes: 1 side + 1 drink</p>
+                            </div>
+                            <div class="flex">
+                                <span class="dietary-icon bg-green-100 text-green-800">Halal</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="menu-card bg-white rounded-lg overflow-hidden shadow-md relative">
+                        <div class="image-placeholder h-48 flex items-center justify-center">
+                            <img src="./images/Tenders/Tenders_6.jpeg" alt="Tender" class="w-full h-full object-cover">
+                        </div>
+                        <div class="combo-badge">Combo Available</div>
+                        <div class="p-6">
+                            <div class="flex justify-between items-start mb-2">
+                                <h3 class="text-xl font-bold">12pcs Tender</h3>
+                                <div class="text-right">
+                                    <div class="text-amber-600 font-semibold">$24.99</div>
+                                    <div class="text-sm text-gray-500">Combo: $31.99</div>
+                                </div>
+                            </div>
+                            <p class="text-gray-600 mb-4">A family-sized portion of twelve juicy chicken tenders, perfect for sharing.</p>
+                            <div class="mb-3">
+                                <p class="text-sm font-medium text-gray-700">Combo includes: 1 side + 1 drink</p>
+                            </div>
+                            <div class="flex">
+                                <span class="dietary-icon bg-green-100 text-green-800">Halal</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- Feasto Wild Wings -->
+            <div id="wings" class="mb-16">
+    <h2 class="text-3xl font-bold mb-8 text-center">Feasto Wild Wings</h2>
+    
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+
+        <div class="menu-card bg-white rounded-lg overflow-hidden shadow-md relative">
+            <div class="image-placeholder h-48 flex items-center justify-center">
+                <img src="./images/Wild_Wings/bones.jpeg" alt="Feasto Wild Wings" class="w-full h-full object-cover">
+            </div>
+            <div class="p-6">
+                <div class="flex justify-between items-start mb-2">
+                    <h3 class="text-xl font-bold">6pcs Wings (Bone-In)</h3>
+                    <div class="text-right">
+                        <div class="text-amber-600 font-semibold">$10.99</div>
+                    </div>
+                </div>
+                <p class="text-gray-600 mb-4">Six of our traditional, bone-in chicken wings, fried crispy and tossed in your favorite sauce.</p>
+                <div class="mt-4 mb-3">
+                    <p class="text-sm font-medium text-gray-700">Flavors:</p>
+                    <p class="text-xs italic text-gray-500 mb-2">Choose 1 flavors.</p>
+                    <div class="flex flex-wrap gap-2 mt-1">
+                        <span class="text-xs bg-red-600 text-white px-2 py-1 rounded">Lemon Pepper</span>
+                        <span class="text-xs bg-red-600 text-white px-2 py-1 rounded">Honey Garlic</span>
+                        <span class="text-xs bg-red-600 text-white px-2 py-1 rounded">Spicy Buffalo</span>
+                        <span class="text-xs bg-red-600 text-white px-2 py-1 rounded">Garlic Parmesan</span>
+                        <span class="text-xs bg-red-600 text-white px-2 py-1 rounded">BBQ</span>
+                        <span class="text-xs bg-red-600 text-white px-2 py-1 rounded">Sweet Chili</span>
+                        <span class="text-xs bg-red-600 text-white px-2 py-1 rounded">Buffalo</span>
+                        <span class="text-xs bg-red-600 text-white px-2 py-1 rounded">Honey Hot</span>
+                        <span class="text-xs bg-red-600 text-white px-2 py-1 rounded">Mango Habanero</span>
+                        <span class="text-xs bg-red-600 text-white px-2 py-1 rounded">Sweet Red Chili</span>
+                    </div>
+                </div>
+                <div class="flex">
+                    <span class="dietary-icon bg-green-100 text-green-800">Halal</span>
+                </div>
+            </div>
+        </div>
+        
+        <div class="menu-card bg-white rounded-lg overflow-hidden shadow-md relative">
+            <div class="image-placeholder h-48 flex items-center justify-center">
+                <img src="./images/Wild_Wings/bones.jpeg" alt="Feasto Wild Wings" class="w-full h-full object-cover">
+            </div>
+            <div class="p-6">
+                <div class="flex justify-between items-start mb-2">
+                    <h3 class="text-xl font-bold">12pcs Wings (Bone-In)</h3>
+                    <div class="text-right">
+                        <div class="text-amber-600 font-semibold">$16.49</div>
+                    </div>
+                </div>
+                <p class="text-gray-600 mb-4">A dozen of our traditional, bone-in chicken wings, fried crispy and tossed in your favorite sauce.</p>
+                <div class="mt-4 mb-3">
+                    <p class="text-sm font-medium text-gray-700">Flavors:</p>
+                    <p class="text-xs italic text-gray-500 mb-2">Choose up to 2 flavors.</p>
+                    <div class="flex flex-wrap gap-2 mt-1">
+                        <span class="text-xs bg-red-600 text-white px-2 py-1 rounded">Lemon Pepper</span>
+                        <span class="text-xs bg-red-600 text-white px-2 py-1 rounded">Honey Garlic</span>
+                        <span class="text-xs bg-red-600 text-white px-2 py-1 rounded">Spicy Buffalo</span>
+                        <span class="text-xs bg-red-600 text-white px-2 py-1 rounded">Garlic Parmesan</span>
+                        <span class="text-xs bg-red-600 text-white px-2 py-1 rounded">BBQ</span>
+                        <span class="text-xs bg-red-600 text-white px-2 py-1 rounded">Sweet Chili</span>
+                        <span class="text-xs bg-red-600 text-white px-2 py-1 rounded">Buffalo</span>
+                        <span class="text-xs bg-red-600 text-white px-2 py-1 rounded">Honey Hot</span>
+                        <span class="text-xs bg-red-600 text-white px-2 py-1 rounded">Mango Habanero</span>
+                        <span class="text-xs bg-red-600 text-white px-2 py-1 rounded">Sweet Red Chili</span>
+                    </div>
+                </div>
+                <div class="flex">
+                    <span class="dietary-icon bg-green-100 text-green-800">Halal</span>
+                </div>
+            </div>
+        </div>
+
+        <div class="menu-card bg-white rounded-lg overflow-hidden shadow-md relative">
+            <div class="image-placeholder h-48 flex items-center justify-center">
+                <img src="./images/Wild_Wings/bones.jpeg" alt="Feasto Wild Wings" class="w-full h-full object-cover">
+            </div>
+            <div class="p-6">
+                <div class="flex justify-between items-start mb-2">
+                    <h3 class="text-xl font-bold">24pcs Wings (Bone-In)</h3>
+                    <div class="text-right">
+                        <div class="text-amber-600 font-semibold">$30.49</div>
+                    </div>
+                </div>
+                <p class="text-gray-600 mb-4">Perfect for game day, twenty-four traditional bone-in wings tossed in your favorite sauce.</p>
+                <div class="mt-4 mb-3">
+                    <p class="text-sm font-medium text-gray-700">Flavors:</p>
+                    <p class="text-xs italic text-gray-500 mb-2">Choose up to 3 flavors.</p>
+                    <div class="flex flex-wrap gap-2 mt-1">
+                        <span class="text-xs bg-red-600 text-white px-2 py-1 rounded">Lemon Pepper</span>
+                        <span class="text-xs bg-red-600 text-white px-2 py-1 rounded">Honey Garlic</span>
+                        <span class="text-xs bg-red-600 text-white px-2 py-1 rounded">Spicy Buffalo</span>
+                        <span class="text-xs bg-red-600 text-white px-2 py-1 rounded">Garlic Parmesan</span>
+                        <span class="text-xs bg-red-600 text-white px-2 py-1 rounded">BBQ</span>
+                        <span class="text-xs bg-red-600 text-white px-2 py-1 rounded">Sweet Chili</span>
+                        <span class="text-xs bg-red-600 text-white px-2 py-1 rounded">Buffalo</span>
+                        <span class="text-xs bg-red-600 text-white px-2 py-1 rounded">Honey Hot</span>
+                        <span class="text-xs bg-red-600 text-white px-2 py-1 rounded">Mango Habanero</span>
+                        <span class="text-xs bg-red-600 text-white px-2 py-1 rounded">Sweet Red Chili</span>
+                    </div>
+                </div>
+                <div class="flex">
+                    <span class="dietary-icon bg-green-100 text-green-800">Halal</span>
+                </div>
+            </div>
+        </div>
+
+        <div class="menu-card bg-white rounded-lg overflow-hidden shadow-md relative">
+            <div class="image-placeholder h-48 flex items-center justify-center">
+                <span class="text-gray-500">Image Coming Soon</span>
+            </div>
+            <div class="p-6">
+                <div class="flex justify-between items-start mb-2">
+                    <h3 class="text-xl font-bold">10pcs Wings (Boneless)</h3>
+                    <div class="text-right">
+                        <div class="text-amber-600 font-semibold">$10.99</div>
+                    </div>
+                </div>
+                <p class="text-gray-600 mb-4">Ten tender, all-white meat boneless wings, fried crispy and tossed in your favorite sauce.</p>
+                 <div class="mt-4 mb-3">
+                    <p class="text-sm font-medium text-gray-700">Flavors:</p>
+                    <p class="text-xs italic text-gray-500 mb-2">Choose 1 flavors.</p>
+                    <div class="flex flex-wrap gap-2 mt-1">
+                        <span class="text-xs bg-red-600 text-white px-2 py-1 rounded">Lemon Pepper</span>
+                        <span class="text-xs bg-red-600 text-white px-2 py-1 rounded">Honey Garlic</span>
+                        <span class="text-xs bg-red-600 text-white px-2 py-1 rounded">Spicy Buffalo</span>
+                        <span class="text-xs bg-red-600 text-white px-2 py-1 rounded">Garlic Parmesan</span>
+                        <span class="text-xs bg-red-600 text-white px-2 py-1 rounded">BBQ</span>
+                        <span class="text-xs bg-red-600 text-white px-2 py-1 rounded">Sweet Chili</span>
+                        <span class="text-xs bg-red-600 text-white px-2 py-1 rounded">Buffalo</span>
+                        <span class="text-xs bg-red-600 text-white px-2 py-1 rounded">Honey Hot</span>
+                        <span class="text-xs bg-red-600 text-white px-2 py-1 rounded">Mango Habanero</span>
+                        <span class="text-xs bg-red-600 text-white px-2 py-1 rounded">Sweet Red Chili</span>
+                    </div>
+                </div>
+                <div class="flex">
+                    <span class="dietary-icon bg-green-100 text-green-800">Halal</span>
+                </div>
+            </div>
+        </div>
+
+        <div class="menu-card bg-white rounded-lg overflow-hidden shadow-md relative">
+            <div class="image-placeholder h-48 flex items-center justify-center">
+                <span class="text-gray-500">Image Coming Soon</span>
+            </div>
+            <div class="p-6">
+                <div class="flex justify-between items-start mb-2">
+                    <h3 class="text-xl font-bold">15pcs Wings (Boneless)</h3>
+                    <div class="text-right">
+                        <div class="text-amber-600 font-semibold">$16.49</div>
+                    </div>
+                </div>
+                <p class="text-gray-600 mb-4">Fifteen tender, all-white meat boneless wings, fried crispy and tossed in your favorite sauce.</p>
+                 <div class="mt-4 mb-3">
+                    <p class="text-sm font-medium text-gray-700">Flavors:</p>
+                    <p class="text-xs italic text-gray-500 mb-2">Choose up to 2 flavors.</p>
+                    <div class="flex flex-wrap gap-2 mt-1">
+                        <span class="text-xs bg-red-600 text-white px-2 py-1 rounded">Lemon Pepper</span>
+                        <span class="text-xs bg-red-600 text-white px-2 py-1 rounded">Honey Garlic</span>
+                        <span class="text-xs bg-red-600 text-white px-2 py-1 rounded">Spicy Buffalo</span>
+                        <span class="text-xs bg-red-600 text-white px-2 py-1 rounded">Garlic Parmesan</span>
+                        <span class="text-xs bg-red-600 text-white px-2 py-1 rounded">BBQ</span>
+                        <span class="text-xs bg-red-600 text-white px-2 py-1 rounded">Sweet Chili</span>
+                        <span class="text-xs bg-red-600 text-white px-2 py-1 rounded">Buffalo</span>
+                        <span class="text-xs bg-red-600 text-white px-2 py-1 rounded">Honey Hot</span>
+                        <span class="text-xs bg-red-600 text-white px-2 py-1 rounded">Mango Habanero</span>
+                        <span class="text-xs bg-red-600 text-white px-2 py-1 rounded">Sweet Red Chili</span>
+                    </div>
+                </div>
+                <div class="flex">
+                    <span class="dietary-icon bg-green-100 text-green-800">Halal</span>
+                </div>
+            </div>
+        </div>
+
+        <div class="menu-card bg-white rounded-lg overflow-hidden shadow-md relative">
+            <div class="image-placeholder h-48 flex items-center justify-center">
+                <span class="text-gray-500">Image Coming Soon</span>
+            </div>
+            <div class="p-6">
+                <div class="flex justify-between items-start mb-2">
+                    <h3 class="text-xl font-bold">24pcs Wings (Boneless)</h3>
+                    <div class="text-right">
+                        <div class="text-amber-600 font-semibold">$30.49</div>
+                    </div>
+                </div>
+                <p class="text-gray-600 mb-4">A shareable portion of twenty-four boneless wings tossed in your favorite sauce.</p>
+                 <div class="mt-4 mb-3">
+                    <p class="text-sm font-medium text-gray-700">Flavors:</p>
+                    <p class="text-xs italic text-gray-500 mb-2">Choose up to 3 flavors.</p>
+                    <div class="flex flex-wrap gap-2 mt-1">
+                        <span class="text-xs bg-red-600 text-white px-2 py-1 rounded">Lemon Pepper</span>
+                        <span class="text-xs bg-red-600 text-white px-2 py-1 rounded">Honey Garlic</span>
+                        <span class="text-xs bg-red-600 text-white px-2 py-1 rounded">Spicy Buffalo</span>
+                        <span class="text-xs bg-red-600 text-white px-2 py-1 rounded">Garlic Parmesan</span>
+                        <span class="text-xs bg-red-600 text-white px-2 py-1 rounded">BBQ</span>
+                        <span class="text-xs bg-red-600 text-white px-2 py-1 rounded">Sweet Chili</span>
+                        <span class="text-xs bg-red-600 text-white px-2 py-1 rounded">Buffalo</span>
+                        <span class="text-xs bg-red-600 text-white px-2 py-1 rounded">Honey Hot</span>
+                        <span class="text-xs bg-red-600 text-white px-2 py-1 rounded">Mango Habanero</span>
+                        <span class="text-xs bg-red-600 text-white px-2 py-1 rounded">Sweet Red Chili</span>
+                    </div>
+                </div>
+                <div class="flex">
+                    <span class="dietary-icon bg-green-100 text-green-800">Halal</span>
+                </div>
+
+            </div>
+        </div>
+
+    </div>
+</div>
+            <!-- Cheesesteaks -->
+            <div id="cheesesteaks" class="mb-16">
+                <h2 class="text-3xl font-bold mb-8 text-center">Cheesesteaks</h2>
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                    <!-- Cheesesteak Item 1 -->
+                    <div class="menu-card bg-white rounded-lg overflow-hidden shadow-md relative">
+                        <div class="image-placeholder h-48 flex items-center justify-center">
+                            <img src="./images/Cheesesteak/Philly.jpeg" alt="Philly" class="w-full h-full object-cover">
+                        </div>
+                        <div class="combo-badge">Combo Available</div>
+                        <div class="p-6">
+                            <div class="flex justify-between items-start mb-2">
+                                <h3 class="text-xl font-bold">Philly Cheesesteak</h3>
+                                <div class="text-right">
+                                    <div class="text-amber-600 font-semibold">$10.99</div>
+                                    <div class="text-sm text-gray-500">Combo: $14.24</div>
+                                </div>
+                            </div>
+                            <p class="text-gray-600 mb-4">Authentic Philly-style steak with mozzarella and nacho cheese, sautéed onions, green peppers, mayo, ketchup, and butter on a sub roll.</p>
+                            <div class="mb-3">
+                                <p class="text-sm font-medium text-gray-700">Combo includes: 1 side + 1 drink</p>
+                            </div>
+                            <div class="mb-3">
+                                <p class="text-sm font-medium text-gray-700">Add-ons:</p>
+                                <div class="flex flex-wrap gap-2 mt-1">
+                                    <span class="text-xs bg-gray-100 text-gray-800 px-2 py-1 rounded">Cheese +$1.50</span>
+                                    <span class="text-xs bg-gray-100 text-gray-800 px-2 py-1 rounded">Mushroom +$2.75</span>
+                                    <span class="text-xs bg-gray-100 text-gray-800 px-2 py-1 rounded">Bacon +$3.29</span>
+                                    <span class="text-xs bg-gray-100 text-gray-800 px-2 py-1 rounded">Meat +$3.00</span>
+                                </div>
+                            </div>
+                            <div class="flex">
+                                <span class="dietary-icon bg-green-100 text-green-800">Halal</span>
+                                <span class="dietary-icon bg-red-100 text-red-800">Signature</span>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Cheesesteak Item 2 -->
+                    <div class="menu-card bg-white rounded-lg overflow-hidden shadow-md relative">
+                        <div class="image-placeholder h-48 flex items-center justify-center">
+                            <img src="./images/Cheesesteak/Chicken.jpeg" alt="Chicken" class="w-full h-full object-cover">
+                        </div>
+                        <div class="combo-badge">Combo Available</div>
+                        <div class="p-6">
+                            <div class="flex justify-between items-start mb-2">
+                                <h3 class="text-xl font-bold">Chicken Chop Cheesesteak</h3>
+                                <div class="text-right">
+                                    <div class="text-amber-600 font-semibold">$10.79</div>
+                                    <div class="text-sm text-gray-500">Combo: $14.04</div>
+                                </div>
+                            </div>
+                            <p class="text-gray-600 mb-4">Seasoned red chicken with mozzarella and nacho cheese, chopped onions, green peppers, mayo, ketchup, and butter on a sub roll.</p>
+                            <div class="mb-3">
+                                <p class="text-sm font-medium text-gray-700">Combo includes: 1 side + 1 drink</p>
+                            </div>
+                            <div class="mb-3">
+                                <p class="text-sm font-medium text-gray-700">Add-ons:</p>
+                                <div class="flex flex-wrap gap-2 mt-1">
+                                    <span class="text-xs bg-gray-100 text-gray-800 px-2 py-1 rounded">Cheese +$1.50</span>
+                                    <span class="text-xs bg-gray-100 text-gray-800 px-2 py-1 rounded">Mushroom +$2.75</span>
+                                    <span class="text-xs bg-gray-100 text-gray-800 px-2 py-1 rounded">Bacon +$3.29</span>
+                                    <span class="text-xs bg-gray-100 text-gray-800 px-2 py-1 rounded">Meat +$3.00</span>
+                                </div>
+                            </div>
+                            <div class="flex">
+                                <span class="dietary-icon bg-green-100 text-green-800">Halal</span>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Cheesesteak Item 3 -->
+                    <div class="menu-card bg-white rounded-lg overflow-hidden shadow-md relative">
+                        <div class="image-placeholder h-48 flex items-center justify-center">
+                            <img src="./images/Cheesesteak/Grill_Chicken.jpeg" alt="Grill_Chicken" class="w-full h-full object-cover">
+                        </div>
+                        <div class="combo-badge">Combo Available</div>
+                        <div class="p-6">
+                            <div class="flex justify-between items-start mb-2">
+                                <h3 class="text-xl font-bold">Grilled Chicken-Chop Cheesesteak</h3>
+                                <div class="text-right">
+                                    <div class="text-amber-600 font-semibold">$11.69</div>
+                                    <div class="text-sm text-gray-500">Combo: $14.94</div>
+                                </div>
+                            </div>
+                            <p class="text-gray-600 mb-4">Flame-grilled chicken pieces with lettuce, onions, green peppers, nacho and mozzarella cheese, mayo, ketchup, and butter on a sub roll.</p>
+                            <div class="mb-3">
+                                <p class="text-sm font-medium text-gray-700">Combo includes: 1 side + 1 drink</p>
+                            </div>
+                            <div class="mb-3">
+                                <p class="text-sm font-medium text-gray-700">Add-ons:</p>
+                                <div class="flex flex-wrap gap-2 mt-1">
+                                    <span class="text-xs bg-gray-100 text-gray-800 px-2 py-1 rounded">Cheese +$1.50</span>
+                                    <span class="text-xs bg-gray-100 text-gray-800 px-2 py-1 rounded">Mushroom +$2.75</span>
+                                    <span class="text-xs bg-gray-100 text-gray-800 px-2 py-1 rounded">Bacon +$3.29</span>
+                                    <span class="text-xs bg-gray-100 text-gray-800 px-2 py-1 rounded">Meat +$3.00</span>
+                                </div>
+                            </div>
+                            <div class="flex">
+                                <span class="dietary-icon bg-green-100 text-green-800">Halal</span>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Cheesesteak Item 4 -->
+                    <div class="menu-card bg-white rounded-lg overflow-hidden shadow-md relative">
+                        <div class="image-placeholder h-48 flex items-center justify-center">
+                            <img src="./images/Cheesesteak/beefy.jpeg" alt="beef" class="w-full h-full object-cover">
+                        </div>
+                        <div class="combo-badge">Combo Available</div>
+                        <div class="p-6">
+                            <div class="flex justify-between items-start mb-2">
+                                <h3 class="text-xl font-bold">Beef Chop Cheesesteak</h3>
+                                <div class="text-right">
+                                    <div class="text-amber-600 font-semibold">$11.96</div>
+                                    <div class="text-sm text-gray-500">Combo: $14.94</div>
+                                </div>
+                            </div>
+                            <p class="text-gray-600 mb-4">Seasoned  ground beef with chopped onions, green peppers, mozzarella and nacho cheese, mayo, ketchup, and butter on a sub roll.</p>
+                            <div class="mb-3">
+                                <p class="text-sm font-medium text-gray-700">Combo includes: 1 side + 1 drink</p>
+                            </div>
+                            <div class="mb-3">
+                                <p class="text-sm font-medium text-gray-700">Add-ons:</p>
+                                <div class="flex flex-wrap gap-2 mt-1">
+                                    <span class="text-xs bg-gray-100 text-gray-800 px-2 py-1 rounded">Cheese +$1.50</span>
+                                    <span class="text-xs bg-gray-100 text-gray-800 px-2 py-1 rounded">Mushroom +$2.75</span>
+                                    <span class="text-xs bg-gray-100 text-gray-800 px-2 py-1 rounded">Bacon +$3.29</span>
+                                    <span class="text-xs bg-gray-100 text-gray-800 px-2 py-1 rounded">Meat +$3.00</span>
+                                </div>
+                            </div>
+                            <div class="flex">
+                                <span class="dietary-icon bg-green-100 text-green-800">Halal</span>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Cheesesteak Item 5 -->
+                    <div class="menu-card bg-white rounded-lg overflow-hidden shadow-md relative">
+                        <div class="image-placeholder h-48 flex items-center justify-center">
+                            <img src="./images/Cheesesteak/Charcoal.jpeg" alt="Charcoal" class="w-full h-full object-cover">
+                        </div>
+                        <div class="combo-badge">Combo Available</div>
+                        <div class="p-6">
+                            <div class="flex justify-between items-start mb-2">
+                                <h3 class="text-xl font-bold">Charcoal Blackened Chop Cheesesteak</h3>
+                                <div class="text-right">
+                                    <div class="text-amber-600 font-semibold">$12.99</div>
+                                    <div class="text-sm text-gray-500">Combo: $16.24</div>
+                                </div>
+                            </div>
+                            <p class="text-gray-600 mb-4">Charcoal-grilled meat with caramelized onions, jalapeños, Swiss cheese, spicy fries, joke sauce, and butter wrapped in foil.</p>
+                            <div class="mb-3">
+                                <p class="text-sm font-medium text-gray-700">Combo includes: 1 side + 1 drink</p>
+                            </div>
+                            <div class="mb-3">
+                                <p class="text-sm font-medium text-gray-700">Add-ons:</p>
+                                <div class="flex flex-wrap gap-2 mt-1">
+                                    <span class="text-xs bg-gray-100 text-gray-800 px-2 py-1 rounded">Cheese +$1.50</span>
+                                    <span class="text-xs bg-gray-100 text-gray-800 px-2 py-1 rounded">Mushroom +$2.75</span>
+                                    <span class="text-xs bg-gray-100 text-gray-800 px-2 py-1 rounded">Bacon +$3.29</span>
+                                    <span class="text-xs bg-gray-100 text-gray-800 px-2 py-1 rounded">Meat +$3.00</span>
+                                </div>
+                            </div>
+                            <div class="flex">
+                                <span class="dietary-icon bg-green-100 text-green-800">Halal</span>
+                                <span class="dietary-icon bg-red-100 text-red-800">Signature</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- salads -->
+            <div id="salads" class="mb-16">
+                <h2 class="text-3xl font-bold mb-8 text-center">Salads</h2>
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+
+                    <div class="menu-card bg-white rounded-lg overflow-hidden shadow-md relative">
+                        <div class="image-placeholder h-48 flex items-center justify-center">
+                            <img src="./images/Salads/veg_salad.jpg" alt="Plain Salad" class="w-full h-full object-cover">
+                        </div>
+                        <div class="p-6">
+                            <div class="flex justify-between items-start mb-2">
+                                <h3 class="text-xl font-bold">Plain Salad</h3>
+                                <div class="text-right">
+                                    <div class="text-amber-600 font-semibold">$8.99</div>
+                                </div>
+                            </div>
+                            <p class="text-gray-600 mb-4">A mix of fresh, crisp greens, tomatoes, cucumbers, and onions with your choice of dressing.</p>
+                            <div class="flex">
+                                <span class="dietary-icon bg-green-100 text-green-800">Vegetarian</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="menu-card bg-white rounded-lg overflow-hidden shadow-md relative">
+                        <div class="image-placeholder h-48 flex items-center justify-center">
+                            <img src="./images/Salads/salad_1.jpg" alt="Salad with Chicken" class="w-full h-full object-cover">
+                        </div>
+                        <div class="p-6">
+                            <div class="flex justify-between items-start mb-2">
+                                <h3 class="text-xl font-bold">Salad with Chicken</h3>
+                                <div class="text-right">
+                                    <div class="text-amber-600 font-semibold">$10.99</div>
+                                </div>
+                            </div>
+                            <p class="text-gray-600 mb-4">Our fresh garden salad topped with your choice of tender grilled or crispy fried chicken.</p>
+                            <div class="flex">
+                                <span class="dietary-icon bg-green-100 text-green-800">Halal</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="menu-card bg-white rounded-lg overflow-hidden shadow-md relative">
+                        <div class="image-placeholder h-48 flex items-center justify-center">
+                            <img src="./images/Salads/salad_2.jpg" alt="Salad with Lamb" class="w-full h-full object-cover">
+                        </div>
+                        <div class="p-6">
+                            <div class="flex justify-between items-start mb-2">
+                                <h3 class="text-xl font-bold">Salad with Lamb</h3>
+                                <div class="text-right">
+                                    <div class="text-amber-600 font-semibold">$12.99</div>
+                                </div>
+                            </div>
+                            <p class="text-gray-600 mb-4">Our fresh garden salad topped with flavorful slices of lamb gyro meat.</p>
+                            <div class="flex">
+                                <span class="dietary-icon bg-green-100 text-green-800">Halal</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Sides -->
+            <div id="sides" class="mb-16">
+                <h2 class="text-3xl font-bold mb-8 text-center">Sides</h2>
+                <div id="sides-grid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+
+                    <div class="menu-card bg-white rounded-lg overflow-hidden shadow-md relative">
+                        <div class="image-placeholder h-48 flex items-center justify-center">
+                            <img src="./images/Sides/Small_Fries.jpeg" alt="Small_Fries" class="w-full h-full object-cover">
+                        </div>
+                        <div class="p-6">
+                            <div class="flex justify-between items-start mb-2">
+                                <h3 class="text-xl font-bold">Small Fries</h3>
+                                <div class="text-right">
+                                    <div class="text-amber-600 font-semibold">$5.09</div>
+                                </div>
+                            </div>
+                            <p class="text-gray-600 mb-4">Golden crispy fries seasoned to perfection.</p>
+                            <div class="flex">
+                                <span class="dietary-icon bg-green-100 text-green-800">Vegetarian</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="menu-card bg-white rounded-lg overflow-hidden shadow-md relative">
+                        <div class="image-placeholder h-48 flex items-center justify-center">
+                            <img src="./images/Sides/Small_Fries.jpeg" alt="Large_Fries" class="w-full h-full object-cover">
+                        </div>
+                        <div class="p-6">
+                            <div class="flex justify-between items-start mb-2">
+                                <h3 class="text-xl font-bold">Large Fries</h3>
+                                <div class="text-right">
+                                    <div class="text-amber-600 font-semibold">$7.24</div>
+                                </div>
+                            </div>
+                            <p class="text-gray-600 mb-4">A large portion of our golden crispy fries, seasoned to perfection.</p>
+                            <div class="flex">
+                                <span class="dietary-icon bg-green-100 text-green-800">Vegetarian</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="menu-card bg-white rounded-lg overflow-hidden shadow-md relative">
+                        <div class="image-placeholder h-48 flex items-center justify-center">
+                            <img src="./images/Sides/mash_potatoes.JPG" alt="mash_potatoes" class="w-full h-full object-cover">
+                        </div>
+                        <div class="p-6">
+                            <div class="flex justify-between items-start mb-2">
+                                <h3 class="text-xl font-bold">Mashed Potatoes</h3>
+                                <div class="text-right">
+                                    <div class="text-amber-600 font-semibold">$5.09</div>
+                                </div>
+                            </div>
+                            <p class="text-gray-600 mb-4">Creamy mashed potatoes with a savory gravy on the side.</p>
+                            <div class="flex">
+                                <span class="dietary-icon bg-green-100 text-green-800">Vegetarian</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="menu-card bg-white rounded-lg overflow-hidden shadow-md relative">
+                        <div class="image-placeholder h-48 flex items-center justify-center">
+                            <img src="./images/Sides/mac_cheese.jpeg" alt="mac_cheese" class="w-full h-full object-cover">
+                        </div>
+                        <div class="p-6">
+                            <div class="flex justify-between items-start mb-2">
+                                <h3 class="text-xl font-bold">Mac and Cheese</h3>
+                                <div class="text-right">
+                                    <div class="text-amber-600 font-semibold">$5.09</div>
+                                </div>
+                            </div>
+                            <p class="text-gray-600 mb-4">Creamy macaroni and cheese with a delicious baked top.</p>
+                            <div class="flex">
+                                <span class="dietary-icon bg-green-100 text-green-800">Vegetarian</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="menu-card bg-white rounded-lg overflow-hidden shadow-md relative">
+                        <div class="image-placeholder h-48 flex items-center justify-center">
+                            <img src="./images/Sides/Morzella_Sticks.jpeg" alt="Morzella_Sticks" class="w-full h-full object-cover">
+                        </div>
+                        <div class="p-6">
+                            <div class="flex justify-between items-start mb-2">
+                                <h3 class="text-xl font-bold">Mozzarella Sticks</h3>
+                                <div class="text-right">
+                                    <div class="text-amber-600 font-semibold">$7.24</div>
+                                </div>
+                            </div>
+                            <p class="text-gray-600 mb-4">Golden-fried mozzarella sticks served with a side of marinara sauce.</p>
+                            <div class="flex">
+                                <span class="dietary-icon bg-green-100 text-green-800">Vegetarian</span>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="menu-card bg-white rounded-lg overflow-hidden shadow-md relative">
+                        <div class="image-placeholder h-48 flex items-center justify-center">
+                            <img src="./images/Sides/corn.JPG" alt="corn" class="w-full h-full object-cover">
+                        </div>
+                        <div class="p-6">
+                            <div class="flex justify-between items-start mb-2">
+                                <h3 class="text-xl font-bold">Corn on the Cob</h3>
+                                <div class="text-right">
+                                    <div class="text-amber-600 font-semibold">$5.09</div>
+                                </div>
+                            </div>
+                            <p class="text-gray-600 mb-4">Sweet corn brushed with butter and light seasoning.</p>
+                            <div class="flex">
+                                <span class="dietary-icon bg-green-100 text-green-800">Vegetarian</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="menu-card bg-white rounded-lg overflow-hidden shadow-md relative">
+                        <div class="image-placeholder h-48 flex items-center justify-center">
+                            <img src="./images/Sides/Onion_Rings.jpeg" alt="Onion_Rings" class="w-full h-full object-cover">
+                        </div>
+                        <div class="p-6">
+                            <div class="flex justify-between items-start mb-2">
+                                <h3 class="text-xl font-bold">Onion Rings</h3>
+                                <div class="text-right">
+                                    <div class="text-amber-600 font-semibold">$6.74</div>
+                                </div>
+                            </div>
+                            <p class="text-gray-600 mb-4">Thick-cut onion rings battered and fried to a crisp golden brown.</p>
+                            <div class="flex">
+                                <span class="dietary-icon bg-green-100 text-green-800">Vegetarian</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="menu-card bg-white rounded-lg overflow-hidden shadow-md relative">
+                        <div class="image-placeholder h-48 flex items-center justify-center">
+                            <img src="./images/Sides/Popcorn_Chicken.jpeg" alt="Popcorn_Chicken" class="w-full h-full object-cover">
+                        </div>
+                        <div class="p-6">
+                            <div class="flex justify-between items-start mb-2">
+                                <h3 class="text-xl font-bold">Popcorn Chicken</h3>
+                                <div class="text-right">
+                                    <div class="text-amber-600 font-semibold">$8.24</div>
+                                </div>
+                            </div>
+                            <p class="text-gray-600 mb-4">Golden-fried chicken nuggets seasoned with garlic powder and spices, served in a convenient box.</p>
+                            <div class="flex">
+                                <span class="dietary-icon bg-green-100 text-green-800">Halal</span>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="menu-card bg-white rounded-lg overflow-hidden shadow-md relative">
+                        <div class="image-placeholder h-48 flex items-center justify-center">
+                            <img src="./images/Sides/Shrimp.jpeg" alt="Shrimp" class="w-full h-full object-cover">
+                        </div>
+                        <div class="p-6">
+                            <div class="flex justify-between items-start mb-2">
+                                <h3 class="text-xl font-bold">Shrimp Basket</h3>
+                                <div class="text-right">
+                                    <div class="text-amber-600 font-semibold">$8.24</div>
+                                </div>
+                            </div>
+                            <p class="text-gray-600 mb-4">A basket of crispy fried shrimp served with your choice of dipping sauce.</p>
+                            <div class="flex">
+                                <span class="dietary-icon bg-green-100 text-green-800">Halal</span>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="menu-card bg-white rounded-lg overflow-hidden shadow-md relative">
+                        <div class="image-placeholder h-48 flex items-center justify-center">
+                            <img src="./images/Sides/Chicken_Loaded_Fries.jpeg" alt="Chicken_Loaded_Fries" class="w-full h-full object-cover">
+                        </div>
+                        <div class="p-6">
+                            <div class="flex justify-between items-start mb-2">
+                                <h3 class="text-xl font-bold">Loaded Fries - Chicken</h3>
+                                <div class="text-right">
+                                    <div class="text-amber-600 font-semibold">$6.49</div>
+                                </div>
+                            </div>
+                            <p class="text-gray-600 mb-4">Crispy seasoned fries topped with marinated chicken, nacho cheese, cheddar cheese, chopped onions, and blink sauce.</p>
+                            <div class="flex">
+                                <span class="dietary-icon bg-green-100 text-green-800">Halal</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="menu-card bg-white rounded-lg overflow-hidden shadow-md relative">
+                        <div class="image-placeholder h-48 flex items-center justify-center">
+                            <span class="text-gray-500">Image Coming Soon</span>
+                        </div>
+                        <div class="p-6">
+                            <div class="flex justify-between items-start mb-2">
+                                <h3 class="text-xl font-bold">Loaded Fries - Beef</h3>
+                                <div class="text-right">
+                                    <div class="text-amber-600 font-semibold">$6.99</div>
+                                </div>
+                            </div>
+                            <p class="text-gray-600 mb-4">Golden fries loaded with seasoned beef meatball, nacho cheese, cheddar cheese, chopped onions, and blink sauce.</p>
+                            <div class="flex">
+                                <span class="dietary-icon bg-green-100 text-green-800">Halal</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="menu-card bg-white rounded-lg overflow-hidden shadow-md relative">
+                        <div class="image-placeholder h-48 flex items-center justify-center">
+                            <span class="text-gray-500">Image Coming Soon</span>
+                        </div>
+                        <div class="p-6">
+                            <div class="flex justify-between items-start mb-2">
+                                <h3 class="text-xl font-bold">Loaded Fries - Jerk</h3>
+                                <div class="text-right">
+                                    <div class="text-amber-600 font-semibold">$7.49</div>
+                                </div>
+                            </div>
+                            <p class="text-gray-600 mb-4">Seasoned fries topped with spicy jerk chicken, nacho cheese, cheddar cheese, chopped onions, and blink sauce.</p>
+                            <div class="flex">
+                                <span class="dietary-icon bg-green-100 text-green-800">Halal</span>
+                                <span class="dietary-icon bg-orange-100 text-orange-800">Spicy</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="menu-card bg-white rounded-lg overflow-hidden shadow-md relative">
+                        <div class="image-placeholder h-48 flex items-center justify-center">
+                            <span class="text-gray-500">Image Coming Soon</span>
+                        </div>
+                        <div class="p-6">
+                            <div class="flex justify-between items-start mb-2">
+                                <h3 class="text-xl font-bold">Loaded Fries - Falafel</h3>
+                                <div class="text-right">
+                                    <div class="text-amber-600 font-semibold">$5.75</div>
+                                </div>
+                            </div>
+                            <p class="text-gray-600 mb-4">Our crispy fries loaded with crumbled falafel and drizzled with tahini.</p>
+                            <div class="flex">
+                                <span class="dietary-icon bg-green-100 text-green-800">Vegetarian</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- Desserts -->
+            <div id="desserts" class="mb-16">
+    <h2 class="text-3xl font-bold mb-8 text-center">Desserts</h2>
+    <!-- I'm adding the 'grid-center-last-row' class here to apply our centering logic -->
+    <div id="desserts-grid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 grid-center-last-row">
+
+        <!-- Dessert Item 1 -->
+        <div class="menu-card bg-white rounded-lg overflow-hidden shadow-md relative">
+            <div class="image-placeholder h-48 flex items-center justify-center">
+                <img src="./images/Desserts/baklava.jpg" alt="Baklava" class="w-full h-full object-cover">
+            </div>
+            <div class="p-6">
+                <div class="flex justify-between items-start mb-2">
+                    <h3 class="text-xl font-bold">Baklava</h3>
+                    <div class="text-right">
+                        <div class="text-amber-600 font-semibold">$5.09</div>
+                    </div>
+                </div>
+                <p class="text-gray-600 mb-4">Rich, sweet pastry made of layers of filo filled with chopped nuts and sweetened with syrup.</p>
+                <!-- <div class="flex">
+                    <span class="dietary-icon bg-green-100 text-green-800">Vegetarian</span>
+                </div> -->
+            </div>
+        </div>
+
+        <!-- Dessert Item 2 -->
+        <div class="menu-card bg-white rounded-lg overflow-hidden shadow-md relative">
+            <div class="image-placeholder h-48 flex items-center justify-center">
+                <img src="./images/Desserts/Brownies.jpeg" alt="Brownies" class="w-full h-full object-cover">
+            </div>
+            <div class="p-6">
+                <div class="flex justify-between items-start mb-2">
+                    <h3 class="text-xl font-bold">Brownies</h3>
+                    <div class="text-right">
+                        <div class="text-amber-600 font-semibold">$5.09</div>
+                    </div>
+                </div>
+                <p class="text-gray-600 mb-4">A fudgy, chewy chocolate brownie, rich and decadent in every bite.</p>
+                <!-- <div class="flex">
+                    <span class="dietary-icon bg-green-100 text-green-800">Vegetarian</span>
+                </div> -->
+            </div>
+        </div>
+
+        <!-- Dessert Item 3 -->
+        <div class="menu-card bg-white rounded-lg overflow-hidden shadow-md relative">
+            <div class="image-placeholder h-48 flex items-center justify-center">
+                <img src="./images/Desserts/pudding.JPG" alt="pudding" class="w-full h-full object-cover">
+            </div>
+            <div class="p-6">
+                <div class="flex justify-between items-start mb-2">
+                    <h3 class="text-xl font-bold">Banana Pudding</h3>
+                    <div class="text-right">
+                        <div class="text-amber-600 font-semibold">$5.09</div>
+                    </div>
+                </div>
+                <p class="text-gray-600 mb-4">Creamy, classic southern-style banana pudding with vanilla wafers and fresh banana slices.</p>
+                <!-- <div class="flex">
+                    <span class="dietary-icon bg-green-100 text-green-800">Vegetarian</span>
+                </div> -->
+            </div>
+        </div>
+
+        <!-- Dessert Item 4 -->
+        <div class="menu-card bg-white rounded-lg overflow-hidden shadow-md relative">
+            <div class="image-placeholder h-48 flex items-center justify-center">
+                <img src="./images/Desserts/Redvelvet.jpeg" alt="Redvelvet" class="w-full h-full object-cover">
+            </div>
+            <div class="p-6">
+                <div class="flex justify-between items-start mb-2">
+                    <h3 class="text-xl font-bold">Red Velvet</h3>
+                    <div class="text-right">
+                        <div class="text-amber-600 font-semibold">$6.09</div>
+                    </div>
+                </div>
+                <p class="text-gray-600 mb-4">A slice of classic red velvet cake with a smooth, tangy cream cheese frosting.</p>
+                <!-- <div class="flex">
+                    <span class="dietary-icon bg-green-100 text-green-800">Vegetarian</span>
+                </div> -->
+            </div>
+        </div>
+
+        <!-- Dessert Item 5 -->
+        <div class="menu-card bg-white rounded-lg overflow-hidden shadow-md relative">
+            <div class="image-placeholder h-48 flex items-center justify-center">
+                <img src="./images/Desserts/Chocolate_moose.jpeg" alt="Chocolate_moose" class="w-full h-full object-cover">
+            </div>
+            <div class="p-6">
+                <div class="flex justify-between items-start mb-2">
+                    <h3 class="text-xl font-bold">Chocolate Mousse</h3>
+                    <div class="text-right">
+                        <div class="text-amber-600 font-semibold">$6.09</div>
+                    </div>
+                </div>
+                <p class="text-gray-600 mb-4">Light and airy chocolate mousse, a smooth and intensely rich dessert experience.</p>
+                <!-- <div class="flex">
+                    <span class="dietary-icon bg-green-100 text-green-800">Vegetarian</span>
+                </div> -->
+            </div>
+        </div>
+
+        <!-- Dessert Item 6 -->
+        <div class="menu-card bg-white rounded-lg overflow-hidden shadow-md relative">
+            <div class="image-placeholder h-48 flex items-center justify-center">
+                <span class="text-gray-500">Image Coming Soon</span>
+            </div>
+            <div class="p-6">
+                <div class="flex justify-between items-start mb-2">
+                    <h3 class="text-xl font-bold">Chocolate Triology</h3>
+                    <div class="text-right">
+                        <div class="text-amber-600 font-semibold">$6.09</div>
+                    </div>
+                </div>
+                <p class="text-gray-600 mb-4">A layered chocolate cake featuring a trio of delicious chocolate textures.</p>
+                <!-- <div class="flex">
+                    <span class="dietary-icon bg-green-100 text-green-800">Vegetarian</span>
+                </div> -->
+            </div>
+        </div>
+
+        <!-- Dessert Item 7 -->
+        <div class="menu-card bg-white rounded-lg overflow-hidden shadow-md relative">
+            <div class="image-placeholder h-48 flex items-center justify-center">
+                <img src="./images/Desserts/Treshleche.jpeg" alt="Treshleche" class="w-full h-full object-cover">
+            </div>
+            <div class="p-6">
+                <div class="flex justify-between items-start mb-2">
+                    <h3 class="text-xl font-bold">Tres Leche</h3>
+                    <div class="text-right">
+                        <div class="text-amber-600 font-semibold">$6.59</div>
+                    </div>
+                </div>
+                <p class="text-gray-600 mb-4">A sponge cake soaked in three kinds of milk: evaporated, condensed, and heavy cream.</p>
+                <!-- <div class="flex">
+                    <span class="dietary-icon bg-green-100 text-green-800">Vegetarian</span>
+                </div> -->
+            </div>
+        </div>
+    </div>
+</div>
+            
+            <!-- Beverages -->
+            <div id="beverages" class="mb-16">
+                <h2 class="text-3xl font-bold mb-8 text-center">Beverages</h2>
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+                    <!-- Beverage 1 -->
+                    <div class="menu-card bg-white rounded-lg overflow-hidden shadow-md">
+                        <div class="image-placeholder h-48 flex items-center justify-center">
+                            <img src="./images/Drinks/Soda.jpeg" alt="sodas" class="w-full h-full object-cover">
+                        </div>
+                        <div class="p-6">
+                            <div class="flex justify-between items-start mb-2">
+                                <h3 class="text-xl font-bold">Soft Drinks</h3>
+                                <span class="text-amber-600 font-semibold">$2.49</span>
+                            </div>
+                            <p class="text-gray-600 mb-4">Coca-Cola, Diet Coke, Sprite, Fanta, or Dr. Pepper.</p>
+                            <!-- <div class="flex">
+                                <span class="dietary-icon bg-green-100 text-green-800"></span>
+                            </div> -->
+                        </div>
+                    </div>
+                    
+                    <!-- Beverage 2 -->
+                    <div class="menu-card bg-white rounded-lg overflow-hidden shadow-md">
+                        <div class="image-placeholder h-48 flex items-center justify-center">
+                            <img src="./images/Drinks/Chocolate_Milkshake.jpeg" alt="Classic Chocolate Milkshake" class="w-full h-full object-cover">
+                        </div>
+                        <div class="p-6">
+                            <div class="flex justify-between items-start mb-2">
+                                <h3 class="text-xl font-bold">Classic Chocolate Milkshake.</h3>
+                                <span class="text-amber-600 font-semibold">$2.29</span>
+                            </div>
+                            <p class="text-gray-600 mb-4">Rich and creamy chocolate milkshake with sprinkles, chocolate.</p>
+                            <!-- <div class="flex">
+                                <span class="dietary-icon bg-green-100 text-green-800">Free Refills</span>
+                            </div> -->
+                        </div>
+                    </div>
+                    
+                    <!-- Beverage 3 -->
+                    <div class="menu-card bg-white rounded-lg overflow-hidden shadow-md">
+                        <div class="image-placeholder h-48 flex items-center justify-center">
+                            <img src="./images/Drinks/Lemonade.jpeg" alt="Lemonade" class="w-full h-full object-cover">
+                        </div>
+                        <div class="p-6">
+                            <div class="flex justify-between items-start mb-2">
+                                <h3 class="text-xl font-bold">Home Made Lemonade</h3>
+                                <span class="text-amber-600 font-semibold">$2.99</span>
+                            </div>
+                            <p class="text-gray-600 mb-4">Fresh-squeezed lemonade made daily.</p>
+                            <!-- <div class="flex">
+                                <span class="dietary-icon bg-green-100 text-green-800">Vegetarian</span>
+                                <span class="dietary-icon bg-purple-100 text-purple-800">Gluten-Free</span>
+                            </div> -->
+                        </div>
+                    </div>
+
+
+                    <!-- Beverage 4 -->
+                    <div class="menu-card bg-white rounded-lg overflow-hidden shadow-md">
+                        <div class="image-placeholder h-48 flex items-center justify-center">
+                            <img src="./images/Drinks/Coconut Drink.jpeg" alt="Coconut Drink" class="w-full h-full object-cover">
+                        </div>
+                        <div class="p-6">
+                            <div class="flex justify-between items-start mb-2">
+                                <h3 class="text-xl font-bold">Coconut Lime Refresher</h3>
+                                <span class="text-amber-600 font-semibold">$2.99</span>
+                            </div>
+                            <p class="text-gray-600 mb-4">Refreshing coconut drink with a hint of lime.</p>
+                            <!-- <div class="flex">
+                                <span class="dietary-icon bg-green-100 text-green-800">Vegetarian</span>
+                                <span class="dietary-icon bg-purple-100 text-purple-800">Gluten-Free</span>
+                            </div> -->
+                        </div>
+                    </div>
+                    
+
+                    <!-- Beverage 5 -->
+                    <div class="menu-card bg-white rounded-lg overflow-hidden shadow-md">
+                        <div class="image-placeholder h-48 flex items-center justify-center">
+                            <img src="./images/Drinks/citrus_mint_iced_tea.jpeg" alt="Citrus Mint Iced Tea" class="w-full h-full object-cover">
+                        </div>
+                        <div class="p-6">
+                            <div class="flex justify-between items-start mb-2">
+                                <h3 class="text-xl font-bold">Citrus Mint Iced Tea</h3>
+                                <span class="text-amber-600 font-semibold">$2.99</span>
+                            </div>
+                            <p class="text-gray-600 mb-4">Refreshing iced tea with citrus and mint flavors.</p>
+                            <!-- <div class="flex">
+                                <span class="dietary-icon bg-green-100 text-green-800">Vegetarian</span>
+                                <span class="dietary-icon bg-purple-100 text-purple-800">Gluten-Free</span>
+                            </div> -->
+                        </div>
+                    </div>
+
+                    <!-- Beverage 6 -->
+                    <div class="menu-card bg-white rounded-lg overflow-hidden shadow-md">
+                        <div class="image-placeholder h-48 flex items-center justify-center">
+                            <img src="./images/Drinks/coffe_milkshake.jpeg" alt="Coffee Milkshake" class="w-full h-full object-cover">
+                        </div>
+                        <div class="p-6">
+                            <div class="flex justify-between items-start mb-2">
+                                <h3 class="text-xl font-bold">Coffee Milkshake</h3>
+                                <span class="text-amber-600 font-semibold">$2.99</span>
+                            </div>
+                            <p class="text-gray-600 mb-4">Rich and creamy coffee milkshake.</p>
+                            <!-- <div class="flex">
+                                <span class="dietary-icon bg-green-100 text-green-800">Vegetarian</span>
+                                <span class="dietary-icon bg-purple-100 text-purple-800">Gluten-Free</span>
+                            </div> -->
+                        </div>
+                    </div>
+
+
+                    <!-- Beverage 7 -->
+                    <div class="menu-card bg-white rounded-lg overflow-hidden shadow-md">
+                        <div class="image-placeholder h-48 flex items-center justify-center">
+                            <img src="./images/Drinks/water_bottle.jpg" alt="water bottle" class="w-full h-full object-cover">
+                        </div>
+                        <div class="p-6">
+                            <div class="flex justify-between items-start mb-2">
+                                <h3 class="text-xl font-bold">Bottled Water</h3>
+                                <span class="text-amber-600 font-semibold">$1.99</span>
+                            </div>
+                            <p class="text-gray-600 mb-4">16oz bottle of purified water.</p>
+                            <!-- <div class="flex">
+                                <span class="dietary-icon bg-green-100 text-green-800">Vegetarian</span>
+                                <span class="dietary-icon bg-purple-100 text-purple-800">Gluten-Free</span>
+                            </div> -->
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </section>
+
+
+    <!-- Disclaimer Banner -->
+    <section class="bg-gray-100 py-6">
+        <div class="container mx-auto px-4 text-center">
+            <p class="text-gray-700 font-medium">
+  This is a menu display website. For orders, please visit our physical location or call +1 (716) 322-6199 or 
+  <a href="https://www.ubereats.com/store/halal-feast-o/fEvSd2KpXF6pEtKk_-eHBQ?utm_campaign=CM2508147-search-free-nonbrand-google-pas_e_all_acq_Global&utm_medium=search-free-nonbrand&utm_source=google-pas" class="text-blue-600 hover:underline">uber</a> or 
+  <a href="https://www.doordash.com/store/halal-feast-o%E2%80%99-buffalo-25002893/?utm_campaign=gpa&rwg_token=ACgRB3cvG_QsxSkjPPWv-hz6RE9F6HG5lwmo8qds539RQcmPhZLyd_ABkoDOiF7TtlyECNdQc2fq8PISRJLaOkdP8D3Okl-0qQ%3D%3D" class="text-blue-600 hover:underline">doordash</a> or 
+  <a href="https://www.grubhub.com/restaurant/halal-feast-o-3264-main-st-buffalo/6287808?utm_source=google&utm_medium=organic&utm_campaign=place-action-link&delivery=true&rwg_token=ACgRB3dEtdjr1P8W4SWE9pfY8PmsUlbia9hj-Smp_3nrgwCnFi2EwFtC-7lFGNtcJzZTSgCtBNFLWCSUd1kXdqaeiKvPFGcnCQ%3D%3D" class="text-blue-600 hover:underline">grubhub</a>
+</p>
+        </div>
+    </section>
+
+
+    <!-- Footer -->
+    <footer id="contact" class="bg-gray-800 text-white py-12">
+        <div class="container mx-auto px-4">
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                <div>
+                    <h3 class="text-xl font-bold mb-4">Contact Us</h3>
+                    <p class="mb-2"><i class="fas fa-map-marker-alt mr-2"></i> 3264 Main Street, Buffalo, NY 14214</p>
+                    <p class="mb-2"><i class="fas fa-phone mr-2"></i> +1 (716) 322-6199</p>
+                    <p class="mb-4"><i class="fas fa-envelope mr-2"></i> info@halalfeasto.com</p>
+                    <a href="https://maps.app.goo.gl/zTjyEYA9ZVrXzyDV6" 
+                       target="_blank" 
+                       rel="noopener noreferrer"
+                       class="inline-flex items-center bg-amber-600 text-white px-4 py-2 rounded-lg hover:bg-amber-700 transition-colors font-medium">
+                        <i class="fas fa-directions mr-2"></i>
+                        Get Directions
+                    </a>
+                </div>
+                <div>
+                    <h3 class="text-xl font-bold mb-4">Hours</h3>
+                    <p class="mb-2">Monday - Thursday: 12 PM - 2 AM</p>
+                    <p class="mb-2">Friday - Saturday: 12 PM - 4 AM</p>
+                    <p class="mb-2">Sunday: 12 PM - 2 AM</p>
+                </div>
+                <div>
+                    <h3 class="text-xl font-bold mb-4">Follow Us</h3>
+                    <div class="flex space-x-4">
+                        <a href="#" class="text-lg hover:text-amber-400 transition flex items-center" title="Facebook">
+                            <i class="fab fa-facebook-f mr-1"></i>
+                            <span class="text-sm">Facebook</span>
+                        </a>
+                        <a href="#" class="text-lg hover:text-amber-400 transition flex items-center" title="Instagram">
+                            <i class="fab fa-instagram mr-1"></i>
+                            <span class="text-sm">Instagram</span>
+                        </a>
+                        <a href="#" class="text-lg hover:text-amber-400 transition flex items-center" title="X (Twitter)">
+                            <i class="fab fa-x-twitter mr-1"></i>
+                            <span class="text-sm">Twitter</span>
+                        </a>
+                        <a href="#" class="text-lg hover:text-amber-400 transition flex items-center" title="Yelp">
+                            <i class="fab fa-yelp mr-1"></i>
+                            <span class="text-sm">Yelp</span>
+                        </a>
+                    </div>
+                    <p class="mt-4 text-gray-400">Menu display only</p>
+                </div>
+            </div>
+            <div class="border-t border-gray-700 mt-8 pt-8 text-center text-gray-400">
+                <p>&copy; 2025 HALAL FEASTO. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Navigation highlighting
+            const navLinks = document.querySelectorAll('.category-nav a');
+            
+            // Handle navigation clicks
+            navLinks.forEach(function(link) {
+                link.addEventListener('click', function(e) {
+                e.preventDefault();
+                
+                    // Remove active from all navigation links
+                    navLinks.forEach(function(navLink) {
+                        navLink.classList.remove('active');
+                    });
+                    
+                    // Add active to clicked link
+                    this.classList.add('active');
+                    
+                    // Smooth scroll to section
+                const targetId = this.getAttribute('href');
+                const targetElement = document.querySelector(targetId);
+                
+                if (targetElement) {
+                    window.scrollTo({
+                        top: targetElement.offsetTop - 100,
+                        behavior: 'smooth'
+                    });
+                    }
+                });
+            });
+            
+            // Scroll spy - highlight current section
+            window.addEventListener('scroll', function() {
+                let current = '';
+                const menuSections = ['burgers', 'sandwiches', 'gyros', 'platters', 'nuggets', 'fish', 'tenders', 'wings', 'cheesesteaks', 'salads', 'sides', 'beverages'];
+                
+                menuSections.forEach(function(sectionId) {
+                    const section = document.getElementById(sectionId);
+                    if (section) {
+                        const sectionTop = section.offsetTop - 150;
+                        const sectionHeight = section.offsetHeight;
+                        
+                        if (window.pageYOffset >= sectionTop && window.pageYOffset < sectionTop + sectionHeight) {
+                            current = sectionId;
+                        }
+                    }
+                });
+                
+                // Update navigation active state
+                navLinks.forEach(function(link) {
+                    link.classList.remove('active');
+                    if (link.getAttribute('href') === '#' + current) {
+                        link.classList.add('active');
+                    }
+                });
+        });
+        
+        // Mobile menu toggle
+        const menuButton = document.querySelector('button');
+            if (menuButton) {
+                menuButton.addEventListener('click', function() {
+            const nav = document.querySelector('header nav');
+                    if (nav) {
+            nav.classList.toggle('hidden');
+                        }
+                    });
+                }
+            
+            // Dynamic Reviews Functionality
+            const reviews = {
+                google: [
+                    { text: "Food was awesome. Place is very minimalistic cozy. Recommend for those people who really want’s halal food.", author: "Md. Asikul Wadud." },
+                    { text: "The food takes you in a coma!! And their asylum burger OMG!! Truly will make you forget everything and put you in an asylum! You are winning it in Buffalo Thank You so much Halal feast O", author: "Ujala Zafar" },
+                    { text: "Friendly staff and fast action 🎬 unique open style of seating and open late which is great👍 👌 😀!", author: "مشاهير ستارميكر" },
+                    { text: "I love their Philly cheese steak it’s my favorite thing on the menu keep it up guys good people.", author: "Mike R." },
+                    { text: "Shantan provided great service, extremely welcoming and served great portions!", author: "Piya" }
+                ],
+                uber: [
+                    { text: "Really loved the corn on the cobs and the veggie burger very much over all really loved the services and the order in general 🥰👍", author: "Shahely S." },
+                    { text: "Food is tasty, and the flavor of it is my favorite, I consider this as a best food", author: "Tahmid A." },
+                    { text: "Excellent experience, delicious food awesome customer service", author: "Khizran F." },
+                    { text: "Fries were crispy, falafel had fresh veggies and was very spicy", author: "John P." },
+                    { text: "Amazing chicken platter", author: "Austin G." }
+                ],
+                doordash: [
+                    { text: "The chicken platter is def worth your buck. Huge plate and has fries salad and rice with chicken. The sauces? perfect. All together? IMMACULATE", author: "Sarah H." },
+                    { text: "I've heard about the Philly Cheesesteak from here, but Chicken Cheesesteak was out of this world. Jammed packed with meat and peppers and great seasonings; and the price was unbeatable", author: "Duwan S." },
+                    { text: "Fantastic value! Massive burger for the price. I could barely finish it. And delicious! No more Burger King. get the Jumbo Burger Combo", author: "James C." },
+                    { text: "Love this place! Order from here a lot. But this tiny container of mac was not worth $5- taste or portion wise. Chunky and not mixed well. Everything else was great!", author: "Dylan Sarah" },
+                    { text: "I got the seasoned fries with the Beef Chop Cheesesteak Combo it's amazing. Juicy chopped cheese the fries are super crunchy. Mad good", author: "Tiffani" }
+                ]
+            };
+            
+            let currentReviewIndex = {
+                google: 0,
+                uber: 0,
+                doordash: 0
+            };
+            
+            function displayReview(platform) {
+                const reviewElement = document.querySelector(`[data-platform="${platform}"]`);
+                const authorElement = reviewElement.parentElement.querySelector('.review-author');
+                
+                if (reviewElement && authorElement) {
+                    const currentReview = reviews[platform][currentReviewIndex[platform]];
+                    
+                    // Add fade out effect
+                    reviewElement.style.opacity = '0';
+                    authorElement.style.opacity = '0';
+                    
+                    setTimeout(() => {
+                        reviewElement.textContent = `"${currentReview.text}"`;
+                        authorElement.textContent = `- ${currentReview.author}`;
+                        
+                        // Add fade in effect
+                        reviewElement.style.opacity = '1';
+                        authorElement.style.opacity = '1';
+                    }, 300);
+                    
+                    // Move to next review
+                    currentReviewIndex[platform] = (currentReviewIndex[platform] + 1) % reviews[platform].length;
+                }
+            }
+            
+            function initializeReviews() {
+                // Display initial reviews
+                Object.keys(reviews).forEach(platform => {
+                    displayReview(platform);
+                });
+                
+                // Set up automatic rotation every 4 seconds
+                setInterval(() => {
+                    Object.keys(reviews).forEach(platform => {
+                        displayReview(platform);
+                    });
+                }, 4000);
+            }
+            
+            // Initialize reviews when page loads
+            initializeReviews();
+            
+            // Scrolling Food Images (Movie Credits Style) - Optimized for performance
+            const foodImages = [
+                // Top dishes only for better performance
+                { src: 'images/Burger/Jumbo_Burger.jpeg', name: 'Jumbo Burger' },
+                { src: 'images/Platters/Chicken_Platter.jpeg', name: 'Chicken Platter' },
+                { src: 'images/Cheesesteak/Philly.jpeg', name: 'Philly Cheesesteak' },
+                { src: 'images/Gyros/Chicken.jpeg', name: 'Chicken Gyro' },
+                { src: 'images/Sides/corn.JPG', name: 'Corn on the Cob' },
+                { src: 'images/Burger/Asylum_Burger.jpeg', name: 'Asylum Burger' },
+                { src: 'images/Platters/Fish_Platter.jpeg', name: 'Fish Platter' },
+                { src: 'images/Sides/Chicken_Loaded_Fries.jpeg', name: 'Loaded Fries' },
+                { src: 'images/Desserts/baklava.jpg', name: 'Baklava' },
+                { src: 'images/Tenders/Tenders_6.jpeg', name: 'Chicken Tenders' }
+            ];
+            
+            function shuffleArray(array) {
+                const newArray = [...array];
+                for (let i = newArray.length - 1; i > 0; i--) {
+                    const j = Math.floor(Math.random() * (i + 1));
+                    [newArray[i], newArray[j]] = [newArray[j], newArray[i]];
+                }
+                return newArray;
+            }
+            
+            function createFoodCreditItem(food) {
+                return `
+                    <div class="food-credit-item">
+                        <div class="relative overflow-hidden rounded-lg shadow-lg mb-4">
+                            <img src="${food.src}" alt="${food.name}" class="w-full h-32 object-cover" loading="lazy" decoding="async">
+                            <div class="absolute bottom-0 left-0 right-0 bg-black bg-opacity-70 text-white p-2 text-center">
+                                <p class="text-xs font-medium">${food.name}</p>
+                            </div>
+                        </div>
+                    </div>
+                `;
+            }
+            
+            function initializeScrollingImages() {
+                const leftContainer = document.querySelector('.scrolling-images-left');
+                const rightContainer = document.querySelector('.scrolling-images-right');
+                
+                if (leftContainer && rightContainer) {
+                    // Create one shuffled array for both sides to scroll in parallel
+                    const shuffledImages = shuffleArray(foodImages);
+                    
+                    // Create HTML for images
+                    const imageHTML = shuffledImages.map(food => createFoodCreditItem(food)).join('');
+                    
+                    // Create the infinite scroll effect by duplicating content
+                    const infiniteHTML = imageHTML + imageHTML; // Duplicate for seamless loop
+                    
+                    // Populate both sides with the same sequence for parallel scrolling
+                    leftContainer.innerHTML = infiniteHTML;
+                    rightContainer.innerHTML = infiniteHTML;
+                }
+            }
+            
+            // Initialize scrolling images when DOM is ready
+            initializeScrollingImages();
+            });
+
+        // Combo Modal Functionality
+        function toggleComboModal() {
+            const modal = document.getElementById('comboModal');
+            modal.classList.toggle('active');
+        }
+
+        // Close modal when clicking outside
+        document.addEventListener('click', function(event) {
+            const modal = document.getElementById('comboModal');
+            const modalContent = document.querySelector('.combo-modal-content');
+            if (modal.classList.contains('active') && !modalContent.contains(event.target) && !event.target.closest('.floating-combo-dock')) {
+                modal.classList.remove('active');
+            }
+        });
+    </script>
+
+    <!-- Floating Combo Dock -->
+    <div class="floating-combo-dock" onclick="toggleComboModal()">
+        <i class="fas fa-utensils combo-icon"></i>
+        <span>🔥 Combo Deals!</span>
+    </div>
+
+    <!-- Combo Modal -->
+    <div id="comboModal" class="combo-modal">
+        <div class="combo-modal-content">
+            <span class="combo-close" onclick="toggleComboModal()">&times;</span>
+            <div class="p-8">
+                <div class="text-center mb-6">
+                    <h2 class="text-3xl font-bold text-gray-800 mb-2">🍽️ Amazing Combo Deals!</h2>
+                    <p class="text-gray-600">Save more with our delicious combo packages</p>
+                </div>
+                
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
+                    <div class="bg-gradient-to-br from-orange-50 to-amber-50 p-6 rounded-xl border border-orange-200">
+                        <h3 class="text-xl font-bold mb-3 text-orange-800">
+                            <i class="fas fa-star text-amber-500"></i> What's Included
+                        </h3>
+                        <p class="mb-4 text-gray-700">All combos include your choice of:</p>
+                        <div class="space-y-2">
+                            <div class="flex items-center">
+                                <i class="fas fa-check-circle text-green-500 mr-2"></i>
+                                <span class="font-semibold">1 Side Dish</span>
+                            </div>
+                            <div class="flex items-center">
+                                <i class="fas fa-check-circle text-green-500 mr-2"></i>
+                                <span class="font-semibold">1 Drink</span>
+                            </div>
+                        </div>
+                        
+                        <h4 class="font-semibold mt-4 mb-2 text-orange-800">🍟 Side Options:</h4>
+                        <ul class="text-sm space-y-1 text-gray-700">
+                            <li>• Crispy fries</li>
+                            <li>• Mac and cheese</li>
+                            <li>• Corn on the cob</li>
+                            <li>• Mashed potato</li>
+                        </ul>
+                    </div>
+                    
+                    <div class="bg-gradient-to-br from-blue-50 to-indigo-50 p-6 rounded-xl border border-blue-200">
+                        <h3 class="text-xl font-bold mb-3 text-blue-800">
+                            <i class="fas fa-plus-circle text-blue-500"></i> Available Add-ons
+                        </h3>
+                        <p class="mb-4 text-gray-700">Customize your combo with:</p>
+                        <div class="space-y-2">
+                            <div class="flex justify-between items-center bg-white p-2 rounded-lg">
+                                <span class="text-sm">🧀 Extra cheese</span>
+                                <span class="font-semibold text-green-600">+$1.50</span>
+                            </div>
+                            <div class="flex justify-between items-center bg-white p-2 rounded-lg">
+                                <span class="text-sm">🍄 Sautéed mushrooms</span>
+                                <span class="font-semibold text-green-600">+$2.75</span>
+                            </div>
+                            <div class="flex justify-between items-center bg-white p-2 rounded-lg">
+                                <span class="text-sm">🥓 Crispy bacon</span>
+                                <span class="font-semibold text-green-600">+$3.29</span>
+                            </div>
+                            <div class="flex justify-between items-center bg-white p-2 rounded-lg">
+                                <span class="text-sm">🥩 Extra meat</span>
+                                <span class="font-semibold text-green-600">+$3.00</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="bg-gradient-to-r from-orange-500 to-red-500 text-white p-6 rounded-xl text-center">
+                    <h3 class="text-xl font-bold mb-2">💰 Great Value!</h3>
+                    <p class="text-lg">Save approximately <span class="font-bold text-yellow-300">$2-3</span> when you order combos!</p>
+                    <p class="text-sm mt-2 opacity-90">Look for the orange "Combo Available" badge on menu items</p>
+                </div>
+
+                <div class="mt-6 text-center">
+                    <p class="text-gray-600 text-sm">
+                        <i class="fas fa-info-circle text-blue-500 mr-1"></i>
+                        Available on all Burgers, Sandwiches, and Gyros
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
