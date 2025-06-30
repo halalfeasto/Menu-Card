@@ -6,7 +6,7 @@
     <meta name="description" content="Halal Feasto - Authentic halal restaurant menu featuring burgers, sandwiches, gyros, platters, and more. Fresh ingredients, quality food.">
     <meta name="keywords" content="halal food, restaurant menu, burgers, gyros, sandwiches, platters, halal feasto">
     <meta name="author" content="Halal Feasto">
-    <meta http-equiv="Content-Security-Policy" content="default-src 'self'; img-src 'self' data:; video-src 'self'; style-src 'self' 'unsafe-inline' https://cdn.tailwindcss.com https://cdnjs.cloudflare.com; script-src 'self' 'unsafe-inline' https://cdn.tailwindcss.com; font-src 'self' https://fonts.googleapis.com https://fonts.gstatic.com https://cdnjs.cloudflare.com;">
+    <meta http-equiv="Content-Security-Policy" content="default-src 'self'; img-src 'self' data:; video-src 'self'; style-src 'self' 'unsafe-inline' https://cdn.tailwindcss.com https://cdnjs.cloudflare.com https://fonts.googleapis.com; script-src 'self' 'unsafe-inline' https://cdn.tailwindcss.com; font-src 'self' https://fonts.googleapis.com https://fonts.gstatic.com https://cdnjs.cloudflare.com;">
     <title>Halal Feasto Menu</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw==" crossorigin="anonymous" referrerpolicy="no-referrer">
@@ -302,7 +302,7 @@
     .floating-combo-dock {
         position: fixed;
         bottom: 20px;
-        right: 20px;
+        left: 20px;
         z-index: 1000;
         background: linear-gradient(135deg, #e65100, #ff7043);
         color: white;
@@ -316,6 +316,9 @@
         align-items: center;
         gap: 8px;
         animation: pulse-combo 2s infinite;
+        opacity: 0;
+        visibility: hidden;
+        transform: translateY(20px);
     }
 
     .floating-combo-dock:hover {
@@ -329,6 +332,13 @@
         animation: bounce 2s infinite alternate;
     }
 
+    /* Show floating combo button */
+    .floating-combo-dock.show {
+        opacity: 1;
+        visibility: visible;
+        transform: translateY(0);
+    }
+
     @keyframes pulse-combo {
         0%, 100% { transform: scale(1); }
         50% { transform: scale(1.05); }
@@ -337,6 +347,61 @@
     @keyframes bounce {
         0% { transform: translateY(0); }
         100% { transform: translateY(-3px); }
+    }
+
+    /* Floating Filter Button Styles */
+    .floating-filter-dock {
+        position: fixed;
+        bottom: 20px;
+        right: 20px;
+        z-index: 1000;
+        background: linear-gradient(135deg, #d97706, #f59e0b);
+        color: white;
+        padding: 12px 18px;
+        border-radius: 50px;
+        box-shadow: 0 8px 25px rgba(217, 119, 6, 0.3);
+        cursor: pointer;
+        transition: all 0.3s ease;
+        font-weight: 600;
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        font-size: 14px;
+        opacity: 0;
+        visibility: hidden;
+        transform: translateY(20px);
+    }
+
+    .floating-filter-dock:hover {
+        transform: translateY(-3px);
+        box-shadow: 0 12px 35px rgba(217, 119, 6, 0.4);
+        background: linear-gradient(135deg, #b45309, #d97706);
+    }
+
+    .floating-filter-dock.active {
+        background: linear-gradient(135deg, #16a34a, #22c55e);
+        box-shadow: 0 8px 25px rgba(22, 163, 74, 0.3);
+    }
+
+    .floating-filter-dock.active:hover {
+        background: linear-gradient(135deg, #15803d, #16a34a);
+        box-shadow: 0 12px 35px rgba(22, 163, 74, 0.4);
+    }
+
+    .floating-filter-dock .filter-icon {
+        font-size: 1.1rem;
+        transition: transform 0.3s ease;
+    }
+
+    .floating-filter-dock.active .filter-icon {
+        transform: rotate(180deg);
+    }
+
+    /* Show floating filter button after scrolling */
+    .floating-filter-dock.show {
+        opacity: 1;
+        visibility: visible;
+        transform: translateY(0);
     }
 
     /* Combo Modal Styles */
@@ -636,6 +701,26 @@
             </div>
         </div>
     </nav>
+
+    <!-- Price Filter Section -->
+    <div id="price-filter-section" class="fixed top-0 left-0 right-0 z-50 bg-white border-b shadow-sm py-4 transition-all duration-300 transform -translate-y-full opacity-0 hidden">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex flex-col sm:flex-row items-center justify-between gap-4">
+                <div class="flex items-center gap-2">
+                    <span class="text-sm font-medium text-gray-700">Filter by Price:</span>
+                    <span id="active-filters" class="text-xs text-amber-600 font-medium"></span>
+                </div>
+                <div class="flex flex-wrap gap-2">
+                    <button onclick="filterByPrice('all')" class="price-filter-btn active px-3 py-1.5 text-sm font-medium rounded-full border transition-all duration-200 bg-amber-600 text-white border-amber-600">All Items</button>
+                    <button onclick="filterByPrice('under5')" class="price-filter-btn px-3 py-1.5 text-sm font-medium rounded-full border transition-all duration-200 bg-white text-gray-700 border-gray-300 hover:border-amber-600 hover:text-amber-600">Under $5</button>
+                    <button onclick="filterByPrice('5to10')" class="price-filter-btn px-3 py-1.5 text-sm font-medium rounded-full border transition-all duration-200 bg-white text-gray-700 border-gray-300 hover:border-amber-600 hover:text-amber-600">$5 - $10</button>
+                    <button onclick="filterByPrice('10to15')" class="price-filter-btn px-3 py-1.5 text-sm font-medium rounded-full border transition-all duration-200 bg-white text-gray-700 border-gray-300 hover:border-amber-600 hover:text-amber-600">$10 - $15</button>
+                    <button onclick="filterByPrice('15to20')" class="price-filter-btn px-3 py-1.5 text-sm font-medium rounded-full border transition-all duration-200 bg-white text-gray-700 border-gray-300 hover:border-amber-600 hover:text-amber-600">$15 - $20</button>
+                    <button onclick="filterByPrice('over20')" class="price-filter-btn px-3 py-1.5 text-sm font-medium rounded-full border transition-all duration-200 bg-white text-gray-700 border-gray-300 hover:border-amber-600 hover:text-amber-600">$20+</button>
+                </div>
+            </div>
+        </div>
+    </div>
 
     <!-- Menu Section -->
     <section id="menu" class="py-12 md:py-16">
@@ -1591,7 +1676,7 @@
                 <div class="flex justify-between items-start mb-2">
                     <h3 class="text-xl font-bold">15pcs Chicken</h3>
                     <div class="text-right">
-                        <div class-="text-amber-600 font-semibold">$26.99</div>
+                        <div class="text-amber-600 font-semibold">$26.99</div>
                         <div class="text-sm text-gray-500">Combo: $33.99</div>
                     </div>
                 </div>
@@ -3227,10 +3312,246 @@
             window.addEventListener('resize', updateScrollHints);
         }
         
+        // Price Filter Functionality
+        function getPrice(menuCard) {
+            const priceElement = menuCard.querySelector('.text-amber-600.font-semibold');
+            if (priceElement) {
+                const priceText = priceElement.textContent.replace('$', '').trim();
+                return parseFloat(priceText) || 0;
+            }
+            return 0;
+        }
+        
+        function updateActiveFilterButton(activeFilter) {
+            // Remove active class from all buttons
+            document.querySelectorAll('.price-filter-btn').forEach(btn => {
+                btn.classList.remove('active');
+                btn.classList.remove('bg-amber-600', 'text-white', 'border-amber-600');
+                btn.classList.add('bg-white', 'text-gray-700', 'border-gray-300');
+            });
+            
+            // Add active class to clicked button
+            const activeBtn = document.querySelector(`[onclick="filterByPrice('${activeFilter}')"]`);
+            if (activeBtn) {
+                activeBtn.classList.add('active');
+                activeBtn.classList.remove('bg-white', 'text-gray-700', 'border-gray-300');
+                activeBtn.classList.add('bg-amber-600', 'text-white', 'border-amber-600');
+            }
+        }
+        
+        function updateActiveFiltersText(filterType) {
+            const activeFiltersElement = document.getElementById('active-filters');
+            if (activeFiltersElement) {
+                const filterText = {
+                    'all': '',
+                    'under5': 'Showing items under $5',
+                    '5to10': 'Showing items $5 - $10',
+                    '10to15': 'Showing items $10 - $15',
+                    '15to20': 'Showing items $15 - $20',
+                    'over20': 'Showing items $20+'
+                };
+                activeFiltersElement.textContent = filterText[filterType] || '';
+            }
+        }
+        
+        function hideEmptySections() {
+            const menuSections = ['burgers', 'sandwiches', 'gyros', 'platters', 'chicken', 'nuggets', 'fish', 'tenders', 'wings', 'cheesesteaks', 'salads', 'sides', 'desserts', 'beverages'];
+            
+            menuSections.forEach(sectionId => {
+                const section = document.getElementById(sectionId);
+                if (section) {
+                    const visibleCards = section.querySelectorAll('.menu-card:not([style*="display: none"])');
+                    if (visibleCards.length === 0) {
+                        section.style.display = 'none';
+                    } else {
+                        section.style.display = 'block';
+                    }
+                }
+            });
+        }
+        
+        function filterByPrice(filterType) {
+            const menuCards = document.querySelectorAll('.menu-card');
+            let visibleCount = 0;
+            
+            menuCards.forEach(card => {
+                const price = getPrice(card);
+                let shouldShow = false;
+                
+                switch(filterType) {
+                    case 'all':
+                        shouldShow = true;
+                        break;
+                    case 'under5':
+                        shouldShow = price < 5;
+                        break;
+                    case '5to10':
+                        shouldShow = price >= 5 && price < 10;
+                        break;
+                    case '10to15':
+                        shouldShow = price >= 10 && price < 15;
+                        break;
+                    case '15to20':
+                        shouldShow = price >= 15 && price < 20;
+                        break;
+                    case 'over20':
+                        shouldShow = price >= 20;
+                        break;
+                }
+                
+                if (shouldShow) {
+                    card.style.display = 'block';
+                    visibleCount++;
+                } else {
+                    card.style.display = 'none';
+                }
+            });
+            
+            // Update UI
+            updateActiveFilterButton(filterType);
+            updateActiveFiltersText(filterType);
+            hideEmptySections();
+            
+            // Show no results message if needed
+            showNoResultsMessage(visibleCount === 0);
+        }
+        
+        function showNoResultsMessage(show) {
+            let noResultsMsg = document.getElementById('no-results-message');
+            
+            if (show && !noResultsMsg) {
+                // Create no results message
+                noResultsMsg = document.createElement('div');
+                noResultsMsg.id = 'no-results-message';
+                noResultsMsg.className = 'text-center py-16';
+                noResultsMsg.innerHTML = `
+                    <div class="text-gray-500">
+                        <svg class="mx-auto h-12 w-12 text-gray-400 mb-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v10a2 2 0 002 2h8a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2"/>
+                        </svg>
+                        <h3 class="text-lg font-medium text-gray-900 mb-2">No items found</h3>
+                        <p class="text-gray-500">Try selecting a different price range to see more options.</p>
+                    </div>
+                `;
+                document.getElementById('menu').appendChild(noResultsMsg);
+            } else if (!show && noResultsMsg) {
+                noResultsMsg.remove();
+            }
+        }
+        
+        // Floating Filter Button Functionality
+        let isFilterVisible = false;
+        let floatingFilterBtn, priceFilterSection, filterStatusText;
+        
+        // Initialize elements when DOM is loaded
+        document.addEventListener('DOMContentLoaded', function() {
+            floatingFilterBtn = document.getElementById('floating-filter-btn');
+            priceFilterSection = document.getElementById('price-filter-section');
+            filterStatusText = document.getElementById('filter-status-text');
+        });
+        
+        function togglePriceFilter() {
+            if (!priceFilterSection || !floatingFilterBtn || !filterStatusText) {
+                console.error('Filter elements not found');
+                return;
+            }
+            
+            isFilterVisible = !isFilterVisible;
+            
+            if (isFilterVisible) {
+                // Show filter section
+                priceFilterSection.classList.remove('hidden');
+                setTimeout(() => {
+                    priceFilterSection.classList.remove('-translate-y-full', 'opacity-0');
+                    priceFilterSection.classList.add('translate-y-0', 'opacity-100');
+                }, 10);
+                
+                // Update button state
+                floatingFilterBtn.classList.add('active');
+                filterStatusText.textContent = 'Close';
+            } else {
+                // Hide filter section
+                priceFilterSection.classList.remove('translate-y-0', 'opacity-100');
+                priceFilterSection.classList.add('-translate-y-full', 'opacity-0');
+                setTimeout(() => {
+                    priceFilterSection.classList.add('hidden');
+                }, 300);
+                
+                // Update button state
+                floatingFilterBtn.classList.remove('active');
+                updateFilterButtonText();
+            }
+        }
+        
+        function updateFilterButtonText() {
+            const activeFilter = document.querySelector('.price-filter-btn.active');
+            if (activeFilter && activeFilter.textContent.trim() !== 'All Items') {
+                filterStatusText.textContent = activeFilter.textContent.trim();
+            } else {
+                filterStatusText.textContent = 'Filter';
+            }
+        }
+        
+        // Show/hide floating filter button based on scroll position
+        function updateFloatingFilterVisibility() {
+            const menuSection = document.getElementById('menu');
+            const beveragesSection = document.getElementById('beverages');
+            const comboButton = document.querySelector('.floating-combo-dock');
+            
+            if (menuSection && beveragesSection && floatingFilterBtn && comboButton) {
+                const menuRect = menuSection.getBoundingClientRect();
+                const beveragesRect = beveragesSection.getBoundingClientRect();
+                
+                // Show buttons when menu section is visible
+                const isMenuVisible = menuRect.top < window.innerHeight && menuRect.bottom > 0;
+                // Hide buttons when past the bottom of beverages section
+                const isPastBeverages = beveragesRect.bottom < 0;
+                
+                if (isMenuVisible && !isPastBeverages) {
+                    // Show both buttons when in menu section but not past beverages
+                    floatingFilterBtn.classList.add('show');
+                    floatingFilterBtn.classList.remove('hidden');
+                    comboButton.classList.add('show');
+                    comboButton.classList.remove('hidden');
+                } else {
+                    // Hide both buttons when outside menu section or past beverages
+                    floatingFilterBtn.classList.remove('show');
+                    comboButton.classList.remove('show');
+                    if (!isFilterVisible) {
+                        setTimeout(() => {
+                            floatingFilterBtn.classList.add('hidden');
+                            comboButton.classList.add('hidden');
+                        }, 300);
+                    }
+                }
+            }
+        }
+        
+        // Override the original filterByPrice function to update floating button text
+        const originalFilterByPrice = filterByPrice;
+        filterByPrice = function(filterType) {
+            originalFilterByPrice(filterType);
+            updateFilterButtonText();
+        };
+        
+        // Add scroll listener for floating button
+        window.addEventListener('scroll', updateFloatingFilterVisibility);
+        
+        // Initialize filter button text
+        document.addEventListener('DOMContentLoaded', function() {
+            updateFilterButtonText();
+        });
+        
     </script>
 
+    <!-- Floating Filter Button -->
+    <div id="floating-filter-btn" class="floating-filter-dock hidden" onclick="togglePriceFilter()">
+        <i class="fas fa-filter filter-icon"></i>
+        <span id="filter-status-text">Filter</span>
+    </div>
+
     <!-- Floating Combo Dock -->
-    <div class="floating-combo-dock" onclick="toggleComboModal()">
+    <div class="floating-combo-dock hidden" onclick="toggleComboModal()">
         <i class="fas fa-utensils combo-icon"></i>
         <span>🔥 Combo Deals!</span>
     </div>
