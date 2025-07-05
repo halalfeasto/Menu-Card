@@ -3304,7 +3304,7 @@
         
         // Price Filter Functionality
         function getPrice(menuCard) {
-            const priceElement = menuCard.querySelector('.text-amber-600.font-semibold');
+            const priceElement = menuCard.querySelector('.item-price');
             if (priceElement) {
                 const priceText = priceElement.textContent.replace('$', '').trim();
                 return parseFloat(priceText) || 0;
@@ -3350,7 +3350,7 @@
             menuSections.forEach(sectionId => {
                 const section = document.getElementById(sectionId);
                 if (section) {
-                    const visibleCards = section.querySelectorAll('.menu-card:not([style*="display: none"])');
+                    const visibleCards = section.querySelectorAll('.dropdown-item:not([style*="display: none"])');
                     if (visibleCards.length === 0) {
                         section.style.display = 'none';
                     } else {
@@ -3361,7 +3361,7 @@
         }
         
         function filterByPrice(filterType) {
-            const menuCards = document.querySelectorAll('.menu-card');
+            const menuCards = document.querySelectorAll('.dropdown-item');
             let visibleCount = 0;
             
             menuCards.forEach(card => {
