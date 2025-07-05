@@ -15,8 +15,9 @@
         
         body {
             font-family: 'Montserrat', sans-serif;
-            background-color: #f8f7f4;
-            color: #333;
+            background: linear-gradient(135deg, #1a1a1a 0%, #f5f5dc 20%, #fff8dc 40%, #faebd7 60%, #fff8dc 80%, #1a1a1a 100%);
+            background-attachment: fixed;
+            color: #f5f3f0;
             padding-top: 72px;
         }
         
@@ -30,6 +31,13 @@
             font-family: 'Playfair Display', serif;
         }
         
+        /* Section headings in red */
+        h2 {
+            color: #dc2626 !important;
+            text-shadow: 2px 2px 4px rgba(220, 38, 38, 0.3);
+        }
+        
+        
         .menu-card {
             transition: transform 0.2s ease, box-shadow 0.2s ease;
             will-change: auto;
@@ -37,15 +45,16 @@
         
         .menu-card:hover {
             transform: translate3d(0, -5px, 0);
-            box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.1);
+            box-shadow: 0 15px 35px -5px rgba(255, 107, 53, 0.2), 0 5px 20px -5px rgba(0, 0, 0, 0.3);
         }
         
         .category-nav a.active {
-            color: #dc2626 !important;
-            background-color: #fecaca !important;
+            color: #fff !important;
+            background: linear-gradient(135deg, #ff6b35 0%, #f7931e 100%) !important;
             font-weight: 600 !important;
-            border-radius: 6px !important;
+            border-radius: 8px !important;
             padding: 8px 12px !important;
+            box-shadow: 0 4px 15px rgba(255, 107, 53, 0.3) !important;
         }
         
         .image-placeholder {
@@ -78,12 +87,13 @@
             position: absolute;
             top: 10px;
             right: 10px;
-            background-color: #e65100;
+            background: linear-gradient(135deg, #ff6b35 0%, #f7931e 100%);
             color: white;
             padding: 4px 8px;
-            border-radius: 4px;
+            border-radius: 6px;
             font-size: 0.75rem;
             font-weight: 600;
+            box-shadow: 0 2px 8px rgba(255, 107, 53, 0.4);
         }
         
         .price-display {
@@ -99,6 +109,47 @@
         .dynamic-review, .review-author {
             transition: opacity 0.5s ease-in-out;
         }
+        
+        /* Item name dropdown functionality */
+        .menu-item-header {
+            cursor: pointer;
+            user-select: none;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 8px;
+            border-radius: 8px;
+            transition: background-color 0.2s ease;
+        }
+        
+        .menu-item-header:hover {
+            background-color: rgba(0, 0, 0, 0.05);
+        }
+        
+        .menu-item-content {
+            transition: max-height 0.3s ease-in-out, opacity 0.3s ease-in-out;
+            overflow: hidden;
+        }
+        
+        .menu-item-content.collapsed {
+            max-height: 0;
+            opacity: 0;
+        }
+        
+        .menu-item-content.expanded {
+            max-height: 500px;
+            opacity: 1;
+        }
+        
+        .dropdown-icon {
+            transition: transform 0.2s ease;
+            color: #6b7280;
+        }
+        
+        .menu-item-header.expanded .dropdown-icon {
+            transform: rotate(180deg);
+        }
+        
         
         /* Fixed height review containers to prevent layout shift */
         .review-container {
@@ -157,7 +208,7 @@
         .mobile-menu-overlay {
             transform: translateX(-100%);
             transition: transform 0.3s ease-in-out;
-            background-color: rgba(255, 255, 255, 0.98);
+            background-color: rgb(255, 255, 255);
             backdrop-filter: blur(10px);
         }
         
@@ -411,7 +462,7 @@
         left: 0;
         width: 100%;
         height: 100%;
-        background: rgba(0, 0, 0, 0.5);
+        background: rgb(0, 0, 0);
         z-index: 2000;
         display: none;
         align-items: center;
@@ -445,7 +496,7 @@
         right: 20px;
         font-size: 24px;
         cursor: pointer;
-        color: #666;
+        color: #333;
         transition: color 0.3s ease;
     }
 
@@ -480,13 +531,13 @@
             
             <!-- Mobile Navigation -->
             <div class="md:hidden">
-                <button id="mobile-menu-button" class="text-2xl">
+                <button id="mobile-menu-button" class="text-2xl text-gray-900">
                     <i class="fas fa-bars"></i>
                 </button>
                 <nav id="mobile-menu" class="hidden fixed top-0 left-0 w-full h-full bg-white shadow-lg z-60 mobile-menu-overlay">
                     <div class="flex justify-between items-center p-4 border-b">
                         <span class="text-xl font-bold text-amber-800">Menu</span>
-                        <button id="mobile-menu-close" class="text-2xl">
+                        <button id="mobile-menu-close" class="text-2xl text-gray-900">
                             <i class="fas fa-times"></i>
                         </button>
                     </div>
@@ -525,7 +576,7 @@
         </video>
         
         <!-- Dark Overlay for Better Text Readability -->
-        <div class="absolute inset-0 bg-black/30 hidden md:block"></div>
+        <div class="absolute inset-0 bg-black hidden md:block"></div>
         
         <!-- Center Text Content -->
         <div class="relative z-10 container mx-auto px-4 h-full flex items-center justify-center">
@@ -540,8 +591,8 @@
     <section class="py-12 bg-white">
         <div class="container mx-auto px-4">
             <div class="text-center mb-8">
-                <h2 class="text-3xl font-bold text-gray-800 mb-4">Find Us Online</h2>
-                <p class="text-gray-600 max-w-2xl mx-auto">Order from your favorite platform and read what our customers are saying about us</p>
+                <h2 class="text-3xl font-bold text-gray-900 mb-4">Find Us Online</h2>
+                <p class="text-gray-900 max-w-2xl mx-auto">Order from your favorite platform and read what our customers are saying about us</p>
             </div>
             
             <div class="grid grid-cols-1 lg:grid-cols-5 gap-8 max-w-7xl mx-auto items-center">
@@ -567,7 +618,7 @@
                                 </svg>
                             </div>
                         </div>
-                        <h3 class="text-xl font-semibold text-gray-800 mb-2">Google Reviews</h3>
+                        <h3 class="text-xl font-semibold text-gray-900 mb-2">Google Reviews</h3>
                         <div class="flex justify-center items-center mb-2">
                             <div class="flex text-yellow-400 mr-2">
                                 <i class="fas fa-star"></i>
@@ -576,12 +627,12 @@
                                 <i class="fas fa-star"></i>
                                 <i class="fas fa-star-half-alt"></i>
                             </div>
-                            <span class="text-2xl font-bold text-gray-800">4.4</span>
+                            <span class="text-2xl font-bold text-gray-900">4.4</span>
                         </div>
-                        <p class="text-gray-600">600+ Reviews</p>
+                        <p class="text-gray-900">600+ Reviews</p>
                         <div class="mt-3 text-sm text-gray-500">Click to read reviews</div>
                         <div class="mt-3 p-3 bg-gray-50 rounded-lg text-left review-container">
-                            <p class="text-sm text-gray-700 italic dynamic-review" data-platform="google"></p>
+                            <p class="text-sm text-gray-900 italic dynamic-review" data-platform="google"></p>
                             <p class="text-xs text-gray-500 mt-1 review-author"></p>
                         </div>
                     </div>
@@ -592,10 +643,10 @@
                     <div class="bg-white rounded-lg shadow-lg p-6 text-center hover:shadow-xl transition-shadow duration-300 border hover:border-amber-200">
                         <div class="flex justify-center mb-4">
                             <div class="w-12 h-12 bg-black rounded-lg flex items-center justify-center">
-                                <span class="text-white font-bold text-sm">UBER</span>
+                                <span class="text-gray-900 font-bold text-sm">UBER</span>
                             </div>
                         </div>
-                        <h3 class="text-xl font-semibold text-gray-800 mb-2">Uber Eats</h3>
+                        <h3 class="text-xl font-semibold text-gray-900 mb-2">Uber Eats</h3>
                         <div class="flex justify-center items-center mb-2">
                             <div class="flex text-yellow-400 mr-2">
                                 <i class="fas fa-star"></i>
@@ -604,12 +655,12 @@
                                 <i class="fas fa-star"></i>
                                 <i class="fas fa-star-half-alt"></i>
                             </div>
-                            <span class="text-2xl font-bold text-gray-800">4.4</span>
+                            <span class="text-2xl font-bold text-gray-900">4.4</span>
                         </div>
-                        <p class="text-gray-600">900+ Ratings</p>
+                        <p class="text-gray-900">900+ Ratings</p>
                         <div class="mt-3 text-sm text-gray-500">Order now</div>
                         <div class="mt-3 p-3 bg-gray-50 rounded-lg text-left review-container">
-                            <p class="text-sm text-gray-700 italic dynamic-review" data-platform="uber"></p>
+                            <p class="text-sm text-gray-900 italic dynamic-review" data-platform="uber"></p>
                             <p class="text-xs text-gray-500 mt-1 review-author"></p>
                         </div>
                     </div>
@@ -620,10 +671,10 @@
                     <div class="bg-white rounded-lg shadow-lg p-6 text-center hover:shadow-xl transition-shadow duration-300 border hover:border-amber-200">
                         <div class="flex justify-center mb-4">
                             <div class="w-12 h-12 bg-red-500 rounded-lg flex items-center justify-center">
-                                <i class="fas fa-motorcycle text-white text-lg"></i>
+                                <i class="fas fa-motorcycle text-gray-900 text-lg"></i>
                             </div>
                         </div>
-                        <h3 class="text-xl font-semibold text-gray-800 mb-2">DoorDash</h3>
+                        <h3 class="text-xl font-semibold text-gray-900 mb-2">DoorDash</h3>
                         <div class="flex justify-center items-center mb-2">
                             <div class="flex text-yellow-400 mr-2">
                                 <i class="fas fa-star"></i>
@@ -632,12 +683,12 @@
                                 <i class="fas fa-star"></i>
                                 <i class="fas fa-star"></i>
                             </div>
-                            <span class="text-2xl font-bold text-gray-800">4.3</span>
+                            <span class="text-2xl font-bold text-gray-900">4.3</span>
                         </div>
-                        <p class="text-gray-600">1k+ Ratings</p>
+                        <p class="text-gray-900">1k+ Ratings</p>
                         <div class="mt-3 text-sm text-gray-500">Order now</div>
                         <div class="mt-3 p-3 bg-gray-50 rounded-lg text-left review-container">
-                            <p class="text-sm text-gray-700 italic dynamic-review" data-platform="doordash"></p>
+                            <p class="text-sm text-gray-900 italic dynamic-review" data-platform="doordash"></p>
                             <p class="text-xs text-gray-500 mt-1 review-author"></p>
                         </div>
                     </div>
@@ -655,7 +706,7 @@
     </section>
 
     <!-- Category Navigation -->
-    <nav class="sticky-nav bg-white/90 shadow-sm py-4 border-b">
+    <nav class="sticky-nav bg-white shadow-sm py-4 border-b">
         <div class="container mx-auto px-4">
             <div class="relative">
                 <!-- Left Scroll Indicator -->
@@ -671,20 +722,20 @@
                 
                 <!-- Navigation Links -->
                 <div id="category-nav" class="category-nav flex space-x-1 md:space-x-8 md:justify-center overflow-x-auto scrollbar-hide scroll-smooth">
-                    <a href="#burgers" class="px-3 py-2 font-medium text-gray-700 hover:text-amber-600 transition whitespace-nowrap">Burgers</a>
-                    <a href="#sandwiches" class="px-3 py-2 font-medium text-gray-700 hover:text-amber-600 transition whitespace-nowrap">Sandwiches</a>
-                    <a href="#gyros" class="px-3 py-2 font-medium text-gray-700 hover:text-amber-600 transition whitespace-nowrap">Gyros</a>
-                    <a href="#platters" class="px-3 py-2 font-medium text-gray-700 hover:text-amber-600 transition whitespace-nowrap">Platters</a>
-                    <a href="#chicken" class="px-3 py-2 font-medium text-gray-700 hover:text-amber-600 transition whitespace-nowrap">Chicken</a>
-                    <a href="#nuggets" class="px-3 py-2 font-medium text-gray-700 hover:text-amber-600 transition whitespace-nowrap">Nuggets</a>
-                    <a href="#fish" class="px-3 py-2 font-medium text-gray-700 hover:text-amber-600 transition whitespace-nowrap">Fish</a>
-                    <a href="#tenders" class="px-3 py-2 font-medium text-gray-700 hover:text-amber-600 transition whitespace-nowrap">Tenders</a>
-                    <a href="#wings" class="px-3 py-2 font-medium text-gray-700 hover:text-amber-600 transition whitespace-nowrap">Wings</a>
-                    <a href="#cheesesteaks" class="px-3 py-2 font-medium text-gray-700 hover:text-amber-600 transition whitespace-nowrap">Cheesesteaks</a>
-                    <a href="#salads" class="px-3 py-2 font-medium text-gray-700 hover:text-amber-600 transition whitespace-nowrap">Salads</a>
-                    <a href="#sides" class="px-3 py-2 font-medium text-gray-700 hover:text-amber-600 transition whitespace-nowrap">Sides</a>
-                    <a href="#desserts" class="px-3 py-2 font-medium text-gray-700 hover:text-amber-600 transition whitespace-nowrap">Desserts</a>
-                    <a href="#beverages" class="px-3 py-2 font-medium text-gray-700 hover:text-amber-600 transition whitespace-nowrap">Beverages</a>
+                    <a href="#burgers" class="px-3 py-2 font-medium text-gray-900 hover:text-amber-600 transition whitespace-nowrap">Burgers</a>
+                    <a href="#sandwiches" class="px-3 py-2 font-medium text-gray-900 hover:text-amber-600 transition whitespace-nowrap">Sandwiches</a>
+                    <a href="#gyros" class="px-3 py-2 font-medium text-gray-900 hover:text-amber-600 transition whitespace-nowrap">Gyros</a>
+                    <a href="#platters" class="px-3 py-2 font-medium text-gray-900 hover:text-amber-600 transition whitespace-nowrap">Platters</a>
+                    <a href="#chicken" class="px-3 py-2 font-medium text-gray-900 hover:text-amber-600 transition whitespace-nowrap">Chicken</a>
+                    <a href="#nuggets" class="px-3 py-2 font-medium text-gray-900 hover:text-amber-600 transition whitespace-nowrap">Nuggets</a>
+                    <a href="#fish" class="px-3 py-2 font-medium text-gray-900 hover:text-amber-600 transition whitespace-nowrap">Fish</a>
+                    <a href="#tenders" class="px-3 py-2 font-medium text-gray-900 hover:text-amber-600 transition whitespace-nowrap">Tenders</a>
+                    <a href="#wings" class="px-3 py-2 font-medium text-gray-900 hover:text-amber-600 transition whitespace-nowrap">Wings</a>
+                    <a href="#cheesesteaks" class="px-3 py-2 font-medium text-gray-900 hover:text-amber-600 transition whitespace-nowrap">Cheesesteaks</a>
+                    <a href="#salads" class="px-3 py-2 font-medium text-gray-900 hover:text-amber-600 transition whitespace-nowrap">Salads</a>
+                    <a href="#sides" class="px-3 py-2 font-medium text-gray-900 hover:text-amber-600 transition whitespace-nowrap">Sides</a>
+                    <a href="#desserts" class="px-3 py-2 font-medium text-gray-900 hover:text-amber-600 transition whitespace-nowrap">Desserts</a>
+                    <a href="#beverages" class="px-3 py-2 font-medium text-gray-900 hover:text-amber-600 transition whitespace-nowrap">Beverages</a>
                 </div>
                 
                 <!-- Right Scroll Indicator -->
@@ -706,16 +757,16 @@
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="flex flex-col sm:flex-row items-center justify-between gap-4">
                 <div class="flex items-center gap-2">
-                    <span class="text-sm font-medium text-gray-700">Filter by Price:</span>
+                    <span class="text-sm font-medium text-gray-900">Filter by Price:</span>
                     <span id="active-filters" class="text-xs text-amber-600 font-medium"></span>
                 </div>
                 <div class="flex flex-wrap gap-2">
                     <button onclick="filterByPrice('all')" class="price-filter-btn active px-3 py-1.5 text-sm font-medium rounded-full border transition-all duration-200 bg-amber-600 text-white border-amber-600">All Items</button>
-                    <button onclick="filterByPrice('under5')" class="price-filter-btn px-3 py-1.5 text-sm font-medium rounded-full border transition-all duration-200 bg-white text-gray-700 border-gray-300 hover:border-amber-600 hover:text-amber-600">Under $5</button>
-                    <button onclick="filterByPrice('5to10')" class="price-filter-btn px-3 py-1.5 text-sm font-medium rounded-full border transition-all duration-200 bg-white text-gray-700 border-gray-300 hover:border-amber-600 hover:text-amber-600">$5 - $10</button>
-                    <button onclick="filterByPrice('10to15')" class="price-filter-btn px-3 py-1.5 text-sm font-medium rounded-full border transition-all duration-200 bg-white text-gray-700 border-gray-300 hover:border-amber-600 hover:text-amber-600">$10 - $15</button>
-                    <button onclick="filterByPrice('15to20')" class="price-filter-btn px-3 py-1.5 text-sm font-medium rounded-full border transition-all duration-200 bg-white text-gray-700 border-gray-300 hover:border-amber-600 hover:text-amber-600">$15 - $20</button>
-                    <button onclick="filterByPrice('over20')" class="price-filter-btn px-3 py-1.5 text-sm font-medium rounded-full border transition-all duration-200 bg-white text-gray-700 border-gray-300 hover:border-amber-600 hover:text-amber-600">$20+</button>
+                    <button onclick="filterByPrice('under5')" class="price-filter-btn px-3 py-1.5 text-sm font-medium rounded-full border transition-all duration-200 bg-white text-gray-900 border-gray-300 hover:border-amber-600 hover:text-amber-600">Under $5</button>
+                    <button onclick="filterByPrice('5to10')" class="price-filter-btn px-3 py-1.5 text-sm font-medium rounded-full border transition-all duration-200 bg-white text-gray-900 border-gray-300 hover:border-amber-600 hover:text-amber-600">$5 - $10</button>
+                    <button onclick="filterByPrice('10to15')" class="price-filter-btn px-3 py-1.5 text-sm font-medium rounded-full border transition-all duration-200 bg-white text-gray-900 border-gray-300 hover:border-amber-600 hover:text-amber-600">$10 - $15</button>
+                    <button onclick="filterByPrice('15to20')" class="price-filter-btn px-3 py-1.5 text-sm font-medium rounded-full border transition-all duration-200 bg-white text-gray-900 border-gray-300 hover:border-amber-600 hover:text-amber-600">$15 - $20</button>
+                    <button onclick="filterByPrice('over20')" class="price-filter-btn px-3 py-1.5 text-sm font-medium rounded-full border transition-all duration-200 bg-white text-gray-900 border-gray-300 hover:border-amber-600 hover:text-amber-600">$20+</button>
                 </div>
             </div>
         </div>
@@ -735,27 +786,33 @@
                         </div>
                         <div class="combo-badge">Combo Available</div>
                         <div class="p-6">
-                            <div class="flex justify-between items-start mb-2 item-header">
-                                <h3 class="text-xl font-bold">Cheeseburger</h3>
-                                <div class="text-right">
-                                    <div class="text-amber-600 font-semibold price-display">Only $9.54 | Combo $12.79</div>
+                            <div class="menu-item-header" onclick="toggleMenuItem(this)">
+                                <h3 class="text-xl font-bold text-gray-900">Cheeseburger</h3>
+                                <i class="fas fa-chevron-down dropdown-icon"></i>
+                            </div>
+                            <div class="menu-item-content collapsed">
+                                <div class="flex justify-between items-start mb-2 item-header">
+                                    <div></div>
+                                    <div class="text-right">
+                                        <div class="text-amber-600 font-semibold price-display">Only $9.54 | Combo $12.79</div>
+                                    </div>
                                 </div>
-                            </div>
-                            <p class="text-gray-600 mb-4">Juicy beef patty with melted cheese, crisp lettuce, fresh tomatoes, pickles, and mayo on a toasted bun.</p>
-                            <div class="mb-3">
-                                <p class="text-sm font-medium text-gray-700">Combo includes: 1 side + 1 drink</p>
-                            </div>
-                            <div class="mb-3">
-                                <p class="text-sm font-medium text-gray-700">Add-ons:</p>
-                                <div class="flex flex-wrap gap-2 mt-1">
-                                    <span class="text-xs bg-gray-100 text-gray-800 px-2 py-1 rounded">Cheese +$1.50</span>
-                                    <span class="text-xs bg-gray-100 text-gray-800 px-2 py-1 rounded">Mushroom +$2.75</span>
-                                    <span class="text-xs bg-gray-100 text-gray-800 px-2 py-1 rounded">Bacon +$3.29</span>
-                                    <span class="text-xs bg-gray-100 text-gray-800 px-2 py-1 rounded">Meat +$3.00</span>
+                                <p class="text-gray-900 mb-4">Juicy beef patty with melted cheese, crisp lettuce, fresh tomatoes, pickles, and mayo on a toasted bun.</p>
+                                <div class="mb-3">
+                                    <p class="text-sm font-medium text-gray-900">Combo includes: 1 side + 1 drink</p>
                                 </div>
-                            </div>
-                            <div class="flex">
-                                <span class="dietary-icon bg-green-100 text-green-800">Halal</span>
+                                <div class="mb-3">
+                                    <p class="text-sm font-medium text-gray-900">Add-ons:</p>
+                                    <div class="flex flex-wrap gap-2 mt-1">
+                                        <span class="text-xs bg-yellow-200 text-yellow-900 px-2 py-1 rounded font-medium">Cheese +$1.50</span>
+                                        <span class="text-xs bg-green-200 text-green-900 px-2 py-1 rounded font-medium">Mushroom +$2.75</span>
+                                        <span class="text-xs bg-red-200 text-red-900 px-2 py-1 rounded font-medium">Bacon +$3.29</span>
+                                        <span class="text-xs bg-blue-200 text-blue-900 px-2 py-1 rounded font-medium">Meat +$3.00</span>
+                                    </div>
+                                </div>
+                                <div class="flex">
+                                    <span class="dietary-icon bg-green-100 text-green-800">Halal</span>
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -773,17 +830,17 @@
                                     <div class="text-amber-600 font-semibold price-display">Only $10.74 | Combo $13.99</div>
                                 </div>
                             </div>
-                            <p class="text-gray-600 mb-4">Double patty loaded with lettuce, tomatoes, onions, pickles, cheese, ketchup, and mayo on a toasted bun.</p>
+                            <p class="text-gray-900 mb-4">Double patty loaded with lettuce, tomatoes, onions, pickles, cheese, ketchup, and mayo on a toasted bun.</p>
                             <div class="mb-3">
-                                <p class="text-sm font-medium text-gray-700">Combo includes: 1 side + 1 drink</p>
+                                <p class="text-sm font-medium text-gray-900">Combo includes: 1 side + 1 drink</p>
                             </div>
                             <div class="mb-3">
-                                <p class="text-sm font-medium text-gray-700">Add-ons:</p>
+                                <p class="text-sm font-medium text-gray-900">Add-ons:</p>
                                 <div class="flex flex-wrap gap-2 mt-1">
-                                    <span class="text-xs bg-gray-100 text-gray-800 px-2 py-1 rounded">Cheese +$1.50</span>
-                                    <span class="text-xs bg-gray-100 text-gray-800 px-2 py-1 rounded">Mushroom +$2.75</span>
-                                    <span class="text-xs bg-gray-100 text-gray-800 px-2 py-1 rounded">Bacon +$3.29</span>
-                                    <span class="text-xs bg-gray-100 text-gray-800 px-2 py-1 rounded">Meat +$3.00</span>
+                                    <span class="text-xs bg-gray-200 text-gray-900 px-2 py-1 rounded">Cheese +$1.50</span>
+                                    <span class="text-xs bg-gray-200 text-gray-900 px-2 py-1 rounded">Mushroom +$2.75</span>
+                                    <span class="text-xs bg-gray-200 text-gray-900 px-2 py-1 rounded">Bacon +$3.29</span>
+                                    <span class="text-xs bg-gray-200 text-gray-900 px-2 py-1 rounded">Meat +$3.00</span>
                                 </div>
                             </div>
                             <div class="flex">
@@ -806,17 +863,17 @@
                                     <div class="text-amber-600 font-semibold price-display">Only $9.94 | Combo $13.19</div>
                                 </div>
                             </div>
-                            <p class="text-gray-600 mb-4">Flame-grilled beef patty with bacon, mushrooms, caramelized onions, and our signature blink sauce on a toasted bun.</p>
+                            <p class="text-gray-900 mb-4">Flame-grilled beef patty with bacon, mushrooms, caramelized onions, and our signature blink sauce on a toasted bun.</p>
                             <div class="mb-3">
-                                <p class="text-sm font-medium text-gray-700">Combo includes: 1 side + 1 drink</p>
+                                <p class="text-sm font-medium text-gray-900">Combo includes: 1 side + 1 drink</p>
                             </div>
                             <div class="mb-3">
-                                <p class="text-sm font-medium text-gray-700">Add-ons:</p>
+                                <p class="text-sm font-medium text-gray-900">Add-ons:</p>
                                 <div class="flex flex-wrap gap-2 mt-1">
-                                    <span class="text-xs bg-gray-100 text-gray-800 px-2 py-1 rounded">Cheese +$1.50</span>
-                                    <span class="text-xs bg-gray-100 text-gray-800 px-2 py-1 rounded">Mushroom +$2.75</span>
-                                    <span class="text-xs bg-gray-100 text-gray-800 px-2 py-1 rounded">Bacon +$3.29</span>
-                                    <span class="text-xs bg-gray-100 text-gray-800 px-2 py-1 rounded">Meat +$3.00</span>
+                                    <span class="text-xs bg-gray-200 text-gray-900 px-2 py-1 rounded">Cheese +$1.50</span>
+                                    <span class="text-xs bg-gray-200 text-gray-900 px-2 py-1 rounded">Mushroom +$2.75</span>
+                                    <span class="text-xs bg-gray-200 text-gray-900 px-2 py-1 rounded">Bacon +$3.29</span>
+                                    <span class="text-xs bg-gray-200 text-gray-900 px-2 py-1 rounded">Meat +$3.00</span>
                                 </div>
                             </div>
                             <div class="flex">
@@ -838,17 +895,17 @@
                                     <div class="text-amber-600 font-semibold price-display">Only $10.44 | Combo $13.69</div>
                                 </div>
                             </div>
-                            <p class="text-gray-600 mb-4">Flame-grilled beef patty with caramelized onions, with 2 pieces mozzarella sticks and our signature Spicy sauce on a toasted bun</p>
+                            <p class="text-gray-900 mb-4">Flame-grilled beef patty with caramelized onions, with 2 pieces mozzarella sticks and our signature Spicy sauce on a toasted bun</p>
                             <div class="mb-3">
-                                <p class="text-sm font-medium text-gray-700">Combo includes: 1 side + 1 drink</p>
+                                <p class="text-sm font-medium text-gray-900">Combo includes: 1 side + 1 drink</p>
                             </div>
                             <div class="mb-3">
-                                <p class="text-sm font-medium text-gray-700">Add-ons:</p>
+                                <p class="text-sm font-medium text-gray-900">Add-ons:</p>
                                 <div class="flex flex-wrap gap-2 mt-1">
-                                    <span class="text-xs bg-gray-100 text-gray-800 px-2 py-1 rounded">Cheese +$1.50</span>
-                                    <span class="text-xs bg-gray-100 text-gray-800 px-2 py-1 rounded">Mushroom +$2.75</span>
-                                    <span class="text-xs bg-gray-100 text-gray-800 px-2 py-1 rounded">Bacon +$3.29</span>
-                                    <span class="text-xs bg-gray-100 text-gray-800 px-2 py-1 rounded">Meat +$3.00</span>
+                                    <span class="text-xs bg-gray-200 text-gray-900 px-2 py-1 rounded">Cheese +$1.50</span>
+                                    <span class="text-xs bg-gray-200 text-gray-900 px-2 py-1 rounded">Mushroom +$2.75</span>
+                                    <span class="text-xs bg-gray-200 text-gray-900 px-2 py-1 rounded">Bacon +$3.29</span>
+                                    <span class="text-xs bg-gray-200 text-gray-900 px-2 py-1 rounded">Meat +$3.00</span>
                                 </div>
                             </div>
                             <div class="flex">
@@ -871,17 +928,17 @@
                                     <div class="text-amber-600 font-semibold price-display">Only $5.99 | Combo $9.24</div>
                                 </div>
                             </div>
-                            <p class="text-gray-600 mb-4">Fresh falafel patties with boom boom sauce, shredded cheese, nacho cheese, spring mix, tomatoes, and onions on a soft bun.</p>
+                            <p class="text-gray-900 mb-4">Fresh falafel patties with boom boom sauce, shredded cheese, nacho cheese, spring mix, tomatoes, and onions on a soft bun.</p>
                             <div class="mb-3">
-                                <p class="text-sm font-medium text-gray-700">Combo includes: 1 side + 1 drink</p>
+                                <p class="text-sm font-medium text-gray-900">Combo includes: 1 side + 1 drink</p>
                             </div>
                             <div class="mb-3">
-                                <p class="text-sm font-medium text-gray-700">Add-ons:</p>
+                                <p class="text-sm font-medium text-gray-900">Add-ons:</p>
                                 <div class="flex flex-wrap gap-2 mt-1">
-                                    <span class="text-xs bg-gray-100 text-gray-800 px-2 py-1 rounded">Cheese +$1.50</span>
-                                    <span class="text-xs bg-gray-100 text-gray-800 px-2 py-1 rounded">Mushroom +$2.75</span>
-                                    <span class="text-xs bg-gray-100 text-gray-800 px-2 py-1 rounded">Bacon +$3.29</span>
-                                    <span class="text-xs bg-gray-100 text-gray-800 px-2 py-1 rounded">Meat +$3.00</span>
+                                    <span class="text-xs bg-gray-200 text-gray-900 px-2 py-1 rounded">Cheese +$1.50</span>
+                                    <span class="text-xs bg-gray-200 text-gray-900 px-2 py-1 rounded">Mushroom +$2.75</span>
+                                    <span class="text-xs bg-gray-200 text-gray-900 px-2 py-1 rounded">Bacon +$3.29</span>
+                                    <span class="text-xs bg-gray-200 text-gray-900 px-2 py-1 rounded">Meat +$3.00</span>
                                 </div>
                             </div>
                             <div class="flex">
@@ -908,17 +965,17 @@
                                     <div class="text-amber-600 font-semibold price-display">Only $9.54 | Combo $12.79</div>
                                 </div>
                             </div>
-                            <p class="text-gray-600 mb-4">Crispy seasoned chicken breast with pickles, mayo, boom boom sauce, and butter on a toasted bun.</p>
+                            <p class="text-gray-900 mb-4">Crispy seasoned chicken breast with pickles, mayo, boom boom sauce, and butter on a toasted bun.</p>
                             <div class="mb-3">
-                                <p class="text-sm font-medium text-gray-700">Combo includes: 1 side + 1 drink</p>
+                                <p class="text-sm font-medium text-gray-900">Combo includes: 1 side + 1 drink</p>
                             </div>
                             <div class="mb-3">
-                                <p class="text-sm font-medium text-gray-700">Add-ons:</p>
+                                <p class="text-sm font-medium text-gray-900">Add-ons:</p>
                                 <div class="flex flex-wrap gap-2 mt-1">
-                                    <span class="text-xs bg-gray-100 text-gray-800 px-2 py-1 rounded">Cheese +$1.50</span>
-                                    <span class="text-xs bg-gray-100 text-gray-800 px-2 py-1 rounded">Mushroom +$2.75</span>
-                                    <span class="text-xs bg-gray-100 text-gray-800 px-2 py-1 rounded">Bacon +$3.29</span>
-                                    <span class="text-xs bg-gray-100 text-gray-800 px-2 py-1 rounded">Meat +$3.00</span>
+                                    <span class="text-xs bg-gray-200 text-gray-900 px-2 py-1 rounded">Cheese +$1.50</span>
+                                    <span class="text-xs bg-gray-200 text-gray-900 px-2 py-1 rounded">Mushroom +$2.75</span>
+                                    <span class="text-xs bg-gray-200 text-gray-900 px-2 py-1 rounded">Bacon +$3.29</span>
+                                    <span class="text-xs bg-gray-200 text-gray-900 px-2 py-1 rounded">Meat +$3.00</span>
                                 </div>
                             </div>
                             <div class="flex">
@@ -939,17 +996,17 @@
                                     <div class="text-amber-600 font-semibold price-display">Only $10.54 | Combo $13.79</div>
                                 </div>
                             </div>
-                            <p class="text-gray-600 mb-4">Crunchy meat chicken with pickles, spicy mayo, and blink sauce on a brioche bun with butter.</p>
+                            <p class="text-gray-900 mb-4">Crunchy meat chicken with pickles, spicy mayo, and blink sauce on a brioche bun with butter.</p>
                             <div class="mb-3">
-                                <p class="text-sm font-medium text-gray-700">Combo includes: 1 side + 1 drink</p>
+                                <p class="text-sm font-medium text-gray-900">Combo includes: 1 side + 1 drink</p>
                             </div>
                             <div class="mb-3">
-                                <p class="text-sm font-medium text-gray-700">Add-ons:</p>
+                                <p class="text-sm font-medium text-gray-900">Add-ons:</p>
                                 <div class="flex flex-wrap gap-2 mt-1">
-                                    <span class="text-xs bg-gray-100 text-gray-800 px-2 py-1 rounded">Cheese +$1.50</span>
-                                    <span class="text-xs bg-gray-100 text-gray-800 px-2 py-1 rounded">Mushroom +$2.75</span>
-                                    <span class="text-xs bg-gray-100 text-gray-800 px-2 py-1 rounded">Bacon +$3.29</span>
-                                    <span class="text-xs bg-gray-100 text-gray-800 px-2 py-1 rounded">Meat +$3.00</span>
+                                    <span class="text-xs bg-gray-200 text-gray-900 px-2 py-1 rounded">Cheese +$1.50</span>
+                                    <span class="text-xs bg-gray-200 text-gray-900 px-2 py-1 rounded">Mushroom +$2.75</span>
+                                    <span class="text-xs bg-gray-200 text-gray-900 px-2 py-1 rounded">Bacon +$3.29</span>
+                                    <span class="text-xs bg-gray-200 text-gray-900 px-2 py-1 rounded">Meat +$3.00</span>
                                 </div>
                             </div>
                             <div class="flex">
@@ -971,17 +1028,17 @@
                                     <div class="text-amber-600 font-semibold price-display">Only $11.54 | Combo $14.79</div>
                                 </div>
                             </div>
-                            <p class="text-gray-600 mb-4">Flame-grilled chicken breast with mayo, cheese, spring mix, boom boom sauce, and pickles on a toasted bun.</p>
+                            <p class="text-gray-900 mb-4">Flame-grilled chicken breast with mayo, cheese, spring mix, boom boom sauce, and pickles on a toasted bun.</p>
                             <div class="mb-3">
-                                <p class="text-sm font-medium text-gray-700">Combo includes: 1 side + 1 drink</p>
+                                <p class="text-sm font-medium text-gray-900">Combo includes: 1 side + 1 drink</p>
                             </div>
                             <div class="mb-3">
-                                <p class="text-sm font-medium text-gray-700">Add-ons:</p>
+                                <p class="text-sm font-medium text-gray-900">Add-ons:</p>
                                 <div class="flex flex-wrap gap-2 mt-1">
-                                    <span class="text-xs bg-gray-100 text-gray-800 px-2 py-1 rounded">Cheese +$1.50</span>
-                                    <span class="text-xs bg-gray-100 text-gray-800 px-2 py-1 rounded">Mushroom +$2.75</span>
-                                    <span class="text-xs bg-gray-100 text-gray-800 px-2 py-1 rounded">Bacon +$3.29</span>
-                                    <span class="text-xs bg-gray-100 text-gray-800 px-2 py-1 rounded">Meat +$3.00</span>
+                                    <span class="text-xs bg-gray-200 text-gray-900 px-2 py-1 rounded">Cheese +$1.50</span>
+                                    <span class="text-xs bg-gray-200 text-gray-900 px-2 py-1 rounded">Mushroom +$2.75</span>
+                                    <span class="text-xs bg-gray-200 text-gray-900 px-2 py-1 rounded">Bacon +$3.29</span>
+                                    <span class="text-xs bg-gray-200 text-gray-900 px-2 py-1 rounded">Meat +$3.00</span>
                                 </div>
                             </div>
                             <div class="flex">
@@ -1002,17 +1059,17 @@
                                     <div class="text-amber-600 font-semibold price-display">Only $9.44 | Combo $12.69</div>
                                 </div>
                             </div>
-                            <p class="text-gray-600 mb-4">Fresh grilled fish with caramelized onions, cheese, tartar sauce, pickles, and butter on a soft bun.</p>
+                            <p class="text-gray-900 mb-4">Fresh grilled fish with caramelized onions, cheese, tartar sauce, pickles, and butter on a soft bun.</p>
                             <div class="mb-3">
-                                <p class="text-sm font-medium text-gray-700">Combo includes: 1 side + 1 drink</p>
+                                <p class="text-sm font-medium text-gray-900">Combo includes: 1 side + 1 drink</p>
                             </div>
                             <div class="mb-3">
-                                <p class="text-sm font-medium text-gray-700">Add-ons:</p>
+                                <p class="text-sm font-medium text-gray-900">Add-ons:</p>
                                 <div class="flex flex-wrap gap-2 mt-1">
-                                    <span class="text-xs bg-gray-100 text-gray-800 px-2 py-1 rounded">Cheese +$1.50</span>
-                                    <span class="text-xs bg-gray-100 text-gray-800 px-2 py-1 rounded">Mushroom +$2.75</span>
-                                    <span class="text-xs bg-gray-100 text-gray-800 px-2 py-1 rounded">Bacon +$3.29</span>
-                                    <span class="text-xs bg-gray-100 text-gray-800 px-2 py-1 rounded">Meat +$3.00</span>
+                                    <span class="text-xs bg-gray-200 text-gray-900 px-2 py-1 rounded">Cheese +$1.50</span>
+                                    <span class="text-xs bg-gray-200 text-gray-900 px-2 py-1 rounded">Mushroom +$2.75</span>
+                                    <span class="text-xs bg-gray-200 text-gray-900 px-2 py-1 rounded">Bacon +$3.29</span>
+                                    <span class="text-xs bg-gray-200 text-gray-900 px-2 py-1 rounded">Meat +$3.00</span>
                                 </div>
                             </div>
                             <div class="flex">
@@ -1033,17 +1090,17 @@
                                     <div class="text-amber-600 font-semibold price-display">Only $12.49 | Combo $15.74</div>
                                 </div>
                             </div>
-                            <p class="text-gray-600 mb-4">Succulent jerk chicken with mayo, cheese, onion rings, joke sauce, and butter on a toasted bun.</p>
+                            <p class="text-gray-900 mb-4">Succulent jerk chicken with mayo, cheese, onion rings, joke sauce, and butter on a toasted bun.</p>
                             <div class="mb-3">
-                                <p class="text-sm font-medium text-gray-700">Combo includes: 1 side + 1 drink</p>
+                                <p class="text-sm font-medium text-gray-900">Combo includes: 1 side + 1 drink</p>
                             </div>
                             <div class="mb-3">
-                                <p class="text-sm font-medium text-gray-700">Add-ons:</p>
+                                <p class="text-sm font-medium text-gray-900">Add-ons:</p>
                                 <div class="flex flex-wrap gap-2 mt-1">
-                                    <span class="text-xs bg-gray-100 text-gray-800 px-2 py-1 rounded">Cheese +$1.50</span>
-                                    <span class="text-xs bg-gray-100 text-gray-800 px-2 py-1 rounded">Mushroom +$2.75</span>
-                                    <span class="text-xs bg-gray-100 text-gray-800 px-2 py-1 rounded">Bacon +$3.29</span>
-                                    <span class="text-xs bg-gray-100 text-gray-800 px-2 py-1 rounded">Meat +$3.00</span>
+                                    <span class="text-xs bg-gray-200 text-gray-900 px-2 py-1 rounded">Cheese +$1.50</span>
+                                    <span class="text-xs bg-gray-200 text-gray-900 px-2 py-1 rounded">Mushroom +$2.75</span>
+                                    <span class="text-xs bg-gray-200 text-gray-900 px-2 py-1 rounded">Bacon +$3.29</span>
+                                    <span class="text-xs bg-gray-200 text-gray-900 px-2 py-1 rounded">Meat +$3.00</span>
                                 </div>
                             </div>
                             <div class="flex">
@@ -1070,17 +1127,17 @@
                                     <div class="text-amber-600 font-semibold price-display">Only $11.74 | Combo $14.99</div>
                                 </div>
                             </div>
-                            <p class="text-gray-600 mb-4">Succulent marinated chicken wrapped in warm pita with fresh lettuce, mixed greens, and our signature sauce.</p>
+                            <p class="text-gray-900 mb-4">Succulent marinated chicken wrapped in warm pita with fresh lettuce, mixed greens, and our signature sauce.</p>
                             <div class="mb-3">
-                                <p class="text-sm font-medium text-gray-700">Combo includes: 1 side + 1 drink</p>
+                                <p class="text-sm font-medium text-gray-900">Combo includes: 1 side + 1 drink</p>
                             </div>
                             <div class="mb-3">
-                                <p class="text-sm font-medium text-gray-700">Add-ons:</p>
+                                <p class="text-sm font-medium text-gray-900">Add-ons:</p>
                                 <div class="flex flex-wrap gap-2 mt-1">
-                                    <span class="text-xs bg-gray-100 text-gray-800 px-2 py-1 rounded">Cheese +$1.50</span>
-                                    <span class="text-xs bg-gray-100 text-gray-800 px-2 py-1 rounded">Mushroom +$2.75</span>
-                                    <span class="text-xs bg-gray-100 text-gray-800 px-2 py-1 rounded">Bacon +$3.29</span>
-                                    <span class="text-xs bg-gray-100 text-gray-800 px-2 py-1 rounded">Meat +$3.00</span>
+                                    <span class="text-xs bg-gray-200 text-gray-900 px-2 py-1 rounded">Cheese +$1.50</span>
+                                    <span class="text-xs bg-gray-200 text-gray-900 px-2 py-1 rounded">Mushroom +$2.75</span>
+                                    <span class="text-xs bg-gray-200 text-gray-900 px-2 py-1 rounded">Bacon +$3.29</span>
+                                    <span class="text-xs bg-gray-200 text-gray-900 px-2 py-1 rounded">Meat +$3.00</span>
                                 </div>
                             </div>
                             <div class="flex">
@@ -1101,17 +1158,17 @@
                                     <div class="text-amber-600 font-semibold price-display">Only $12.44 | Combo $15.69</div>
                                 </div>
                             </div>
-                            <p class="text-gray-600 mb-4">Authentic seasoned lamb slices in soft pita with lettuce, mixed salad, and creamy sauce with Mediterranean spices.</p>
+                            <p class="text-gray-900 mb-4">Authentic seasoned lamb slices in soft pita with lettuce, mixed salad, and creamy sauce with Mediterranean spices.</p>
                             <div class="mb-3">
-                                <p class="text-sm font-medium text-gray-700">Combo includes: 1 side + 1 drink</p>
+                                <p class="text-sm font-medium text-gray-900">Combo includes: 1 side + 1 drink</p>
                             </div>
                             <div class="mb-3">
-                                <p class="text-sm font-medium text-gray-700">Add-ons:</p>
+                                <p class="text-sm font-medium text-gray-900">Add-ons:</p>
                                 <div class="flex flex-wrap gap-2 mt-1">
-                                    <span class="text-xs bg-gray-100 text-gray-800 px-2 py-1 rounded">Cheese +$1.50</span>
-                                    <span class="text-xs bg-gray-100 text-gray-800 px-2 py-1 rounded">Mushroom +$2.75</span>
-                                    <span class="text-xs bg-gray-100 text-gray-800 px-2 py-1 rounded">Bacon +$3.29</span>
-                                    <span class="text-xs bg-gray-100 text-gray-800 px-2 py-1 rounded">Meat +$3.00</span>
+                                    <span class="text-xs bg-gray-200 text-gray-900 px-2 py-1 rounded">Cheese +$1.50</span>
+                                    <span class="text-xs bg-gray-200 text-gray-900 px-2 py-1 rounded">Mushroom +$2.75</span>
+                                    <span class="text-xs bg-gray-200 text-gray-900 px-2 py-1 rounded">Bacon +$3.29</span>
+                                    <span class="text-xs bg-gray-200 text-gray-900 px-2 py-1 rounded">Meat +$3.00</span>
                                 </div>
                             </div>
                             <div class="flex">
@@ -1133,17 +1190,17 @@
                                     <div class="text-amber-600 font-semibold price-display">Only $12.24 | Combo $15.49</div>
                                 </div>
                             </div>
-                            <p class="text-gray-600 mb-4">Hand-formed kofta with green peppers, onions, lettuce, mixed salad, and Mediterranean spices in warm pita.</p>
+                            <p class="text-gray-900 mb-4">Hand-formed kofta with green peppers, onions, lettuce, mixed salad, and Mediterranean spices in warm pita.</p>
                             <div class="mb-3">
-                                <p class="text-sm font-medium text-gray-700">Combo includes: 1 side + 1 drink</p>
+                                <p class="text-sm font-medium text-gray-900">Combo includes: 1 side + 1 drink</p>
                             </div>
                             <div class="mb-3">
-                                <p class="text-sm font-medium text-gray-700">Add-ons:</p>
+                                <p class="text-sm font-medium text-gray-900">Add-ons:</p>
                                 <div class="flex flex-wrap gap-2 mt-1">
-                                    <span class="text-xs bg-gray-100 text-gray-800 px-2 py-1 rounded">Cheese +$1.50</span>
-                                    <span class="text-xs bg-gray-100 text-gray-800 px-2 py-1 rounded">Mushroom +$2.75</span>
-                                    <span class="text-xs bg-gray-100 text-gray-800 px-2 py-1 rounded">Bacon +$3.29</span>
-                                    <span class="text-xs bg-gray-100 text-gray-800 px-2 py-1 rounded">Meat +$3.00</span>
+                                    <span class="text-xs bg-gray-200 text-gray-900 px-2 py-1 rounded">Cheese +$1.50</span>
+                                    <span class="text-xs bg-gray-200 text-gray-900 px-2 py-1 rounded">Mushroom +$2.75</span>
+                                    <span class="text-xs bg-gray-200 text-gray-900 px-2 py-1 rounded">Bacon +$3.29</span>
+                                    <span class="text-xs bg-gray-200 text-gray-900 px-2 py-1 rounded">Meat +$3.00</span>
                                 </div>
                             </div>
                             <div class="flex">
@@ -1164,17 +1221,17 @@
                                     <div class="text-amber-600 font-semibold price-display">Only $12.24 | Combo $15.49</div>
                                 </div>
                             </div>
-                            <p class="text-gray-600 mb-4">Charcoal-grilled meat with lettuce, mixed salad, and signature sauce wrapped in fresh pita bread.</p>
+                            <p class="text-gray-900 mb-4">Charcoal-grilled meat with lettuce, mixed salad, and signature sauce wrapped in fresh pita bread.</p>
                             <div class="mb-3">
-                                <p class="text-sm font-medium text-gray-700">Combo includes: 1 side + 1 drink</p>
+                                <p class="text-sm font-medium text-gray-900">Combo includes: 1 side + 1 drink</p>
                             </div>
                             <div class="mb-3">
-                                <p class="text-sm font-medium text-gray-700">Add-ons:</p>
+                                <p class="text-sm font-medium text-gray-900">Add-ons:</p>
                                 <div class="flex flex-wrap gap-2 mt-1">
-                                    <span class="text-xs bg-gray-100 text-gray-800 px-2 py-1 rounded">Cheese +$1.50</span>
-                                    <span class="text-xs bg-gray-100 text-gray-800 px-2 py-1 rounded">Mushroom +$2.75</span>
-                                    <span class="text-xs bg-gray-100 text-gray-800 px-2 py-1 rounded">Bacon +$3.29</span>
-                                    <span class="text-xs bg-gray-100 text-gray-800 px-2 py-1 rounded">Meat +$3.00</span>
+                                    <span class="text-xs bg-gray-200 text-gray-900 px-2 py-1 rounded">Cheese +$1.50</span>
+                                    <span class="text-xs bg-gray-200 text-gray-900 px-2 py-1 rounded">Mushroom +$2.75</span>
+                                    <span class="text-xs bg-gray-200 text-gray-900 px-2 py-1 rounded">Bacon +$3.29</span>
+                                    <span class="text-xs bg-gray-200 text-gray-900 px-2 py-1 rounded">Meat +$3.00</span>
                                 </div>
                             </div>
                             <div class="flex">
@@ -1195,17 +1252,17 @@
                                     <div class="text-amber-600 font-semibold price-display">Only $12.64 | Combo $15.89</div>
                                 </div>
                             </div>
-                            <p class="text-gray-600 mb-4">Tender beef meatballs with lettuce, mixed salad, and savory sauce wrapped in soft pita bread.</p>
+                            <p class="text-gray-900 mb-4">Tender beef meatballs with lettuce, mixed salad, and savory sauce wrapped in soft pita bread.</p>
                             <div class="mb-3">
-                                <p class="text-sm font-medium text-gray-700">Combo includes: 1 side + 1 drink</p>
+                                <p class="text-sm font-medium text-gray-900">Combo includes: 1 side + 1 drink</p>
                             </div>
                             <div class="mb-3">
-                                <p class="text-sm font-medium text-gray-700">Add-ons:</p>
+                                <p class="text-sm font-medium text-gray-900">Add-ons:</p>
                                 <div class="flex flex-wrap gap-2 mt-1">
-                                    <span class="text-xs bg-gray-100 text-gray-800 px-2 py-1 rounded">Cheese +$1.50</span>
-                                    <span class="text-xs bg-gray-100 text-gray-800 px-2 py-1 rounded">Mushroom +$2.75</span>
-                                    <span class="text-xs bg-gray-100 text-gray-800 px-2 py-1 rounded">Bacon +$3.29</span>
-                                    <span class="text-xs bg-gray-100 text-gray-800 px-2 py-1 rounded">Meat +$3.00</span>
+                                    <span class="text-xs bg-gray-200 text-gray-900 px-2 py-1 rounded">Cheese +$1.50</span>
+                                    <span class="text-xs bg-gray-200 text-gray-900 px-2 py-1 rounded">Mushroom +$2.75</span>
+                                    <span class="text-xs bg-gray-200 text-gray-900 px-2 py-1 rounded">Bacon +$3.29</span>
+                                    <span class="text-xs bg-gray-200 text-gray-900 px-2 py-1 rounded">Meat +$3.00</span>
                                 </div>
                             </div>
                             <div class="flex">
@@ -1226,17 +1283,17 @@
                                     <div class="text-amber-600 font-semibold price-display">Only $12.74 | Combo $15.99</div>
                                 </div>
                             </div>
-                            <p class="text-gray-600 mb-4">Perfect combination of marinated chicken and seasoned lamb with lettuce, mixed salad, and sauce in warm pita.</p>
+                            <p class="text-gray-900 mb-4">Perfect combination of marinated chicken and seasoned lamb with lettuce, mixed salad, and sauce in warm pita.</p>
                             <div class="mb-3">
-                                <p class="text-sm font-medium text-gray-700">Combo includes: 1 side + 1 drink</p>
+                                <p class="text-sm font-medium text-gray-900">Combo includes: 1 side + 1 drink</p>
                             </div>
                             <div class="mb-3">
-                                <p class="text-sm font-medium text-gray-700">Add-ons:</p>
+                                <p class="text-sm font-medium text-gray-900">Add-ons:</p>
                                 <div class="flex flex-wrap gap-2 mt-1">
-                                    <span class="text-xs bg-gray-100 text-gray-800 px-2 py-1 rounded">Cheese +$1.50</span>
-                                    <span class="text-xs bg-gray-100 text-gray-800 px-2 py-1 rounded">Mushroom +$2.75</span>
-                                    <span class="text-xs bg-gray-100 text-gray-800 px-2 py-1 rounded">Bacon +$3.29</span>
-                                    <span class="text-xs bg-gray-100 text-gray-800 px-2 py-1 rounded">Meat +$3.00</span>
+                                    <span class="text-xs bg-gray-200 text-gray-900 px-2 py-1 rounded">Cheese +$1.50</span>
+                                    <span class="text-xs bg-gray-200 text-gray-900 px-2 py-1 rounded">Mushroom +$2.75</span>
+                                    <span class="text-xs bg-gray-200 text-gray-900 px-2 py-1 rounded">Bacon +$3.29</span>
+                                    <span class="text-xs bg-gray-200 text-gray-900 px-2 py-1 rounded">Meat +$3.00</span>
                                 </div>
                             </div>
                             <div class="flex">
@@ -1257,17 +1314,17 @@
                                     <div class="text-amber-600 font-semibold price-display">Only $9.74 | Combo $12.99</div>
                                 </div>
                             </div>
-                            <p class="text-gray-600 mb-4">Fresh seasoned fish fillet with lettuce, mixed salad, and creamy sauce wrapped in soft pita bread.</p>
+                            <p class="text-gray-900 mb-4">Fresh seasoned fish fillet with lettuce, mixed salad, and creamy sauce wrapped in soft pita bread.</p>
                             <div class="mb-3">
-                                <p class="text-sm font-medium text-gray-700">Combo includes: 1 side + 1 drink</p>
+                                <p class="text-sm font-medium text-gray-900">Combo includes: 1 side + 1 drink</p>
                             </div>
                             <div class="mb-3">
-                                <p class="text-sm font-medium text-gray-700">Add-ons:</p>
+                                <p class="text-sm font-medium text-gray-900">Add-ons:</p>
                                 <div class="flex flex-wrap gap-2 mt-1">
-                                    <span class="text-xs bg-gray-100 text-gray-800 px-2 py-1 rounded">Cheese +$1.50</span>
-                                    <span class="text-xs bg-gray-100 text-gray-800 px-2 py-1 rounded">Mushroom +$2.75</span>
-                                    <span class="text-xs bg-gray-100 text-gray-800 px-2 py-1 rounded">Bacon +$3.29</span>
-                                    <span class="text-xs bg-gray-100 text-gray-800 px-2 py-1 rounded">Meat +$3.00</span>
+                                    <span class="text-xs bg-gray-200 text-gray-900 px-2 py-1 rounded">Cheese +$1.50</span>
+                                    <span class="text-xs bg-gray-200 text-gray-900 px-2 py-1 rounded">Mushroom +$2.75</span>
+                                    <span class="text-xs bg-gray-200 text-gray-900 px-2 py-1 rounded">Bacon +$3.29</span>
+                                    <span class="text-xs bg-gray-200 text-gray-900 px-2 py-1 rounded">Meat +$3.00</span>
                                 </div>
                             </div>
                             <div class="flex">
@@ -1288,17 +1345,17 @@
                                     <div class="text-amber-600 font-semibold price-display">Only $9.74 | Combo $12.99</div>
                                 </div>
                             </div>
-                            <p class="text-gray-600 mb-4">Crispy, golden-brown falafel balls tucked into a soft pita with hummus, tahini, and fresh salad.</p>
+                            <p class="text-gray-900 mb-4">Crispy, golden-brown falafel balls tucked into a soft pita with hummus, tahini, and fresh salad.</p>
                             <div class="mb-3">
-                                <p class="text-sm font-medium text-gray-700">Combo includes: 1 side + 1 drink</p>
+                                <p class="text-sm font-medium text-gray-900">Combo includes: 1 side + 1 drink</p>
                             </div>
                             <div class="mb-3">
-                                <p class="text-sm font-medium text-gray-700">Add-ons:</p>
+                                <p class="text-sm font-medium text-gray-900">Add-ons:</p>
                                 <div class="flex flex-wrap gap-2 mt-1">
-                                    <span class="text-xs bg-gray-100 text-gray-800 px-2 py-1 rounded">Cheese +$1.50</span>
-                                    <span class="text-xs bg-gray-100 text-gray-800 px-2 py-1 rounded">Mushroom +$2.75</span>
-                                    <span class="text-xs bg-gray-100 text-gray-800 px-2 py-1 rounded">Bacon +$3.29</span>
-                                    <span class="text-xs bg-gray-100 text-gray-800 px-2 py-1 rounded">Meat +$3.00</span>
+                                    <span class="text-xs bg-gray-200 text-gray-900 px-2 py-1 rounded">Cheese +$1.50</span>
+                                    <span class="text-xs bg-gray-200 text-gray-900 px-2 py-1 rounded">Mushroom +$2.75</span>
+                                    <span class="text-xs bg-gray-200 text-gray-900 px-2 py-1 rounded">Bacon +$3.29</span>
+                                    <span class="text-xs bg-gray-200 text-gray-900 px-2 py-1 rounded">Meat +$3.00</span>
                                 </div>
                             </div>
                             <div class="flex">
@@ -1327,17 +1384,17 @@
                                     <div class="text-amber-600 font-semibold price-display">Only $12.99 | Combo $14.49</div>
                                 </div>
                             </div>
-                            <p class="text-gray-600 mb-4">Marinated grilled chicken served over seasoned rice with a side salad and our signature white sauce.</p>
+                            <p class="text-gray-900 mb-4">Marinated grilled chicken served over seasoned rice with a side salad and our signature white sauce.</p>
                             <div class="mb-3">
-                                <p class="text-sm font-medium text-gray-700">Combo includes: 1 side + 1 drink</p>
+                                <p class="text-sm font-medium text-gray-900">Combo includes: 1 side + 1 drink</p>
                             </div>
                             <div class="mb-3">
-                                <p class="text-sm font-medium text-gray-700">Add-ons:</p>
+                                <p class="text-sm font-medium text-gray-900">Add-ons:</p>
                                 <div class="flex flex-wrap gap-2 mt-1">
-                                    <span class="text-xs bg-gray-100 text-gray-800 px-2 py-1 rounded">Cheese +$1.50</span>
-                                    <span class="text-xs bg-gray-100 text-gray-800 px-2 py-1 rounded">Mushroom +$2.75</span>
-                                    <span class="text-xs bg-gray-100 text-gray-800 px-2 py-1 rounded">Bacon +$3.29</span>
-                                    <span class="text-xs bg-gray-100 text-gray-800 px-2 py-1 rounded">Meat +$3.00</span>
+                                    <span class="text-xs bg-gray-200 text-gray-900 px-2 py-1 rounded">Cheese +$1.50</span>
+                                    <span class="text-xs bg-gray-200 text-gray-900 px-2 py-1 rounded">Mushroom +$2.75</span>
+                                    <span class="text-xs bg-gray-200 text-gray-900 px-2 py-1 rounded">Bacon +$3.29</span>
+                                    <span class="text-xs bg-gray-200 text-gray-900 px-2 py-1 rounded">Meat +$3.00</span>
                                 </div>
                             </div>
                             <div class="flex">
@@ -1358,17 +1415,17 @@
                                     <div class="text-amber-600 font-semibold price-display">Only $13.69 | Combo $15.19</div>
                                 </div>
                             </div>
-                            <p class="text-gray-600 mb-4">Tender slices of seasoned lamb gyro meat over rice with salad and a side of tzatziki sauce.</p>
+                            <p class="text-gray-900 mb-4">Tender slices of seasoned lamb gyro meat over rice with salad and a side of tzatziki sauce.</p>
                             <div class="mb-3">
-                                <p class="text-sm font-medium text-gray-700">Combo includes: 1 side + 1 drink</p>
+                                <p class="text-sm font-medium text-gray-900">Combo includes: 1 side + 1 drink</p>
                             </div>
                             <div class="mb-3">
-                                <p class="text-sm font-medium text-gray-700">Add-ons:</p>
+                                <p class="text-sm font-medium text-gray-900">Add-ons:</p>
                                 <div class="flex flex-wrap gap-2 mt-1">
-                                    <span class="text-xs bg-gray-100 text-gray-800 px-2 py-1 rounded">Cheese +$1.50</span>
-                                    <span class="text-xs bg-gray-100 text-gray-800 px-2 py-1 rounded">Mushroom +$2.75</span>
-                                    <span class="text-xs bg-gray-100 text-gray-800 px-2 py-1 rounded">Bacon +$3.29</span>
-                                    <span class="text-xs bg-gray-100 text-gray-800 px-2 py-1 rounded">Meat +$3.00</span>
+                                    <span class="text-xs bg-gray-200 text-gray-900 px-2 py-1 rounded">Cheese +$1.50</span>
+                                    <span class="text-xs bg-gray-200 text-gray-900 px-2 py-1 rounded">Mushroom +$2.75</span>
+                                    <span class="text-xs bg-gray-200 text-gray-900 px-2 py-1 rounded">Bacon +$3.29</span>
+                                    <span class="text-xs bg-gray-200 text-gray-900 px-2 py-1 rounded">Meat +$3.00</span>
                                 </div>
                             </div>
                             <div class="flex">
@@ -1389,17 +1446,17 @@
                                     <div class="text-amber-600 font-semibold price-display">Only $14.49 | Combo $15.99</div>
                                 </div>
                             </div>
-                            <p class="text-gray-600 mb-4">Grilled kofta kebabs served on a bed of seasoned rice with fresh salad and dipping sauce.</p>
+                            <p class="text-gray-900 mb-4">Grilled kofta kebabs served on a bed of seasoned rice with fresh salad and dipping sauce.</p>
                             <div class="mb-3">
-                                <p class="text-sm font-medium text-gray-700">Combo includes: 1 side + 1 drink</p>
+                                <p class="text-sm font-medium text-gray-900">Combo includes: 1 side + 1 drink</p>
                             </div>
                             <div class="mb-3">
-                                <p class="text-sm font-medium text-gray-700">Add-ons:</p>
+                                <p class="text-sm font-medium text-gray-900">Add-ons:</p>
                                 <div class="flex flex-wrap gap-2 mt-1">
-                                    <span class="text-xs bg-gray-100 text-gray-800 px-2 py-1 rounded">Cheese +$1.50</span>
-                                    <span class="text-xs bg-gray-100 text-gray-800 px-2 py-1 rounded">Mushroom +$2.75</span>
-                                    <span class="text-xs bg-gray-100 text-gray-800 px-2 py-1 rounded">Bacon +$3.29</span>
-                                    <span class="text-xs bg-gray-100 text-gray-800 px-2 py-1 rounded">Meat +$3.00</span>
+                                    <span class="text-xs bg-gray-200 text-gray-900 px-2 py-1 rounded">Cheese +$1.50</span>
+                                    <span class="text-xs bg-gray-200 text-gray-900 px-2 py-1 rounded">Mushroom +$2.75</span>
+                                    <span class="text-xs bg-gray-200 text-gray-900 px-2 py-1 rounded">Bacon +$3.29</span>
+                                    <span class="text-xs bg-gray-200 text-gray-900 px-2 py-1 rounded">Meat +$3.00</span>
                                 </div>
                             </div>
                             <div class="flex">
@@ -1420,17 +1477,17 @@
                                     <div class="text-amber-600 font-semibold price-display">Only $14.24 | Combo $15.74</div>
                                 </div>
                             </div>
-                            <p class="text-gray-600 mb-4">Smoky, charcoal-blackened meat served over rice with a side of salad and our house sauce.</p>
+                            <p class="text-gray-900 mb-4">Smoky, charcoal-blackened meat served over rice with a side of salad and our house sauce.</p>
                             <div class="mb-3">
-                                <p class="text-sm font-medium text-gray-700">Combo includes: 1 side + 1 drink</p>
+                                <p class="text-sm font-medium text-gray-900">Combo includes: 1 side + 1 drink</p>
                             </div>
                             <div class="mb-3">
-                                <p class="text-sm font-medium text-gray-700">Add-ons:</p>
+                                <p class="text-sm font-medium text-gray-900">Add-ons:</p>
                                 <div class="flex flex-wrap gap-2 mt-1">
-                                    <span class="text-xs bg-gray-100 text-gray-800 px-2 py-1 rounded">Cheese +$1.50</span>
-                                    <span class="text-xs bg-gray-100 text-gray-800 px-2 py-1 rounded">Mushroom +$2.75</span>
-                                    <span class="text-xs bg-gray-100 text-gray-800 px-2 py-1 rounded">Bacon +$3.29</span>
-                                    <span class="text-xs bg-gray-100 text-gray-800 px-2 py-1 rounded">Meat +$3.00</span>
+                                    <span class="text-xs bg-gray-200 text-gray-900 px-2 py-1 rounded">Cheese +$1.50</span>
+                                    <span class="text-xs bg-gray-200 text-gray-900 px-2 py-1 rounded">Mushroom +$2.75</span>
+                                    <span class="text-xs bg-gray-200 text-gray-900 px-2 py-1 rounded">Bacon +$3.29</span>
+                                    <span class="text-xs bg-gray-200 text-gray-900 px-2 py-1 rounded">Meat +$3.00</span>
                                 </div>
                             </div>
                             <div class="flex">
@@ -1451,17 +1508,17 @@
                                     <div class="text-amber-600 font-semibold price-display">Only $13.79 | Combo $15.29</div>
                                 </div>
                             </div>
-                            <p class="text-gray-600 mb-4">Hearty portion of seasoned beef slices over a bed of fluffy rice with a fresh side salad.</p>
+                            <p class="text-gray-900 mb-4">Hearty portion of seasoned beef slices over a bed of fluffy rice with a fresh side salad.</p>
                             <div class="mb-3">
-                                <p class="text-sm font-medium text-gray-700">Combo includes: 1 side + 1 drink</p>
+                                <p class="text-sm font-medium text-gray-900">Combo includes: 1 side + 1 drink</p>
                             </div>
                             <div class="mb-3">
-                                <p class="text-sm font-medium text-gray-700">Add-ons:</p>
+                                <p class="text-sm font-medium text-gray-900">Add-ons:</p>
                                 <div class="flex flex-wrap gap-2 mt-1">
-                                    <span class="text-xs bg-gray-100 text-gray-800 px-2 py-1 rounded">Cheese +$1.50</span>
-                                    <span class="text-xs bg-gray-100 text-gray-800 px-2 py-1 rounded">Mushroom +$2.75</span>
-                                    <span class="text-xs bg-gray-100 text-gray-800 px-2 py-1 rounded">Bacon +$3.29</span>
-                                    <span class="text-xs bg-gray-100 text-gray-800 px-2 py-1 rounded">Meat +$3.00</span>
+                                    <span class="text-xs bg-gray-200 text-gray-900 px-2 py-1 rounded">Cheese +$1.50</span>
+                                    <span class="text-xs bg-gray-200 text-gray-900 px-2 py-1 rounded">Mushroom +$2.75</span>
+                                    <span class="text-xs bg-gray-200 text-gray-900 px-2 py-1 rounded">Bacon +$3.29</span>
+                                    <span class="text-xs bg-gray-200 text-gray-900 px-2 py-1 rounded">Meat +$3.00</span>
                                 </div>
                             </div>
                             <div class="flex">
@@ -1482,17 +1539,17 @@
                                     <div class="text-amber-600 font-semibold price-display">Only $15.49 | Combo $16.99</div>
                                 </div>
                             </div>
-                            <p class="text-gray-600 mb-4">The ultimate platter with a mix of our signature meats, served over rice with salad.</p>
+                            <p class="text-gray-900 mb-4">The ultimate platter with a mix of our signature meats, served over rice with salad.</p>
                             <div class="mb-3">
-                                <p class="text-sm font-medium text-gray-700">Combo includes: 1 side + 1 drink</p>
+                                <p class="text-sm font-medium text-gray-900">Combo includes: 1 side + 1 drink</p>
                             </div>
                             <div class="mb-3">
-                                <p class="text-sm font-medium text-gray-700">Add-ons:</p>
+                                <p class="text-sm font-medium text-gray-900">Add-ons:</p>
                                 <div class="flex flex-wrap gap-2 mt-1">
-                                    <span class="text-xs bg-gray-100 text-gray-800 px-2 py-1 rounded">Cheese +$1.50</span>
-                                    <span class="text-xs bg-gray-100 text-gray-800 px-2 py-1 rounded">Mushroom +$2.75</span>
-                                    <span class="text-xs bg-gray-100 text-gray-800 px-2 py-1 rounded">Bacon +$3.29</span>
-                                    <span class="text-xs bg-gray-100 text-gray-800 px-2 py-1 rounded">Meat +$3.00</span>
+                                    <span class="text-xs bg-gray-200 text-gray-900 px-2 py-1 rounded">Cheese +$1.50</span>
+                                    <span class="text-xs bg-gray-200 text-gray-900 px-2 py-1 rounded">Mushroom +$2.75</span>
+                                    <span class="text-xs bg-gray-200 text-gray-900 px-2 py-1 rounded">Bacon +$3.29</span>
+                                    <span class="text-xs bg-gray-200 text-gray-900 px-2 py-1 rounded">Meat +$3.00</span>
                                 </div>
                             </div>
                             <div class="flex">
@@ -1514,17 +1571,17 @@
                                     <div class="text-amber-600 font-semibold price-display">Only $11.99 | Combo $13.49</div>
                                 </div>
                             </div>
-                            <p class="text-gray-600 mb-4">Crispy fried fish served on a bed of seasoned rice with a fresh salad and tartar sauce.</p>
+                            <p class="text-gray-900 mb-4">Crispy fried fish served on a bed of seasoned rice with a fresh salad and tartar sauce.</p>
                             <div class="mb-3">
-                                <p class="text-sm font-medium text-gray-700">Combo includes: 1 side + 1 drink</p>
+                                <p class="text-sm font-medium text-gray-900">Combo includes: 1 side + 1 drink</p>
                             </div>
                             <div class="mb-3">
-                                <p class="text-sm font-medium text-gray-700">Add-ons:</p>
+                                <p class="text-sm font-medium text-gray-900">Add-ons:</p>
                                 <div class="flex flex-wrap gap-2 mt-1">
-                                    <span class="text-xs bg-gray-100 text-gray-800 px-2 py-1 rounded">Cheese +$1.50</span>
-                                    <span class="text-xs bg-gray-100 text-gray-800 px-2 py-1 rounded">Mushroom +$2.75</span>
-                                    <span class="text-xs bg-gray-100 text-gray-800 px-2 py-1 rounded">Bacon +$3.29</span>
-                                    <span class="text-xs bg-gray-100 text-gray-800 px-2 py-1 rounded">Meat +$3.00</span>
+                                    <span class="text-xs bg-gray-200 text-gray-900 px-2 py-1 rounded">Cheese +$1.50</span>
+                                    <span class="text-xs bg-gray-200 text-gray-900 px-2 py-1 rounded">Mushroom +$2.75</span>
+                                    <span class="text-xs bg-gray-200 text-gray-900 px-2 py-1 rounded">Bacon +$3.29</span>
+                                    <span class="text-xs bg-gray-200 text-gray-900 px-2 py-1 rounded">Meat +$3.00</span>
                                 </div>
                             </div>
                             <div class="flex">
@@ -1545,17 +1602,17 @@
                                     <div class="text-amber-600 font-semibold price-display">Only $11.99 | Combo $13.49</div>
                                 </div>
                             </div>
-                            <p class="text-gray-600 mb-4">Golden-fried falafel served over rice with a fresh salad, pita, and tahini sauce.</p>
+                            <p class="text-gray-900 mb-4">Golden-fried falafel served over rice with a fresh salad, pita, and tahini sauce.</p>
                             <div class="mb-3">
-                                <p class="text-sm font-medium text-gray-700">Combo includes: 1 side + 1 drink</p>
+                                <p class="text-sm font-medium text-gray-900">Combo includes: 1 side + 1 drink</p>
                             </div>
                             <div class="mb-3">
-                                <p class="text-sm font-medium text-gray-700">Add-ons:</p>
+                                <p class="text-sm font-medium text-gray-900">Add-ons:</p>
                                 <div class="flex flex-wrap gap-2 mt-1">
-                                    <span class="text-xs bg-gray-100 text-gray-800 px-2 py-1 rounded">Cheese +$1.50</span>
-                                    <span class="text-xs bg-gray-100 text-gray-800 px-2 py-1 rounded">Mushroom +$2.75</span>
-                                    <span class="text-xs bg-gray-100 text-gray-800 px-2 py-1 rounded">Bacon +$3.29</span>
-                                    <span class="text-xs bg-gray-100 text-gray-800 px-2 py-1 rounded">Meat +$3.00</span>
+                                    <span class="text-xs bg-gray-200 text-gray-900 px-2 py-1 rounded">Cheese +$1.50</span>
+                                    <span class="text-xs bg-gray-200 text-gray-900 px-2 py-1 rounded">Mushroom +$2.75</span>
+                                    <span class="text-xs bg-gray-200 text-gray-900 px-2 py-1 rounded">Bacon +$3.29</span>
+                                    <span class="text-xs bg-gray-200 text-gray-900 px-2 py-1 rounded">Meat +$3.00</span>
                                 </div>
                             </div>
                             <div class="flex">
@@ -1583,9 +1640,9 @@
                         <div class="text-amber-600 font-semibold price-display">Only $7.49 | Combo $10.74</div>
                     </div>
                 </div>
-                <p class="text-gray-600 mb-4">Two pieces of our signature chicken, hand-breaded and fried to a juicy, golden-brown perfection.</p>
+                <p class="text-gray-900 mb-4">Two pieces of our signature chicken, hand-breaded and fried to a juicy, golden-brown perfection.</p>
                 <div class="mb-3">
-                    <p class="text-sm font-medium text-gray-700">Combo includes: 1 side + 1 drink</p>
+                    <p class="text-sm font-medium text-gray-900">Combo includes: 1 side + 1 drink</p>
                 </div>
                 <div class="flex">
                     <span class="dietary-icon bg-green-100 text-green-800">Halal</span>
@@ -1605,9 +1662,9 @@
                         <div class="text-amber-600 font-semibold price-display">Only $11.99 | Combo $15.24</div>
                     </div>
                 </div>
-                <p class="text-gray-600 mb-4">Five pieces of our signature chicken, hand-breaded and fried to a juicy, golden-brown perfection.</p>
+                <p class="text-gray-900 mb-4">Five pieces of our signature chicken, hand-breaded and fried to a juicy, golden-brown perfection.</p>
                 <div class="mb-3">
-                    <p class="text-sm font-medium text-gray-700">Combo includes: 1 side + 1 drink</p>
+                    <p class="text-sm font-medium text-gray-900">Combo includes: 1 side + 1 drink</p>
                 </div>
                 <div class="flex">
                     <span class="dietary-icon bg-green-100 text-green-800">Halal</span>
@@ -1627,9 +1684,9 @@
                         <div class="text-amber-600 font-semibold price-display">Only $20.99 | Combo $27.49</div>
                     </div>
                 </div>
-                <p class="text-gray-600 mb-4">Ten pieces of our signature chicken, perfect for sharing with family and friends.</p>
+                <p class="text-gray-900 mb-4">Ten pieces of our signature chicken, perfect for sharing with family and friends.</p>
                 <div class="mb-3">
-                    <p class="text-sm font-medium text-gray-700">Combo includes: 2 sides + 2 drinks</p>
+                    <p class="text-sm font-medium text-gray-900">Combo includes: 2 sides + 2 drinks</p>
                 </div>
                 <div class="flex">
                     <span class="dietary-icon bg-green-100 text-green-800">Halal</span>
@@ -1650,9 +1707,9 @@
                         <div class="text-sm text-gray-500">Combo: $33.99</div>
                     </div>
                 </div>
-                <p class="text-gray-600 mb-4">A family feast of fifteen pieces of our signature hand-breaded chicken.</p>
+                <p class="text-gray-900 mb-4">A family feast of fifteen pieces of our signature hand-breaded chicken.</p>
                 <div class="mb-3">
-                    <p class="text-sm font-medium text-gray-700">Combo includes: 2 sides + 2 drinks</p>
+                    <p class="text-sm font-medium text-gray-900">Combo includes: 2 sides + 2 drinks</p>
                 </div>
                 <div class="flex">
                     <span class="dietary-icon bg-green-100 text-green-800">Halal</span>
@@ -1679,9 +1736,9 @@
                                     <div class="text-amber-600 font-semibold price-display">Only $8.24 | Combo $11.49</div>
                                 </div>
                             </div>
-                            <p class="text-gray-600 mb-4">Six pieces of juicy, all-white meat chicken nuggets, fried to a perfect golden brown.</p>
+                            <p class="text-gray-900 mb-4">Six pieces of juicy, all-white meat chicken nuggets, fried to a perfect golden brown.</p>
                             <div class="mb-3">
-                                <p class="text-sm font-medium text-gray-700">Combo includes: 1 side + 1 drink</p>
+                                <p class="text-sm font-medium text-gray-900">Combo includes: 1 side + 1 drink</p>
                             </div>
                             <div class="flex">
                                 <span class="dietary-icon bg-green-100 text-green-800">Halal</span>
@@ -1701,9 +1758,9 @@
                                     <div class="text-amber-600 font-semibold price-display">Only $10.24 | Combo $13.49</div>
                                 </div>
                             </div>
-                            <p class="text-gray-600 mb-4">A satisfying ten-piece order of our delicious and crispy chicken nuggets.</p>
+                            <p class="text-gray-900 mb-4">A satisfying ten-piece order of our delicious and crispy chicken nuggets.</p>
                             <div class="mb-3">
-                                <p class="text-sm font-medium text-gray-700">Combo includes: 1 side + 1 drink</p>
+                                <p class="text-sm font-medium text-gray-900">Combo includes: 1 side + 1 drink</p>
                             </div>
                             <div class="flex">
                                 <span class="dietary-icon bg-green-100 text-green-800">Halal</span>
@@ -1723,9 +1780,9 @@
                                     <div class="text-amber-600 font-semibold price-display">Only $12.74 | Combo $15.99</div>
                                 </div>
                             </div>
-                            <p class="text-gray-600 mb-4">Perfect for sharing, fifteen pieces of our crispy and tender chicken nuggets.</p>
+                            <p class="text-gray-900 mb-4">Perfect for sharing, fifteen pieces of our crispy and tender chicken nuggets.</p>
                             <div class="mb-3">
-                                <p class="text-sm font-medium text-gray-700">Combo includes: 1 side + 1 drink</p>
+                                <p class="text-sm font-medium text-gray-900">Combo includes: 1 side + 1 drink</p>
                             </div>
                             <div class="flex">
                                 <span class="dietary-icon bg-green-100 text-green-800">Halal</span>
@@ -1751,9 +1808,9 @@
                                     <div class="text-amber-600 font-semibold price-display">Only $6.24 | Combo $9.49</div>
                                 </div>
                             </div>
-                            <p class="text-gray-600 mb-4">Two pieces of our crispy, golden-fried flaky fish. A classic favorite.</p>
+                            <p class="text-gray-900 mb-4">Two pieces of our crispy, golden-fried flaky fish. A classic favorite.</p>
                             <div class="mb-3">
-                                <p class="text-sm font-medium text-gray-700">Combo includes: 1 side + 1 drink</p>
+                                <p class="text-sm font-medium text-gray-900">Combo includes: 1 side + 1 drink</p>
                             </div>
                             <div class="flex">
                                 <span class="dietary-icon bg-green-100 text-green-800">Halal</span>
@@ -1773,9 +1830,9 @@
                                     <div class="text-amber-600 font-semibold price-display">Only $9.24 | Combo $12.49</div>
                                 </div>
                             </div>
-                            <p class="text-gray-600 mb-4">A satisfying meal of four pieces of our perfectly fried, flaky fish.</p>
+                            <p class="text-gray-900 mb-4">A satisfying meal of four pieces of our perfectly fried, flaky fish.</p>
                             <div class="mb-3">
-                                <p class="text-sm font-medium text-gray-700">Combo includes: 1 side + 1 drink</p>
+                                <p class="text-sm font-medium text-gray-900">Combo includes: 1 side + 1 drink</p>
                             </div>
                             <div class="flex">
                                 <span class="dietary-icon bg-green-100 text-green-800">Halal</span>
@@ -1795,9 +1852,9 @@
                                     <div class="text-amber-600 font-semibold price-display">Only $11.74 | Combo $14.99</div>
                                 </div>
                             </div>
-                            <p class="text-gray-600 mb-4">A generous portion of six crispy, golden-fried fish pieces, perfect for the hungry.</p>
+                            <p class="text-gray-900 mb-4">A generous portion of six crispy, golden-fried fish pieces, perfect for the hungry.</p>
                             <div class="mb-3">
-                                <p class="text-sm font-medium text-gray-700">Combo includes: 1 side + 1 drink</p>
+                                <p class="text-sm font-medium text-gray-900">Combo includes: 1 side + 1 drink</p>
                             </div>
                             <div class="flex">
                                 <span class="dietary-icon bg-green-100 text-green-800">Halal</span>
@@ -1823,9 +1880,9 @@
                                     <div class="text-amber-600 font-semibold price-display">Only $7.49 | Combo $10.74</div>
                                 </div>
                             </div>
-                            <p class="text-gray-600 mb-4">Two pieces of our juicy and crispy chicken tenders.</p>
+                            <p class="text-gray-900 mb-4">Two pieces of our juicy and crispy chicken tenders.</p>
                             <div class="mb-3">
-                                <p class="text-sm font-medium text-gray-700">Combo includes: 1 side + 1 drink</p>
+                                <p class="text-sm font-medium text-gray-900">Combo includes: 1 side + 1 drink</p>
                             </div>
                             <div class="flex">
                                 <span class="dietary-icon bg-green-100 text-green-800">Halal</span>
@@ -1845,9 +1902,9 @@
                                     <div class="text-amber-600 font-semibold price-display">Only $9.49 | Combo $12.74</div>
                                 </div>
                             </div>
-                            <p class="text-gray-600 mb-4">Four pieces of our juicy and crispy chicken tenders.</p>
+                            <p class="text-gray-900 mb-4">Four pieces of our juicy and crispy chicken tenders.</p>
                             <div class="mb-3">
-                                <p class="text-sm font-medium text-gray-700">Combo includes: 1 side + 1 drink</p>
+                                <p class="text-sm font-medium text-gray-900">Combo includes: 1 side + 1 drink</p>
                             </div>
                             <div class="flex">
                                 <span class="dietary-icon bg-green-100 text-green-800">Halal</span>
@@ -1867,9 +1924,9 @@
                                     <div class="text-amber-600 font-semibold price-display">Only $13.69 | Combo $16.94</div>
                                 </div>
                             </div>
-                            <p class="text-gray-600 mb-4">A hearty meal of six juicy and crispy chicken tenders.</p>
+                            <p class="text-gray-900 mb-4">A hearty meal of six juicy and crispy chicken tenders.</p>
                             <div class="mb-3">
-                                <p class="text-sm font-medium text-gray-700">Combo includes: 1 side + 1 drink</p>
+                                <p class="text-sm font-medium text-gray-900">Combo includes: 1 side + 1 drink</p>
                             </div>
                             <div class="flex">
                                 <span class="dietary-icon bg-green-100 text-green-800">Halal</span>
@@ -1889,9 +1946,9 @@
                                     <div class="text-amber-600 font-semibold price-display">Only $24.99 | Combo $31.99</div>
                                 </div>
                             </div>
-                            <p class="text-gray-600 mb-4">A family-sized portion of twelve juicy chicken tenders, perfect for sharing.</p>
+                            <p class="text-gray-900 mb-4">A family-sized portion of twelve juicy chicken tenders, perfect for sharing.</p>
                             <div class="mb-3">
-                                <p class="text-sm font-medium text-gray-700">Combo includes: 1 side + 1 drink</p>
+                                <p class="text-sm font-medium text-gray-900">Combo includes: 1 side + 1 drink</p>
                             </div>
                             <div class="flex">
                                 <span class="dietary-icon bg-green-100 text-green-800">Halal</span>
@@ -1917,9 +1974,9 @@
                         <div class="text-amber-600 font-semibold">$10.99</div>
                     </div>
                 </div>
-                <p class="text-gray-600 mb-4">Six of our traditional, bone-in chicken wings, fried crispy and tossed in your favorite sauce.</p>
+                <p class="text-gray-900 mb-4">Six of our traditional, bone-in chicken wings, fried crispy and tossed in your favorite sauce.</p>
                 <div class="mt-4 mb-3">
-                    <p class="text-sm font-medium text-gray-700">Flavors:</p>
+                    <p class="text-sm font-medium text-gray-900">Flavors:</p>
                     <p class="text-xs italic text-gray-500 mb-2">Choose 1 flavors.</p>
                     <div class="flex flex-wrap gap-2 mt-1">
                         <span class="text-xs bg-red-600 text-white px-2 py-1 rounded">Lemon Pepper</span>
@@ -1951,9 +2008,9 @@
                         <div class="text-amber-600 font-semibold">$16.49</div>
                     </div>
                 </div>
-                <p class="text-gray-600 mb-4">A dozen of our traditional, bone-in chicken wings, fried crispy and tossed in your favorite sauce.</p>
+                <p class="text-gray-900 mb-4">A dozen of our traditional, bone-in chicken wings, fried crispy and tossed in your favorite sauce.</p>
                 <div class="mt-4 mb-3">
-                    <p class="text-sm font-medium text-gray-700">Flavors:</p>
+                    <p class="text-sm font-medium text-gray-900">Flavors:</p>
                     <p class="text-xs italic text-gray-500 mb-2">Choose up to 2 flavors.</p>
                     <div class="flex flex-wrap gap-2 mt-1">
                         <span class="text-xs bg-red-600 text-white px-2 py-1 rounded">Lemon Pepper</span>
@@ -1985,9 +2042,9 @@
                         <div class="text-amber-600 font-semibold">$30.49</div>
                     </div>
                 </div>
-                <p class="text-gray-600 mb-4">Perfect for game day, twenty-four traditional bone-in wings tossed in your favorite sauce.</p>
+                <p class="text-gray-900 mb-4">Perfect for game day, twenty-four traditional bone-in wings tossed in your favorite sauce.</p>
                 <div class="mt-4 mb-3">
-                    <p class="text-sm font-medium text-gray-700">Flavors:</p>
+                    <p class="text-sm font-medium text-gray-900">Flavors:</p>
                     <p class="text-xs italic text-gray-500 mb-2">Choose up to 3 flavors.</p>
                     <div class="flex flex-wrap gap-2 mt-1">
                         <span class="text-xs bg-red-600 text-white px-2 py-1 rounded">Lemon Pepper</span>
@@ -2019,9 +2076,9 @@
                         <div class="text-amber-600 font-semibold">$10.99</div>
                     </div>
                 </div>
-                <p class="text-gray-600 mb-4">Ten tender, all-white meat boneless wings, fried crispy and tossed in your favorite sauce.</p>
+                <p class="text-gray-900 mb-4">Ten tender, all-white meat boneless wings, fried crispy and tossed in your favorite sauce.</p>
                  <div class="mt-4 mb-3">
-                    <p class="text-sm font-medium text-gray-700">Flavors:</p>
+                    <p class="text-sm font-medium text-gray-900">Flavors:</p>
                     <p class="text-xs italic text-gray-500 mb-2">Choose 1 flavors.</p>
                     <div class="flex flex-wrap gap-2 mt-1">
                         <span class="text-xs bg-red-600 text-white px-2 py-1 rounded">Lemon Pepper</span>
@@ -2053,9 +2110,9 @@
                         <div class="text-amber-600 font-semibold">$16.49</div>
                     </div>
                 </div>
-                <p class="text-gray-600 mb-4">Fifteen tender, all-white meat boneless wings, fried crispy and tossed in your favorite sauce.</p>
+                <p class="text-gray-900 mb-4">Fifteen tender, all-white meat boneless wings, fried crispy and tossed in your favorite sauce.</p>
                  <div class="mt-4 mb-3">
-                    <p class="text-sm font-medium text-gray-700">Flavors:</p>
+                    <p class="text-sm font-medium text-gray-900">Flavors:</p>
                     <p class="text-xs italic text-gray-500 mb-2">Choose up to 2 flavors.</p>
                     <div class="flex flex-wrap gap-2 mt-1">
                         <span class="text-xs bg-red-600 text-white px-2 py-1 rounded">Lemon Pepper</span>
@@ -2087,9 +2144,9 @@
                         <div class="text-amber-600 font-semibold">$30.49</div>
                     </div>
                 </div>
-                <p class="text-gray-600 mb-4">A shareable portion of twenty-four boneless wings tossed in your favorite sauce.</p>
+                <p class="text-gray-900 mb-4">A shareable portion of twenty-four boneless wings tossed in your favorite sauce.</p>
                  <div class="mt-4 mb-3">
-                    <p class="text-sm font-medium text-gray-700">Flavors:</p>
+                    <p class="text-sm font-medium text-gray-900">Flavors:</p>
                     <p class="text-xs italic text-gray-500 mb-2">Choose up to 3 flavors.</p>
                     <div class="flex flex-wrap gap-2 mt-1">
                         <span class="text-xs bg-red-600 text-white px-2 py-1 rounded">Lemon Pepper</span>
@@ -2130,17 +2187,17 @@
                                     <div class="text-amber-600 font-semibold price-display">Only $10.99 | Combo $14.24</div>
                                 </div>
                             </div>
-                            <p class="text-gray-600 mb-4">Authentic Philly-style steak with mozzarella and nacho cheese, sautéed onions, green peppers, mayo, ketchup, and butter on a sub roll.</p>
+                            <p class="text-gray-900 mb-4">Authentic Philly-style steak with mozzarella and nacho cheese, sautéed onions, green peppers, mayo, ketchup, and butter on a sub roll.</p>
                             <div class="mb-3">
-                                <p class="text-sm font-medium text-gray-700">Combo includes: 1 side + 1 drink</p>
+                                <p class="text-sm font-medium text-gray-900">Combo includes: 1 side + 1 drink</p>
                             </div>
                             <div class="mb-3">
-                                <p class="text-sm font-medium text-gray-700">Add-ons:</p>
+                                <p class="text-sm font-medium text-gray-900">Add-ons:</p>
                                 <div class="flex flex-wrap gap-2 mt-1">
-                                    <span class="text-xs bg-gray-100 text-gray-800 px-2 py-1 rounded">Cheese +$1.50</span>
-                                    <span class="text-xs bg-gray-100 text-gray-800 px-2 py-1 rounded">Mushroom +$2.75</span>
-                                    <span class="text-xs bg-gray-100 text-gray-800 px-2 py-1 rounded">Bacon +$3.29</span>
-                                    <span class="text-xs bg-gray-100 text-gray-800 px-2 py-1 rounded">Meat +$3.00</span>
+                                    <span class="text-xs bg-gray-200 text-gray-900 px-2 py-1 rounded">Cheese +$1.50</span>
+                                    <span class="text-xs bg-gray-200 text-gray-900 px-2 py-1 rounded">Mushroom +$2.75</span>
+                                    <span class="text-xs bg-gray-200 text-gray-900 px-2 py-1 rounded">Bacon +$3.29</span>
+                                    <span class="text-xs bg-gray-200 text-gray-900 px-2 py-1 rounded">Meat +$3.00</span>
                                 </div>
                             </div>
                             <div class="flex">
@@ -2163,17 +2220,17 @@
                                     <div class="text-amber-600 font-semibold price-display">Only $10.79 | Combo $14.04</div>
                                 </div>
                             </div>
-                            <p class="text-gray-600 mb-4">Seasoned red chicken with mozzarella and nacho cheese, chopped onions, green peppers, mayo, ketchup, and butter on a sub roll.</p>
+                            <p class="text-gray-900 mb-4">Seasoned red chicken with mozzarella and nacho cheese, chopped onions, green peppers, mayo, ketchup, and butter on a sub roll.</p>
                             <div class="mb-3">
-                                <p class="text-sm font-medium text-gray-700">Combo includes: 1 side + 1 drink</p>
+                                <p class="text-sm font-medium text-gray-900">Combo includes: 1 side + 1 drink</p>
                             </div>
                             <div class="mb-3">
-                                <p class="text-sm font-medium text-gray-700">Add-ons:</p>
+                                <p class="text-sm font-medium text-gray-900">Add-ons:</p>
                                 <div class="flex flex-wrap gap-2 mt-1">
-                                    <span class="text-xs bg-gray-100 text-gray-800 px-2 py-1 rounded">Cheese +$1.50</span>
-                                    <span class="text-xs bg-gray-100 text-gray-800 px-2 py-1 rounded">Mushroom +$2.75</span>
-                                    <span class="text-xs bg-gray-100 text-gray-800 px-2 py-1 rounded">Bacon +$3.29</span>
-                                    <span class="text-xs bg-gray-100 text-gray-800 px-2 py-1 rounded">Meat +$3.00</span>
+                                    <span class="text-xs bg-gray-200 text-gray-900 px-2 py-1 rounded">Cheese +$1.50</span>
+                                    <span class="text-xs bg-gray-200 text-gray-900 px-2 py-1 rounded">Mushroom +$2.75</span>
+                                    <span class="text-xs bg-gray-200 text-gray-900 px-2 py-1 rounded">Bacon +$3.29</span>
+                                    <span class="text-xs bg-gray-200 text-gray-900 px-2 py-1 rounded">Meat +$3.00</span>
                                 </div>
                             </div>
                             <div class="flex">
@@ -2195,17 +2252,17 @@
                                     <div class="text-amber-600 font-semibold price-display">Only $11.69 | Combo $14.94</div>
                                 </div>
                             </div>
-                            <p class="text-gray-600 mb-4">Flame-grilled chicken pieces with lettuce, onions, green peppers, nacho and mozzarella cheese, mayo, ketchup, and butter on a sub roll.</p>
+                            <p class="text-gray-900 mb-4">Flame-grilled chicken pieces with lettuce, onions, green peppers, nacho and mozzarella cheese, mayo, ketchup, and butter on a sub roll.</p>
                             <div class="mb-3">
-                                <p class="text-sm font-medium text-gray-700">Combo includes: 1 side + 1 drink</p>
+                                <p class="text-sm font-medium text-gray-900">Combo includes: 1 side + 1 drink</p>
                             </div>
                             <div class="mb-3">
-                                <p class="text-sm font-medium text-gray-700">Add-ons:</p>
+                                <p class="text-sm font-medium text-gray-900">Add-ons:</p>
                                 <div class="flex flex-wrap gap-2 mt-1">
-                                    <span class="text-xs bg-gray-100 text-gray-800 px-2 py-1 rounded">Cheese +$1.50</span>
-                                    <span class="text-xs bg-gray-100 text-gray-800 px-2 py-1 rounded">Mushroom +$2.75</span>
-                                    <span class="text-xs bg-gray-100 text-gray-800 px-2 py-1 rounded">Bacon +$3.29</span>
-                                    <span class="text-xs bg-gray-100 text-gray-800 px-2 py-1 rounded">Meat +$3.00</span>
+                                    <span class="text-xs bg-gray-200 text-gray-900 px-2 py-1 rounded">Cheese +$1.50</span>
+                                    <span class="text-xs bg-gray-200 text-gray-900 px-2 py-1 rounded">Mushroom +$2.75</span>
+                                    <span class="text-xs bg-gray-200 text-gray-900 px-2 py-1 rounded">Bacon +$3.29</span>
+                                    <span class="text-xs bg-gray-200 text-gray-900 px-2 py-1 rounded">Meat +$3.00</span>
                                 </div>
                             </div>
                             <div class="flex">
@@ -2227,17 +2284,17 @@
                                     <div class="text-amber-600 font-semibold price-display">Only $11.96 | Combo $14.94</div>
                                 </div>
                             </div>
-                            <p class="text-gray-600 mb-4">Seasoned  ground beef with chopped onions, green peppers, mozzarella and nacho cheese, mayo, ketchup, and butter on a sub roll.</p>
+                            <p class="text-gray-900 mb-4">Seasoned  ground beef with chopped onions, green peppers, mozzarella and nacho cheese, mayo, ketchup, and butter on a sub roll.</p>
                             <div class="mb-3">
-                                <p class="text-sm font-medium text-gray-700">Combo includes: 1 side + 1 drink</p>
+                                <p class="text-sm font-medium text-gray-900">Combo includes: 1 side + 1 drink</p>
                             </div>
                             <div class="mb-3">
-                                <p class="text-sm font-medium text-gray-700">Add-ons:</p>
+                                <p class="text-sm font-medium text-gray-900">Add-ons:</p>
                                 <div class="flex flex-wrap gap-2 mt-1">
-                                    <span class="text-xs bg-gray-100 text-gray-800 px-2 py-1 rounded">Cheese +$1.50</span>
-                                    <span class="text-xs bg-gray-100 text-gray-800 px-2 py-1 rounded">Mushroom +$2.75</span>
-                                    <span class="text-xs bg-gray-100 text-gray-800 px-2 py-1 rounded">Bacon +$3.29</span>
-                                    <span class="text-xs bg-gray-100 text-gray-800 px-2 py-1 rounded">Meat +$3.00</span>
+                                    <span class="text-xs bg-gray-200 text-gray-900 px-2 py-1 rounded">Cheese +$1.50</span>
+                                    <span class="text-xs bg-gray-200 text-gray-900 px-2 py-1 rounded">Mushroom +$2.75</span>
+                                    <span class="text-xs bg-gray-200 text-gray-900 px-2 py-1 rounded">Bacon +$3.29</span>
+                                    <span class="text-xs bg-gray-200 text-gray-900 px-2 py-1 rounded">Meat +$3.00</span>
                                 </div>
                             </div>
                             <div class="flex">
@@ -2259,17 +2316,17 @@
                                     <div class="text-amber-600 font-semibold price-display">Only $12.99 | Combo $16.24</div>
                                 </div>
                             </div>
-                            <p class="text-gray-600 mb-4">Charcoal-grilled meat with caramelized onions, jalapeños, Swiss cheese, spicy fries, joke sauce, and butter wrapped in foil.</p>
+                            <p class="text-gray-900 mb-4">Charcoal-grilled meat with caramelized onions, jalapeños, Swiss cheese, spicy fries, joke sauce, and butter wrapped in foil.</p>
                             <div class="mb-3">
-                                <p class="text-sm font-medium text-gray-700">Combo includes: 1 side + 1 drink</p>
+                                <p class="text-sm font-medium text-gray-900">Combo includes: 1 side + 1 drink</p>
                             </div>
                             <div class="mb-3">
-                                <p class="text-sm font-medium text-gray-700">Add-ons:</p>
+                                <p class="text-sm font-medium text-gray-900">Add-ons:</p>
                                 <div class="flex flex-wrap gap-2 mt-1">
-                                    <span class="text-xs bg-gray-100 text-gray-800 px-2 py-1 rounded">Cheese +$1.50</span>
-                                    <span class="text-xs bg-gray-100 text-gray-800 px-2 py-1 rounded">Mushroom +$2.75</span>
-                                    <span class="text-xs bg-gray-100 text-gray-800 px-2 py-1 rounded">Bacon +$3.29</span>
-                                    <span class="text-xs bg-gray-100 text-gray-800 px-2 py-1 rounded">Meat +$3.00</span>
+                                    <span class="text-xs bg-gray-200 text-gray-900 px-2 py-1 rounded">Cheese +$1.50</span>
+                                    <span class="text-xs bg-gray-200 text-gray-900 px-2 py-1 rounded">Mushroom +$2.75</span>
+                                    <span class="text-xs bg-gray-200 text-gray-900 px-2 py-1 rounded">Bacon +$3.29</span>
+                                    <span class="text-xs bg-gray-200 text-gray-900 px-2 py-1 rounded">Meat +$3.00</span>
                                 </div>
                             </div>
                             <div class="flex">
@@ -2296,7 +2353,7 @@
                                     <div class="text-amber-600 font-semibold">$8.99</div>
                                 </div>
                             </div>
-                            <p class="text-gray-600 mb-4">A mix of fresh, crisp greens, tomatoes, cucumbers, and onions with your choice of dressing.</p>
+                            <p class="text-gray-900 mb-4">A mix of fresh, crisp greens, tomatoes, cucumbers, and onions with your choice of dressing.</p>
                             <div class="flex">
                                 <span class="dietary-icon bg-green-100 text-green-800">Vegetarian</span>
                             </div>
@@ -2314,7 +2371,7 @@
                                     <div class="text-amber-600 font-semibold">$10.99</div>
                                 </div>
                             </div>
-                            <p class="text-gray-600 mb-4">Our fresh garden salad topped with your choice of tender grilled or crispy fried chicken.</p>
+                            <p class="text-gray-900 mb-4">Our fresh garden salad topped with your choice of tender grilled or crispy fried chicken.</p>
                             <div class="flex">
                                 <span class="dietary-icon bg-green-100 text-green-800">Halal</span>
                             </div>
@@ -2332,7 +2389,7 @@
                                     <div class="text-amber-600 font-semibold">$12.99</div>
                                 </div>
                             </div>
-                            <p class="text-gray-600 mb-4">Our fresh garden salad topped with flavorful slices of lamb gyro meat.</p>
+                            <p class="text-gray-900 mb-4">Our fresh garden salad topped with flavorful slices of lamb gyro meat.</p>
                             <div class="flex">
                                 <span class="dietary-icon bg-green-100 text-green-800">Halal</span>
                             </div>
@@ -2357,7 +2414,7 @@
                                     <div class="text-amber-600 font-semibold">$5.09</div>
                                 </div>
                             </div>
-                            <p class="text-gray-600 mb-4">Golden crispy fries seasoned to perfection.</p>
+                            <p class="text-gray-900 mb-4">Golden crispy fries seasoned to perfection.</p>
                             <div class="flex">
                                 <span class="dietary-icon bg-green-100 text-green-800">Vegetarian</span>
                             </div>
@@ -2375,7 +2432,7 @@
                                     <div class="text-amber-600 font-semibold">$7.24</div>
                                 </div>
                             </div>
-                            <p class="text-gray-600 mb-4">A large portion of our golden crispy fries, seasoned to perfection.</p>
+                            <p class="text-gray-900 mb-4">A large portion of our golden crispy fries, seasoned to perfection.</p>
                             <div class="flex">
                                 <span class="dietary-icon bg-green-100 text-green-800">Vegetarian</span>
                             </div>
@@ -2393,7 +2450,7 @@
                                     <div class="text-amber-600 font-semibold">$5.09</div>
                                 </div>
                             </div>
-                            <p class="text-gray-600 mb-4">Creamy mashed potatoes with a savory gravy on the side.</p>
+                            <p class="text-gray-900 mb-4">Creamy mashed potatoes with a savory gravy on the side.</p>
                             <div class="flex">
                                 <span class="dietary-icon bg-green-100 text-green-800">Vegetarian</span>
                             </div>
@@ -2411,7 +2468,7 @@
                                     <div class="text-amber-600 font-semibold">$5.09</div>
                                 </div>
                             </div>
-                            <p class="text-gray-600 mb-4">Creamy macaroni and cheese with a delicious baked top.</p>
+                            <p class="text-gray-900 mb-4">Creamy macaroni and cheese with a delicious baked top.</p>
                             <div class="flex">
                                 <span class="dietary-icon bg-green-100 text-green-800">Vegetarian</span>
                             </div>
@@ -2429,7 +2486,7 @@
                                     <div class="text-amber-600 font-semibold">$7.24</div>
                                 </div>
                             </div>
-                            <p class="text-gray-600 mb-4">Golden-fried mozzarella sticks served with a side of marinara sauce.</p>
+                            <p class="text-gray-900 mb-4">Golden-fried mozzarella sticks served with a side of marinara sauce.</p>
                             <div class="flex">
                                 <span class="dietary-icon bg-green-100 text-green-800">Vegetarian</span>
                             </div>
@@ -2447,7 +2504,7 @@
                                     <div class="text-amber-600 font-semibold">$5.09</div>
                                 </div>
                             </div>
-                            <p class="text-gray-600 mb-4">Sweet corn brushed with butter and light seasoning.</p>
+                            <p class="text-gray-900 mb-4">Sweet corn brushed with butter and light seasoning.</p>
                             <div class="flex">
                                 <span class="dietary-icon bg-green-100 text-green-800">Vegetarian</span>
                             </div>
@@ -2465,7 +2522,7 @@
                                     <div class="text-amber-600 font-semibold">$6.74</div>
                                 </div>
                             </div>
-                            <p class="text-gray-600 mb-4">Thick-cut onion rings battered and fried to a crisp golden brown.</p>
+                            <p class="text-gray-900 mb-4">Thick-cut onion rings battered and fried to a crisp golden brown.</p>
                             <div class="flex">
                                 <span class="dietary-icon bg-green-100 text-green-800">Vegetarian</span>
                             </div>
@@ -2483,7 +2540,7 @@
                                     <div class="text-amber-600 font-semibold">$8.24</div>
                                 </div>
                             </div>
-                            <p class="text-gray-600 mb-4">Golden-fried chicken nuggets seasoned with garlic powder and spices, served in a convenient box.</p>
+                            <p class="text-gray-900 mb-4">Golden-fried chicken nuggets seasoned with garlic powder and spices, served in a convenient box.</p>
                             <div class="flex">
                                 <span class="dietary-icon bg-green-100 text-green-800">Halal</span>
                             </div>
@@ -2501,7 +2558,7 @@
                                     <div class="text-amber-600 font-semibold">$8.24</div>
                                 </div>
                             </div>
-                            <p class="text-gray-600 mb-4">A basket of crispy fried shrimp served with your choice of dipping sauce.</p>
+                            <p class="text-gray-900 mb-4">A basket of crispy fried shrimp served with your choice of dipping sauce.</p>
                             <div class="flex">
                                 <span class="dietary-icon bg-green-100 text-green-800">Halal</span>
                             </div>
@@ -2519,7 +2576,7 @@
                                     <div class="text-amber-600 font-semibold">$6.49</div>
                                 </div>
                             </div>
-                            <p class="text-gray-600 mb-4">Crispy seasoned fries topped with marinated chicken, nacho cheese, cheddar cheese, chopped onions, and blink sauce.</p>
+                            <p class="text-gray-900 mb-4">Crispy seasoned fries topped with marinated chicken, nacho cheese, cheddar cheese, chopped onions, and blink sauce.</p>
                             <div class="flex">
                                 <span class="dietary-icon bg-green-100 text-green-800">Halal</span>
                             </div>
@@ -2537,7 +2594,7 @@
                                     <div class="text-amber-600 font-semibold">$6.99</div>
                                 </div>
                             </div>
-                            <p class="text-gray-600 mb-4">Golden fries loaded with seasoned beef meatball, nacho cheese, cheddar cheese, chopped onions, and blink sauce.</p>
+                            <p class="text-gray-900 mb-4">Golden fries loaded with seasoned beef meatball, nacho cheese, cheddar cheese, chopped onions, and blink sauce.</p>
                             <div class="flex">
                                 <span class="dietary-icon bg-green-100 text-green-800">Halal</span>
                             </div>
@@ -2555,7 +2612,7 @@
                                     <div class="text-amber-600 font-semibold">$7.49</div>
                                 </div>
                             </div>
-                            <p class="text-gray-600 mb-4">Seasoned fries topped with spicy jerk chicken, nacho cheese, cheddar cheese, chopped onions, and blink sauce.</p>
+                            <p class="text-gray-900 mb-4">Seasoned fries topped with spicy jerk chicken, nacho cheese, cheddar cheese, chopped onions, and blink sauce.</p>
                             <div class="flex">
                                 <span class="dietary-icon bg-green-100 text-green-800">Halal</span>
                                 <span class="dietary-icon bg-orange-100 text-orange-800">Spicy</span>
@@ -2574,7 +2631,7 @@
                                     <div class="text-amber-600 font-semibold">$5.75</div>
                                 </div>
                             </div>
-                            <p class="text-gray-600 mb-4">Our crispy fries loaded with crumbled falafel and drizzled with tahini.</p>
+                            <p class="text-gray-900 mb-4">Our crispy fries loaded with crumbled falafel and drizzled with tahini.</p>
                             <div class="flex">
                                 <span class="dietary-icon bg-green-100 text-green-800">Vegetarian</span>
                             </div>
@@ -2600,7 +2657,7 @@
                         <div class="text-amber-600 font-semibold">$5.09</div>
                     </div>
                 </div>
-                <p class="text-gray-600 mb-4">Rich, sweet pastry made of layers of filo filled with chopped nuts and sweetened with syrup.</p>
+                <p class="text-gray-900 mb-4">Rich, sweet pastry made of layers of filo filled with chopped nuts and sweetened with syrup.</p>
                 <!-- <div class="flex">
                     <span class="dietary-icon bg-green-100 text-green-800">Vegetarian</span>
                 </div> -->
@@ -2619,7 +2676,7 @@
                         <div class="text-amber-600 font-semibold">$5.09</div>
                     </div>
                 </div>
-                <p class="text-gray-600 mb-4">A fudgy, chewy chocolate brownie, rich and decadent in every bite.</p>
+                <p class="text-gray-900 mb-4">A fudgy, chewy chocolate brownie, rich and decadent in every bite.</p>
                 <!-- <div class="flex">
                     <span class="dietary-icon bg-green-100 text-green-800">Vegetarian</span>
                 </div> -->
@@ -2638,7 +2695,7 @@
                         <div class="text-amber-600 font-semibold">$5.09</div>
                     </div>
                 </div>
-                <p class="text-gray-600 mb-4">Creamy, classic southern-style banana pudding with vanilla wafers and fresh banana slices.</p>
+                <p class="text-gray-900 mb-4">Creamy, classic southern-style banana pudding with vanilla wafers and fresh banana slices.</p>
                 <!-- <div class="flex">
                     <span class="dietary-icon bg-green-100 text-green-800">Vegetarian</span>
                 </div> -->
@@ -2657,7 +2714,7 @@
                         <div class="text-amber-600 font-semibold">$6.09</div>
                     </div>
                 </div>
-                <p class="text-gray-600 mb-4">A slice of classic red velvet cake with a smooth, tangy cream cheese frosting.</p>
+                <p class="text-gray-900 mb-4">A slice of classic red velvet cake with a smooth, tangy cream cheese frosting.</p>
                 <!-- <div class="flex">
                     <span class="dietary-icon bg-green-100 text-green-800">Vegetarian</span>
                 </div> -->
@@ -2676,7 +2733,7 @@
                         <div class="text-amber-600 font-semibold">$6.09</div>
                     </div>
                 </div>
-                <p class="text-gray-600 mb-4">Light and airy chocolate mousse, a smooth and intensely rich dessert experience.</p>
+                <p class="text-gray-900 mb-4">Light and airy chocolate mousse, a smooth and intensely rich dessert experience.</p>
                 <!-- <div class="flex">
                     <span class="dietary-icon bg-green-100 text-green-800">Vegetarian</span>
                 </div> -->
@@ -2695,7 +2752,7 @@
                         <div class="text-amber-600 font-semibold">$6.09</div>
                     </div>
                 </div>
-                <p class="text-gray-600 mb-4">A layered chocolate cake featuring a trio of delicious chocolate textures.</p>
+                <p class="text-gray-900 mb-4">A layered chocolate cake featuring a trio of delicious chocolate textures.</p>
                 <!-- <div class="flex">
                     <span class="dietary-icon bg-green-100 text-green-800">Vegetarian</span>
                 </div> -->
@@ -2714,7 +2771,7 @@
                         <div class="text-amber-600 font-semibold">$6.59</div>
                     </div>
                 </div>
-                <p class="text-gray-600 mb-4">A sponge cake soaked in three kinds of milk: evaporated, condensed, and heavy cream.</p>
+                <p class="text-gray-900 mb-4">A sponge cake soaked in three kinds of milk: evaporated, condensed, and heavy cream.</p>
                 <!-- <div class="flex">
                     <span class="dietary-icon bg-green-100 text-green-800">Vegetarian</span>
                 </div> -->
@@ -2737,7 +2794,7 @@
                                 <h3 class="text-xl font-bold">Soft Drinks</h3>
                                 <span class="text-amber-600 font-semibold">$1.69</span>
                             </div>
-                            <p class="text-gray-600 mb-4">Coca-Cola, Diet Coke, Sprite, Fanta, or Dr. Pepper.</p>
+                            <p class="text-gray-900 mb-4">Coca-Cola, Diet Coke, Sprite, Fanta, or Dr. Pepper.</p>
                             <!-- <div class="flex">
                                 <span class="dietary-icon bg-green-100 text-green-800"></span>
                             </div> -->
@@ -2754,7 +2811,7 @@
                                 <h3 class="text-xl font-bold">Classic Chocolate Milkshake.</h3>
                                 <span class="text-amber-600 font-semibold">$4.49</span>
                             </div>
-                            <p class="text-gray-600 mb-4">Rich and creamy chocolate milkshake with sprinkles, chocolate.</p>
+                            <p class="text-gray-900 mb-4">Rich and creamy chocolate milkshake with sprinkles, chocolate.</p>
                             <!-- <div class="flex">
                                 <span class="dietary-icon bg-green-100 text-green-800">Free Refills</span>
                             </div> -->
@@ -2771,7 +2828,7 @@
                                 <h3 class="text-xl font-bold">Home Made Lemonade</h3>
                                 <span class="text-amber-600 font-semibold">$4.49</span>
                             </div>
-                            <p class="text-gray-600 mb-4">Fresh-squeezed lemonade made daily.</p>
+                            <p class="text-gray-900 mb-4">Fresh-squeezed lemonade made daily.</p>
                             <!-- <div class="flex">
                                 <span class="dietary-icon bg-green-100 text-green-800">Vegetarian</span>
                                 <span class="dietary-icon bg-purple-100 text-purple-800">Gluten-Free</span>
@@ -2790,7 +2847,7 @@
                                 <h3 class="text-xl font-bold">Coconut Lime Refresher</h3>
                                 <span class="text-amber-600 font-semibold">$3.99</span>
                             </div>
-                            <p class="text-gray-600 mb-4">Refreshing coconut drink with a hint of lime.</p>
+                            <p class="text-gray-900 mb-4">Refreshing coconut drink with a hint of lime.</p>
                             <!-- <div class="flex">
                                 <span class="dietary-icon bg-green-100 text-green-800">Vegetarian</span>
                                 <span class="dietary-icon bg-purple-100 text-purple-800">Gluten-Free</span>
@@ -2809,7 +2866,7 @@
                                 <h3 class="text-xl font-bold">Citrus Mint Iced Tea</h3>
                                 <span class="text-amber-600 font-semibold">$4.59</span>
                             </div>
-                            <p class="text-gray-600 mb-4">Refreshing iced tea with citrus and mint flavors.</p>
+                            <p class="text-gray-900 mb-4">Refreshing iced tea with citrus and mint flavors.</p>
                             <!-- <div class="flex">
                                 <span class="dietary-icon bg-green-100 text-green-800">Vegetarian</span>
                                 <span class="dietary-icon bg-purple-100 text-purple-800">Gluten-Free</span>
@@ -2827,7 +2884,7 @@
                                 <h3 class="text-xl font-bold">Coffee Milkshake</h3>
                                 <span class="text-amber-600 font-semibold">$4.49</span>
                             </div>
-                            <p class="text-gray-600 mb-4">Rich and creamy coffee milkshake.</p>
+                            <p class="text-gray-900 mb-4">Rich and creamy coffee milkshake.</p>
                             <!-- <div class="flex">
                                 <span class="dietary-icon bg-green-100 text-green-800">Vegetarian</span>
                                 <span class="dietary-icon bg-purple-100 text-purple-800">Gluten-Free</span>
@@ -2845,7 +2902,7 @@
                                 <h3 class="text-xl font-bold">Chai</h3>
                                 <span class="text-amber-600 font-semibold">$2.00</span>
                             </div>
-                            <p class="text-gray-600 mb-4"></p>
+                            <p class="text-gray-900 mb-4"></p>
                             <!-- <div class="flex">
                                 <span class="dietary-icon bg-green-100 text-green-800">Vegetarian</span>
                                 <span class="dietary-icon bg-purple-100 text-purple-800">Gluten-Free</span>
@@ -2863,7 +2920,7 @@
                                 <h3 class="text-xl font-bold">Coffee/h3>
                                 <span class="text-amber-600 font-semibold">$2.99</span>
                             </div>
-                            <p class="text-gray-600 mb-4"></p>
+                            <p class="text-gray-900 mb-4"></p>
                             <!-- <div class="flex">
                                 <span class="dietary-icon bg-green-100 text-green-800">Vegetarian</span>
                                 <span class="dietary-icon bg-purple-100 text-purple-800">Gluten-Free</span>
@@ -2882,7 +2939,7 @@
                                 <h3 class="text-xl font-bold">Bottled Water</h3>
                                 <span class="text-amber-600 font-semibold">$1.99</span>
                             </div>
-                            <p class="text-gray-600 mb-4">16oz bottle of purified water.</p>
+                            <p class="text-gray-900 mb-4">16oz bottle of purified water.</p>
                             <!-- <div class="flex">
                                 <span class="dietary-icon bg-green-100 text-green-800">Vegetarian</span>
                                 <span class="dietary-icon bg-purple-100 text-purple-800">Gluten-Free</span>
@@ -2899,7 +2956,7 @@
     <!-- Disclaimer Banner -->
     <section class="bg-gray-100 py-6">
         <div class="container mx-auto px-4 text-center">
-            <p class="text-gray-700 font-medium">
+            <p class="text-gray-900 font-medium">
   This is a menu display website. For orders, please visit our physical location or call +1 (716) 322-6199 or 
   <a href="https://www.ubereats.com/store/halal-feast-o/fEvSd2KpXF6pEtKk_-eHBQ?utm_campaign=CM2508147-search-free-nonbrand-google-pas_e_all_acq_Global&utm_medium=search-free-nonbrand&utm_source=google-pas" class="text-blue-600 hover:underline">uber</a> or 
   <a href="https://www.doordash.com/store/halal-feast-o%E2%80%99-buffalo-25002893/?utm_campaign=gpa&rwg_token=ACgRB3cvG_QsxSkjPPWv-hz6RE9F6HG5lwmo8qds539RQcmPhZLyd_ABkoDOiF7TtlyECNdQc2fq8PISRJLaOkdP8D3Okl-0qQ%3D%3D" class="text-blue-600 hover:underline">doordash</a> or 
@@ -3193,7 +3250,7 @@
                     <div class="food-credit-item">
                         <div class="relative overflow-hidden rounded-lg shadow-lg mb-4">
                             <img src="${food.src}" alt="${food.name}" class="w-full h-32 object-cover" loading="lazy" decoding="async">
-                            <div class="absolute bottom-0 left-0 right-0 bg-black bg-opacity-70 text-white p-2 text-center">
+                            <div class="absolute bottom-0 left-0 right-0 bg-black text-white p-2 text-center">
                                 <p class="text-xs font-medium">${food.name}</p>
                             </div>
                         </div>
@@ -3285,14 +3342,14 @@
             document.querySelectorAll('.price-filter-btn').forEach(btn => {
                 btn.classList.remove('active');
                 btn.classList.remove('bg-amber-600', 'text-white', 'border-amber-600');
-                btn.classList.add('bg-white', 'text-gray-700', 'border-gray-300');
+                btn.classList.add('bg-white', 'text-gray-900', 'border-gray-300');
             });
             
             // Add active class to clicked button
             const activeBtn = document.querySelector(`[onclick="filterByPrice('${activeFilter}')"]`);
             if (activeBtn) {
                 activeBtn.classList.add('active');
-                activeBtn.classList.remove('bg-white', 'text-gray-700', 'border-gray-300');
+                activeBtn.classList.remove('bg-white', 'text-gray-900', 'border-gray-300');
                 activeBtn.classList.add('bg-amber-600', 'text-white', 'border-amber-600');
             }
         }
@@ -3473,6 +3530,84 @@
             updateFilterButtonText();
         });
         
+        // Toggle menu item visibility
+        function toggleMenuItem(headerElement) {
+            const contentDiv = headerElement.nextElementSibling;
+            const isExpanded = contentDiv.classList.contains('expanded');
+            
+            if (isExpanded) {
+                contentDiv.classList.remove('expanded');
+                contentDiv.classList.add('collapsed');
+                headerElement.classList.remove('expanded');
+            } else {
+                contentDiv.classList.remove('collapsed');
+                contentDiv.classList.add('expanded');
+                headerElement.classList.add('expanded');
+            }
+        }
+        
+        // Track which sections have been auto-opened
+        const openedSections = new Set();
+        
+        // Auto-open menu items when section comes into view
+        function autoOpenSectionItems(sectionId) {
+            if (openedSections.has(sectionId)) return; // Already opened this section
+            
+            openedSections.add(sectionId);
+            
+            const section = document.getElementById(sectionId);
+            if (!section) return;
+            
+            const menuContent = section.querySelectorAll('.menu-item-content');
+            const menuHeaders = section.querySelectorAll('.menu-item-header');
+            
+            // Open all items in this section
+            menuContent.forEach(content => {
+                content.classList.remove('collapsed');
+                content.classList.add('expanded');
+            });
+            
+            menuHeaders.forEach(header => {
+                header.classList.add('expanded');
+            });
+            
+            // Close all items after 1 second
+            setTimeout(() => {
+                menuContent.forEach(content => {
+                    content.classList.remove('expanded');
+                    content.classList.add('collapsed');
+                });
+                
+                menuHeaders.forEach(header => {
+                    header.classList.remove('expanded');
+                });
+            }, 1000);
+        }
+        
+        // Intersection Observer to detect when sections come into view
+        const sectionObserver = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting && entry.intersectionRatio > 0.3) {
+                    autoOpenSectionItems(entry.target.id);
+                }
+            });
+        }, {
+            threshold: 0.3,
+            rootMargin: '-100px 0px -100px 0px'
+        });
+        
+        // Start observing sections when DOM is loaded
+        document.addEventListener('DOMContentLoaded', function() {
+            const sections = ['burgers', 'sandwiches', 'gyros', 'platters', 'chicken', 'nuggets', 'fish', 'tenders', 'wings', 'cheesesteaks', 'salads', 'sides', 'desserts', 'beverages'];
+            
+            sections.forEach(sectionId => {
+                const section = document.getElementById(sectionId);
+                if (section) {
+                    sectionObserver.observe(section);
+                }
+            });
+        });
+        
     </script>
 
     <!-- Floating Filter Button -->
@@ -3493,8 +3628,8 @@
             <span class="combo-close" onclick="toggleComboModal()">&times;</span>
             <div class="p-8">
                 <div class="text-center mb-6">
-                    <h2 class="text-3xl font-bold text-gray-800 mb-2">🍽️ Amazing Combo Deals!</h2>
-                    <p class="text-gray-600">Save more with our delicious combo packages</p>
+                    <h2 class="text-3xl font-bold text-gray-900 mb-2">🍽️ Amazing Combo Deals!</h2>
+                    <p class="text-gray-900">Save more with our delicious combo packages</p>
                 </div>
                 
                 <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
@@ -3502,20 +3637,20 @@
                         <h3 class="text-xl font-bold mb-3 text-orange-800">
                             <i class="fas fa-star text-amber-500"></i> What's Included
                         </h3>
-                        <p class="mb-4 text-gray-700">All combos include your choice of:</p>
+                        <p class="mb-4 text-gray-900">All combos include your choice of:</p>
                         <div class="space-y-2">
                             <div class="flex items-center">
                                 <i class="fas fa-check-circle text-green-500 mr-2"></i>
-                                <span class="font-semibold">1 Side Dish</span>
+                                <span class="font-semibold text-black">1 Side Dish</span>
                             </div>
                             <div class="flex items-center">
                                 <i class="fas fa-check-circle text-green-500 mr-2"></i>
-                                <span class="font-semibold">1 Drink</span>
+                                <span class="font-semibold text-black">1 Drink</span>
                             </div>
                         </div>
                         
                         <h4 class="font-semibold mt-4 mb-2 text-orange-800">🍟 Side Options:</h4>
-                        <ul class="text-sm space-y-1 text-gray-700">
+                        <ul class="text-sm space-y-1 text-gray-900">
                             <li>• Crispy fries</li>
                             <li>• Mac and cheese</li>
                             <li>• Corn on the cob</li>
@@ -3527,36 +3662,36 @@
                         <h3 class="text-xl font-bold mb-3 text-blue-800">
                             <i class="fas fa-plus-circle text-blue-500"></i> Available Add-ons
                         </h3>
-                        <p class="mb-4 text-gray-700">Customize your combo with:</p>
+                        <p class="mb-4 text-gray-900">Customize your combo with:</p>
                         <div class="space-y-2">
                             <div class="flex justify-between items-center bg-white p-2 rounded-lg">
-                                <span class="text-sm">🧀 Extra cheese</span>
-                                <span class="font-semibold text-green-600">+$1.50</span>
+                                <span class="text-sm text-black">🧀 Extra cheese</span>
+                                <span class="font-semibold text-black">+$1.50</span>
                             </div>
                             <div class="flex justify-between items-center bg-white p-2 rounded-lg">
-                                <span class="text-sm">🍄 Sautéed mushrooms</span>
-                                <span class="font-semibold text-green-600">+$2.75</span>
+                                <span class="text-sm text-black">🍄 Sautéed mushrooms</span>
+                                <span class="font-semibold text-black">+$2.75</span>
                             </div>
                             <div class="flex justify-between items-center bg-white p-2 rounded-lg">
-                                <span class="text-sm">🥓 Crispy bacon</span>
-                                <span class="font-semibold text-green-600">+$3.29</span>
+                                <span class="text-sm text-black">🥓 Crispy bacon</span>
+                                <span class="font-semibold text-black">+$3.29</span>
                             </div>
                             <div class="flex justify-between items-center bg-white p-2 rounded-lg">
-                                <span class="text-sm">🥩 Extra meat</span>
-                                <span class="font-semibold text-green-600">+$3.00</span>
+                                <span class="text-sm text-black">🥩 Extra meat</span>
+                                <span class="font-semibold text-black">+$3.00</span>
                             </div>
                         </div>
                     </div>
                 </div>
 
-                <div class="bg-gradient-to-r from-orange-500 to-red-500 text-white p-6 rounded-xl text-center">
+                <div class="bg-gradient-to-r from-orange-500 to-red-500 text-white p-6 rounded-xl text-center" style="text-shadow: 1px 1px 2px rgba(0,0,0,0.5);">
                     <h3 class="text-xl font-bold mb-2">💰 Great Value!</h3>
-                    <p class="text-lg">Save approximately <span class="font-bold text-yellow-300">$2-3</span> when you order combos!</p>
-                    <p class="text-sm mt-2 opacity-90">Look for the orange "Combo Available" badge on menu items</p>
+                    <p class="text-lg">Save approximately <span class="font-bold text-yellow-200">$2-3</span> when you order combos!</p>
+                    <p class="text-sm mt-2">Look for the orange "Combo Available" badge on menu items</p>
                 </div>
 
                 <div class="mt-6 text-center">
-                    <p class="text-gray-600 text-sm">
+                    <p class="text-gray-900 text-sm">
                         <i class="fas fa-info-circle text-blue-500 mr-1"></i>
                         Available on all Burgers, Sandwiches, and Gyros
                     </p>
