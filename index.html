@@ -528,6 +528,139 @@
         align-items: center;
         min-width: 220px;
     }
+    
+    /* Desktop styling for restructured pricing */
+    @media (min-width: 769px) {
+        .item-price {
+            gap: 8px;
+            flex-direction: row;
+            align-items: center;
+        }
+        
+        .price-only {
+            font-weight: 700;
+            color: #d97706;
+            font-size: 16px;
+            order: 1;
+        }
+        
+        .price-combo {
+            font-weight: 700;
+            color: #d97706;
+            font-size: 16px;
+            order: 2;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+        
+        .price-combo::before {
+            content: " | ";
+            color: #d97706;
+            font-weight: 700;
+            margin: 0 4px;
+            order: -1;
+        }
+        
+        .combo-icons {
+            display: flex;
+            align-items: center;
+            gap: 2px;
+            font-size: 14px;
+            color: #d97706;
+        }
+        
+        .save-indicator {
+            display: inline-block;
+            font-size: 11px;
+            animation: none;
+            padding: 2px 6px;
+            border-radius: 4px;
+            background: linear-gradient(45deg, #ef4444, #dc2626);
+            color: white;
+            font-weight: 600;
+        }
+    }
+
+    /* Mobile-specific pricing layout */
+    @media (max-width: 768px) {
+        .item-price {
+            flex-direction: column;
+            align-items: flex-end;
+            min-width: auto;
+            white-space: normal;
+            line-height: 1.1;
+            font-size: 14px;
+            gap: 1px;
+        }
+        
+        .price-combo {
+            font-weight: 800;
+            color: #dc2626;
+            font-size: 17px;
+            display: flex;
+            align-items: center;
+            gap: 4px;
+        }
+        
+        .price-only {
+            font-weight: 600;
+            color: #6b7280;
+            font-size: 13px;
+            opacity: 0.9;
+        }
+        
+        .combo-icons {
+            display: flex;
+            align-items: center;
+            gap: 2px;
+            font-size: 12px;
+            color: #dc2626;
+        }
+        
+        .save-indicator {
+            background: linear-gradient(45deg, #ef4444, #dc2626);
+            color: white;
+            padding: 2px 6px;
+            border-radius: 8px;
+            font-size: 10px;
+            font-weight: 700;
+            margin-left: 6px;
+            animation: pulse 2s infinite;
+            text-shadow: 0 1px 2px rgba(0,0,0,0.3);
+            box-shadow: 0 2px 4px rgba(239, 68, 68, 0.3);
+            transition: all 0.3s ease;
+        }
+        
+        .dropdown-item:hover .save-indicator {
+            transform: scale(1.1);
+            box-shadow: 0 4px 8px rgba(239, 68, 68, 0.4);
+        }
+        
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+        }
+        
+        /* Hide the pipe separator on mobile */
+        .item-price .price-only::after {
+            content: none;
+        }
+        
+        .item-price .price-combo::before {
+            content: none;
+        }
+        
+        .dropdown-header {
+            padding: 12px 16px;
+            gap: 8px;
+        }
+        
+        .item-title {
+            font-size: 16px;
+            margin-right: 8px;
+        }
+    }
 
     .combo-badge {
         background: #fef3c7;
@@ -539,6 +672,48 @@
         margin-left: 12px;
     }
     </style>
+    <script>
+        // Function to restructure pricing for mobile with psychological tricks
+        function restructurePricing() {
+            const priceElements = document.querySelectorAll('.item-price');
+            priceElements.forEach((element, index) => {
+                const text = element.textContent;
+                const match = text.match(/Only \$([0-9.]+) \| Combo \$([0-9.]+)/);
+                if (match) {
+                    const onlyPrice = parseFloat(match[1]);
+                    const comboPrice = parseFloat(match[2]);
+                    
+                    // Calculate realistic savings (item + drink + fries vs combo)
+                    const drinkPrice = 2.50; // Average drink price
+                    const friesPrice = 3.50;  // Average fries price
+                    const totalSeparate = onlyPrice + drinkPrice + friesPrice;
+                    const actualSavings = (totalSeparate - comboPrice).toFixed(2);
+                    
+                    // Determine if this is a platter item
+                    const isPlatter = element.closest('.dropdown-item')?.textContent.toLowerCase().includes('platter');
+                    
+                    // Create appropriate icons (using emoji as fallback)
+                    const icons = isPlatter ? 
+                        '<span class="combo-icons">🥤</span>' : 
+                        '<span class="combo-icons">🍟🥤</span>';
+                    
+                    // Simple save indicator showing only the savings amount
+                    const selectedMessage = `Save $${actualSavings}`;
+                    
+                    element.innerHTML = `
+                        <span class="price-combo">
+                            $${comboPrice} ${icons}
+                            <span class="save-indicator">${selectedMessage}</span>
+                        </span>
+                        <span class="price-only">Only $${onlyPrice}</span>
+                    `;
+                }
+            });
+        }
+        
+        // Run on page load
+        document.addEventListener('DOMContentLoaded', restructurePricing);
+    </script>
 </head>
 <body>
     <!-- Header -->
