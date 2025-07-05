@@ -542,6 +542,7 @@
             color: #d97706;
             font-size: 16px;
             order: 1;
+            white-space: nowrap;
         }
         
         .price-combo {
@@ -552,6 +553,7 @@
             display: flex;
             align-items: center;
             gap: 6px;
+            white-space: nowrap;
         }
         
         .price-combo::before {
@@ -598,12 +600,14 @@
             font-weight: 700;
             color: #dc2626;
             font-size: 16px;
+            white-space: nowrap;
         }
         
         .price-only {
             font-weight: 500;
             color: #6b7280;
             font-size: 13px;
+            white-space: nowrap;
         }
     }
 
@@ -628,27 +632,9 @@
                     const onlyPrice = parseFloat(match[1]);
                     const comboPrice = parseFloat(match[2]);
                     
-                    // Calculate realistic savings (item + drink + fries vs combo)
-                    const drinkPrice = 2.50; // Average drink price
-                    const friesPrice = 3.50;  // Average fries price
-                    const totalSeparate = onlyPrice + drinkPrice + friesPrice;
-                    const actualSavings = (totalSeparate - comboPrice).toFixed(2);
-                    
-                    // Determine if this is a platter item
-                    const isPlatter = element.closest('.dropdown-item')?.textContent.toLowerCase().includes('platter');
-                    
-                    // Create appropriate icons (using emoji as fallback)
-                    const icons = isPlatter ? 
-                        '<span class="combo-icons">🥤</span>' : 
-                        '<span class="combo-icons">🍟🥤</span>';
-                    
-                    // Simple save indicator showing only the savings amount
-                    const selectedMessage = `Save $${actualSavings}`;
-                    
                     element.innerHTML = `
                         <span class="price-combo">
-                            $${comboPrice} ${icons}
-                            <span class="save-indicator">${selectedMessage}</span>
+                            Combo $${comboPrice}
                         </span>
                         <span class="price-only">Only $${onlyPrice}</span>
                     `;
